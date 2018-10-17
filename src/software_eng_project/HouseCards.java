@@ -6,7 +6,7 @@ import java.util.*;
 
 
 // READ IN DETAILS FROM TEXT FILE
-public class HouseCards {
+public class HouseCards extends Cards {
 	private String name;
 	private int purchase_price;
 	private int sale_price_red;
