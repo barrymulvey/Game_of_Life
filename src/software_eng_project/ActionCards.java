@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ActionCards extends Cards {
+public abstract class ActionCards {
 	/* Deck of 55 cards. Composed of: 
 	 * Career Change (x5)
 	 * Players Pay (x10)

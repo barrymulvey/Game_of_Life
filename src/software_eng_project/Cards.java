@@ -1,6 +1,115 @@
 package software_eng_project;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+
+// READ IN DETAILS FROM TEXT FILE
 public abstract class Cards {
-	/* Abstract so no more cards can be added. Card class (superclass) of 4 decks (4 subclasses). */
+	protected String fileLocation;
+	protected String name;
+	protected int value1;
+
+	// constructor
+	public Cards(String fileLocation/*, String name, int value1*/) {
+		this.fileLocation = fileLocation;
+		//this.name = name;
+		//this.value1 = value1;
+	}
 	
+	public Cards(String fileLocation, String name, int value1) {
+		this.fileLocation = fileLocation;
+		this.name = name;
+		this.value1 = value1;
+	}
+
+	// read in details of houses from text file, create house objects, return list of house objects
+	public List<String> readInCards() {
+
+		List<String> inputList = null;
+		// attempt to read in list of houses and details from text file
+		try {
+			inputList = Files.readAllLines(Paths.get(fileLocation));
+		} catch (IOException e) {
+			// log exception
+			e.printStackTrace();
+		}
+
+		return inputList;
+	}
+
+	public ArrayList<String> getNameList(List<String> inputList) {
+		// names of houses saved to ArrayList
+		ArrayList<String> nameList = new ArrayList<String>();
+		for (int x = 3; x < inputList.size(); x++)
+		{
+			String cardName = inputList.get(x).split("---")[0];
+			nameList.add(cardName);
+			//System.out.println(cardName);
+		}
+		return nameList;
+	}
+
+	public ArrayList<String> getValue1List(List<String> inputList) {
+		// names of houses saved to ArrayList
+		ArrayList<String> value1List = new ArrayList<String>();
+		for (int x = 3; x < inputList.size(); x++)
+		{
+			String cardName = inputList.get(x).split("---")[1];
+			value1List.add(cardName);
+			//System.out.println(cardName);
+		}
+		return value1List;
+	}
+
+	public Cards chooseCards(ArrayList<HouseCards> cardList) {	
+		// Choose a card #1 at random between 0 and (number of houses available)-1
+		int number_cards = cardList.size();
+		Random rand1 = new Random();
+		int  i = rand1.nextInt(number_cards-1);
+
+		// Print number and type of card chosen
+		System.out.println("Card chosen is " + i);
+		System.out.println("Card chosen is " + cardList.get(i).getName());
+
+		// Choose card #2 at random between 0 and (number of houses available) -1
+		Random rand = new Random();
+		int j = rand.nextInt(number_cards-1);
+
+		// Print number and type of card chosen
+		System.out.println("Card chosen is " + j);
+		System.out.println("Card chosen is " + cardList.get(j).getName());
+
+		// only choose one for now
+		return cardList.get(i);
+
+	}
+
+	public String getName() {
+		return name;
+	}
+	public int getValue1() {
+		return value1;
+	}
+
+	public ArrayList<Cards> removeCard(ArrayList<Cards> cardList) {
+		for (int x=0; x<cardList.size(); x++) {
+
+			if (this.name == cardList.get(x).getName()) {
+				cardList.remove(x);
+			}
+		}
+
+		System.out.println(this.name + " has been removed from the card deck"); // include name of card deck
+
+		return cardList;
+	}
+
+	// PRINT DETAILS
+	public void printCardDetails() {
+		System.out.println("*** *** *** *** *** *** *** ***");
+		System.out.println("Name: "+getName()+"\nValue 1: "+getValue1());
+		System.out.println("*** *** *** *** *** *** *** ***");	
+	}
 }

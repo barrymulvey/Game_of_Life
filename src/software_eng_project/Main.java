@@ -21,19 +21,17 @@ public class Main {
 		
 		// HOUSE CARDS
 		// house cards read in and sorted into array houseList
-		HouseCards houseCardP1 = new HouseCards("test house", 400, 5, 6);
+		String fileLocation = "C:\\Users\\barry\\eclipse-workspace\\game_of_life\\notes\\houseCards.txt";
 		ArrayList<HouseCards> houseList = new ArrayList<HouseCards>();
-		houseList = houseCardP1.readInHouseCards("C:\\Users\\B Roberts\\OneDrive - University College Dublin\\5th Year\\SoftwareEngineering\\GameOfLife\\houseCards.txt");
-		HouseCards house1 = houseList.get(0);
-		house1.printHouseDetails();
-		System.out.println(houseList.size());
-		house1.removeHouseCard(houseList);
 		
-		// remove a house
-		HouseCards house2 = houseList.get(0);
-		house2.printHouseDetails();
-		System.out.println(houseList.size());
-
+		HouseCards house1 = new HouseCards(fileLocation);
+		houseList = house1.getListOfCards();
+		//house1.printCardDetails();
+		//System.out.println(houseList.get(1).printCardDetails);
+		
+		HouseCards house2 = new HouseCards(fileLocation);
+		house2 = houseList.get(0);
+		house2.printCardDetails();
 	}
 
 }

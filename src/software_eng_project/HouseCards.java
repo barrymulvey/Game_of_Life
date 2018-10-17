@@ -1,141 +1,84 @@
 package software_eng_project;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.*;
 
+import java.util.*;
 
 // READ IN DETAILS FROM TEXT FILE
 public class HouseCards extends Cards {
-	private String name;
-	private int purchase_price;
-	private int sale_price_red;
-	private int sale_price_black;
+	private int value2;
+	private int value3;
 
 	// constructor
-	public HouseCards(String name, int purchase_price, int sale_price_red, int sale_price_black){
-			this.name = name;
-			this.purchase_price = purchase_price;
-			this.sale_price_red = sale_price_red;
-			this.sale_price_black = sale_price_black;
-		}
+	public HouseCards(String fileLocation) {
+		super(fileLocation);
+	}
 	
-	// read in details of houses from text file, create house objects, return list of house objects
-	public ArrayList<HouseCards> readInHouseCards(String fileLocation) {
-		
-		List<String> inputList = null;
-		// attempt to read in list of houses and details from text file
-		try {
-			inputList = Files.readAllLines(Paths.get(fileLocation));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public HouseCards(String fileLocation, String name, int value1, int value2, int value3) {
+		super(fileLocation, name, value1);
+		this.value2 = value2;
+		this.value3 = value3;
+	}
 
-		// names of houses saved to arraylist
-		ArrayList<String> houseNameList = new ArrayList<String>();
+	// Add methods
+	public ArrayList<String> getValue2List(List<String> inputList) {
+		// names of houses saved to ArrayList
+		ArrayList<String> value2List = new ArrayList<String>();
 		for (int x = 3; x < inputList.size(); x++)
 		{
-			String houseName = inputList.get(x).split(":")[0];
-			houseNameList.add(houseName);
-			//System.out.println(houseName);
+			String cardName = inputList.get(x).split("---")[2];
+			value2List.add(cardName);
+			//System.out.println(cardName);
 		}
-		
-		// purchase prices saved to array list
-		ArrayList<String> purchasePriceList = new ArrayList<String>();
-		for (int x = 3; x < inputList.size(); x++) {
-			String purchasePrice = inputList.get(x).split("---")[0].split(": ")[1];
-			purchasePriceList.add(purchasePrice);
-			//System.out.println(purchasePrice);	
+		return value2List;
+	}	
+
+	public ArrayList<String> getValue3List(List<String> inputList) {
+		// names of houses saved to ArrayList
+		ArrayList<String> value3List = new ArrayList<String>();
+		for (int x = 3; x < inputList.size(); x++)
+		{
+			String cardName = inputList.get(x).split("---")[3];
+			value3List.add(cardName);
+			//System.out.println(cardName);
 		}
+		return value3List;
+	}
+	
+	// card objects created and saved to an ArrayList
+	public ArrayList<HouseCards> getListOfCards(/*ArrayList<String> nameList, ArrayList<String> value1List, ArrayList<String> value2List, ArrayList<String> value3List*/) {
+		HouseCards houseCard1 = new HouseCards(fileLocation); 
+		List<String> inputList = houseCard1.readInCards();
+		ArrayList<String> houseNameList = houseCard1.getNameList(inputList);
+		ArrayList<String> houseValue1List = houseCard1.getValue1List(inputList);
+		ArrayList<String> houseValue2List = houseCard1.getValue2List(inputList);
+		ArrayList<String> houseValue3List = houseCard1.getValue3List(inputList);
+
 		
-		// sale price when red spin saved to array list
-		ArrayList<String> salePriceRedList = new ArrayList<String>();
-		for (int x = 3; x < inputList.size(); x++) {
-			String salePriceRed = inputList.get(x).split("---")[1];
-			salePriceRedList.add(salePriceRed);
-			//System.out.println(salePriceRed);	
-		}
-		
-		// sale price when black spin saved to array list
-		ArrayList<String> salePriceBlackList = new ArrayList<String>();
-		for (int x = 3; x < inputList.size(); x++) {
-			String salePriceBlack = inputList.get(x).split("---")[2];
-			salePriceBlackList.add(salePriceBlack);
-			//System.out.println(salePriceBlack);	
-		}
-		
-		// house card objects created and saved to an array list
-		ArrayList<HouseCards> listOfHouses = new ArrayList<HouseCards>();
+		ArrayList<HouseCards> listOfCards = new ArrayList<HouseCards>();
 		for (int x = 0; x<houseNameList.size(); x++) {
 			// name, purchase price, sale price red, sale price black
-			int purchasePrice = Integer.parseInt(purchasePriceList.get(x));
-			int salePriceRed = Integer.parseInt(salePriceRedList.get(x));
-			int salePriceBlack = Integer.parseInt(salePriceBlackList.get(x));
-			HouseCards houseCardObj = new HouseCards(houseNameList.get(x), purchasePrice, salePriceRed, salePriceBlack);
-			listOfHouses.add(houseCardObj);
-		}		
-		return listOfHouses;
-	}
-	
-	
-	// TO DO
-	public String chooseHouseCards() {		
-		List<String> houseCardsList = new ArrayList<>(Arrays.asList("Ranch", "City Penthouse", "Island Holiday Home", "Dream Villa", "Farmhouse", "Windmill", "Family House", "Luxury Flat", "Eco House", "Studio Flat", "Houseboat", "Teepee", "Cozy Cottage", "Beach Hut"));
-			
-		int max = 14;
-		int min = 1;
-		int random_number = (int) (Math.random()* ((max - min) + 1)) + min;
-		System.out.println(random_number);
-		String test = "hello";
-		return test;
-	}
-	
-	public String getHouseName() {
-		return name;
-	}
-	public int getPurchasePrice() {
-		return purchase_price;
-	}
-	public int getRedSalePrice() {
-		return sale_price_red;
-	}
-	public int getBlackSalePrice() {
-		return sale_price_black;
-	}
-	
-	public ArrayList<HouseCards> removeHouseCard(ArrayList<HouseCards> houseList) {
-		for (int x=0; x<houseList.size(); x++) {
-			
-			if (this.name == houseList.get(x).getHouseName()) {
-				houseList.remove(x);
-			}
+			int purchasePrice = Integer.parseInt(houseValue1List.get(x));
+			int salePriceRed = Integer.parseInt(houseValue2List.get(x));
+			int salePriceBlack = Integer.parseInt(houseValue3List.get(x));
+			HouseCards houseCardObj = new HouseCards(fileLocation, houseNameList.get(x), purchasePrice, salePriceRed, salePriceBlack);
+			listOfCards.add(houseCardObj);
 		}
-		String house_removed_message = String.format("'%s' has been removed from the House Card deck", this.name);	
-		System.out.println(house_removed_message);
+
 		
-		return houseList;
+		return listOfCards;
 	}
 	
-	// PRINT DETAILS
-	public void printHouseDetails() {
+	public int getValue2() {
+		return value2;
+	}
+	public int getValue3() {
+		return value3;
+	}
+	
+	// PRINT DETAILS OVERRIDE
+	@Override
+	public void printCardDetails() {
 		System.out.println("*** *** *** *** *** *** *** ***");
-		System.out.println("House Type: "+getHouseName()+"\nPurchase Price: "+getPurchasePrice()+"\nSale Price (red spin): "+getRedSalePrice()+"\nSale Price (black spin): " +getBlackSalePrice());
+		System.out.println("House Type: "+getName()+"\nPurchase Price: "+getValue1()+"\nSale Price (red spin): "+getValue2()+"\nSale Price (black spin): " +getValue3());
 		System.out.println("*** *** *** *** *** *** *** ***");	
 	}
 }
-// name: purchase price, spin red, spin black
-// Ranch: 600K, 600K, 750K
-// City Penthouse: 600K, 650K, 700K
-// Island Holiday Home: 600K, 550K, 800K
-//Dream Villa: 300K, 250K, 380K
-//Farmhouse: 300K, 250K 380K
-//Windmill: 350K, 300K, 500K
-// Family House: 250K, 200K, 300K
-//Luxury Flat: 250K, 200K, 300K
-// Eco House: 200K, 180K, 300K
-// Studio Flat: 100K, 80K, 150K
-//Houseboat: 200K, 180K, 300K
-//Teepee: 100K, 80K, 150K
-//Cozy Cottage: 150K, 120K, 200K
-//Beach Hut: 100K, 80K, 150K
