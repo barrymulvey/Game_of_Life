@@ -12,29 +12,32 @@ public class Player {
 		private String career;
 		private String house;
 			
-		public Player(String name, int age, double money, String colour, String path, String career, String house){
+		public Player(String name, int age, double money, String colour, String path){
 				this.name = name;
 				this.path = path;
 				this.colour = colour;
 				this.age = age;
 				this.wallet = money;
+				
+				// initialise these to null/0 as they are not assigned at the start of the game- they are acquired
 				this.num_children = 0;
 				this.num_loans = 0;		
 				this.spouse = "Single";
-				this.career = career;
-				this.house = house;
-				
+				this.career = null;
+				this.house = null;
 			}
 		
 		public void walletBalance(float money) {
 			wallet = wallet+money;
 		}
-		public void typeHouse(String typeHouse) {
-			house = typeHouse;
+		public void typeHouse(HouseCards houseChoice) {
+			house = houseChoice.getHouseName();
 		}
-		public void changeCareer(String careerChoice) {
-			career = careerChoice;
-		}
+		
+		// TO DO- check this 'getter' works!
+		//public void changeCareer(CareerCards careerChoice) {
+			//career = careerChoice.getCareerName;
+		//}
 		public void numLoans(int number_loans) {
 			num_loans = num_loans + number_loans;
 		}
