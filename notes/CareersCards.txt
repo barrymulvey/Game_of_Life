@@ -1,0 +1,11 @@
+NOTE: all numbers in thousands
+Title---salary---bonus number
+----------------------------------
+Actor---100---5
+Inventor---80---4
+Singer---70---3
+Race Car Driver---60---2
+Athlete---50---1
+Police Officer---50---4
+Chef---50---3
+Dancer---50---2

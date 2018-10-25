@@ -1,0 +1,11 @@
+NOTE: all numbers in thousands
+Title---salary---bonus number
+----------------------------------
+Doctor---130---10
+Lawyer---120---9
+Video Game Designer---110---8
+Vet---100---7
+Teacher---100---6
+Scientist---100---9
+Secret Agent---100---8
+Fashion Designer---80---7

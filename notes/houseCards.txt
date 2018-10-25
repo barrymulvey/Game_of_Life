@@ -1,5 +1,5 @@
 NOTE: all numbers in thousands
-Name: purchase price---sale price if spin red---sale price if spin black
+Name---purchase price---sale price if spin red---sale price if spin black
 -----------------------------------------------------------------------
 Ranch---600---600---750
 City Penthouse---600---650---700
