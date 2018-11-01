@@ -28,7 +28,6 @@ public class Main {
 			Player player1 = new Player(); 		
 			player1 = player.initialisePlayer(carColour);
 			
-			
 			String chosenColour = player1.getColour();
 			carColour.remove(chosenColour);
 			
@@ -50,5 +49,4 @@ public class Main {
 		
 		keyboard.close();
 	}
-
 }
