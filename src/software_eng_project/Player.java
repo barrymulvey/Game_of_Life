@@ -15,6 +15,7 @@ public class Player {
 	private String path;
 	private String career;
 	private String house;
+	private String current_space;
 
 	public Player(String name, int age, double money, String colour, String path){
 		this.name = name;
@@ -29,6 +30,7 @@ public class Player {
 		this.spouse = "Single";
 		this.career = null;
 		this.house = null;
+		this.current_space = "0";
 	}
 
 	public Player() {
@@ -39,7 +41,7 @@ public class Player {
 		double startingSalary = 100.0;
 		// 25th October
 
-		String userColour = null;
+		//String userColour = null;
 
 		Scanner keyboard = new Scanner(System.in);
 		
@@ -52,32 +54,34 @@ public class Player {
 		System.out.println("Enter colour of car for "+playerName+". Car colours still available: "+carColour);
 		System.out.println("Enter first letter of colour to select: ");
 		String carCol = keyboard.next();
+		//System.out.println(carCol);
 		char firstLetter = carCol.charAt(0);
-
-		if (firstLetter=='p' || firstLetter=='P') {
+		//System.out.println(firstLetter);
+		
+		if (firstLetter == 'p' || firstLetter=='P') {
 			colour="Pink";
-			carColour.remove("Pink");
+			//carColour.remove("Pink");
 		}
 		else if (firstLetter=='b' || firstLetter=='B') {
 			colour="Blue";
-			carColour.remove("Blue");
+			//carColour.remove("Blue");
 		}
 		else if (firstLetter=='g' || firstLetter=='G') {
 			colour="Green";
-			carColour.remove("Green");
+			//carColour.remove("Green");
 		}
 		else if (firstLetter=='y' || firstLetter=='Y') {
 			colour="Yellow";
-			carColour.remove("Yellow");
+			//carColour.remove("Yellow");
 		}
 		else {
-			userColour=null;
+			colour=null;
 		}
 
 		System.out.println(playerName+", choose College or Career: ");
 		String lifeDecision = keyboard.next();
 
-		Player player1 = new Player(playerName, playerAge, startingSalary, userColour, lifeDecision);
+		Player player1 = new Player(playerName, playerAge, startingSalary, colour, lifeDecision);
 
 		return player1;
 	}
@@ -85,6 +89,12 @@ public class Player {
 	public void walletBalance(float money) {
 		wallet = wallet+money;
 	}
+	
+	public void movePlayer() {
+		int current = Integer.parseInt(current_space);
+		current_space = Integer.toString(current+1);
+	}
+	
 	public void typeHouse(HouseCards houseChoice) {
 		house = houseChoice.getName();
 	}
@@ -130,10 +140,12 @@ public class Player {
 	public String getHouse() {
 		return house;
 	}
-
+	public String getCurrentSpace() {
+		return current_space;
+	}
 	protected void printDetails(){
 		System.out.println("*** *** *** *** *** *** *** ***");
-		System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+colour+"\nWallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse());
+		System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace());
 		System.out.println("*** *** *** *** *** *** *** ***");			
 	}
 

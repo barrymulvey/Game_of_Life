@@ -1,5 +1,6 @@
 package software_eng_project;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -24,23 +25,25 @@ public abstract class Cards {
 		this.value1 = value1;
 	}
 
-	// read in details of houses from text file, create house objects, return list of house objects
-	public List<String> readInCards() {
-
+	// read in details of cards from text file, create card objects, return list of card objects
+	public static List<String> readInCards(String fileLocation) {
 		List<String> inputList = null;
-		// attempt to read in list of houses and details from text file
+		// attempt to read in list of cards and details from text file
 		try {
 			inputList = Files.readAllLines(Paths.get(fileLocation));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
-			// log exception
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return inputList;
 	}
 
-	public ArrayList<String> getNameList(List<String> inputList) {
-		// names of houses saved to ArrayList
+	public static ArrayList<String> getNameList(List<String> inputList) {
+		// names of cards saved to ArrayList
 		ArrayList<String> nameList = new ArrayList<String>();
 		for (int x = 3; x < inputList.size(); x++)
 		{
@@ -51,8 +54,8 @@ public abstract class Cards {
 		return nameList;
 	}
 
-	public ArrayList<String> getValue1List(List<String> inputList) {
-		// names of houses saved to ArrayList
+	public static ArrayList<String> getValue1List(List<String> inputList) {
+		// names of cards saved to ArrayList
 		ArrayList<String> value1List = new ArrayList<String>();
 		for (int x = 3; x < inputList.size(); x++)
 		{
@@ -64,7 +67,7 @@ public abstract class Cards {
 	}
 
 	public Cards chooseCards(ArrayList<HouseCards> cardList) {	
-		// Choose a card #1 at random between 0 and (number of houses available)-1
+		// Choose a card #1 at random between 0 and (number of cards available)-1
 		int number_cards = cardList.size();
 		Random rand1 = new Random();
 		int  i = rand1.nextInt(number_cards-1);

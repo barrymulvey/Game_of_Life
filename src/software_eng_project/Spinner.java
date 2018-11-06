@@ -19,25 +19,25 @@ public class Spinner {
         this.spin = (int) (Math.random()*value) + 1;
 
         // print value
-        System.out.println(spin);
+        //System.out.println(spin);
         
         // print colour of value
         if (spin%2==0) {
         	this.colour = "black";
-        	System.out.println("Even number: black");
+        	//System.out.println("Even number: black");
         }
         else {
         	this.colour = "red";
-        	System.out.println("Odd number: red");
+        	//System.out.println("Odd number: red");
         }
         
     }
-	//public int getNumber() {
-		//return spin;
-	//}
-	//public String getColour() {
-		//return colour;
-	//}
+	public int getNumber() {
+		return spin;
+	}
+	public String getColour() {
+		return colour;
+	}
 
 	
 }
