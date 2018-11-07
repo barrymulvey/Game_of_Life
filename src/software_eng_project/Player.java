@@ -99,9 +99,9 @@ public class Player {
 	}
 
 	// TO DO- check this 'getter' works!
-	//public void changeCareer(CareerCards careerChoice) {
-	//career = careerChoice.getCareerName;
-	//}
+	public void changeCareer(CareerCards careerChoice) {
+		career = careerChoice.getName();
+	}
 	public void numLoans(int number_loans) {
 		num_loans = num_loans + number_loans;
 	}
