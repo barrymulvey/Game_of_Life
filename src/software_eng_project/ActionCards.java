@@ -12,8 +12,8 @@ public abstract class ActionCards {
 	 * Get Cash from the Bank (5x4): 4x10k; 4x20k; 4x30k; 4x40k; 4x50k
 	 */
 	
-	public static void main(String[] args) {
-        List<String> cardList = new ArrayList<String>(55);
+	public static ArrayList<String> getListOfCards () {
+        ArrayList<String> cardList = new ArrayList<String>(55);
         
         // Add cards to deck
         for (int i=0;i<=54;i++) {
@@ -57,7 +57,12 @@ public abstract class ActionCards {
         
         // Print full deck details
         System.out.println("Full Deck: " + cardList);
-        
+	return cardList;
+	}
+	
+	
+	
+	public static ArrayList<String> chooseActionCard (ArrayList<String> cardList) {
         // Choose a card at random between 0 and 54
         Random rand = new Random();
     	int  i = rand.nextInt(54);
@@ -69,5 +74,6 @@ public abstract class ActionCards {
     	// Remove card and print updated deck
     	cardList.remove(i);
         System.out.println("Updated Deck: " + cardList);
+        return cardList;
     }
 }

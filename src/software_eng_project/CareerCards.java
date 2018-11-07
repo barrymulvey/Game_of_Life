@@ -17,7 +17,7 @@ public class CareerCards extends Cards {
 	}
 
 	// Add methods
-	public ArrayList<String> getValue2List(List<String> inputList) {
+	public static ArrayList<String> getValue2List(List<String> inputList) {
 		// names of houses saved to ArrayList
 		ArrayList<String> value2List = new ArrayList<String>();
 		for (int x = 3; x < inputList.size(); x++)
@@ -30,12 +30,12 @@ public class CareerCards extends Cards {
 	}	
 	
 	// card objects created and saved to an ArrayList
-	public ArrayList<CareerCards> getListOfCards(/*ArrayList<String> nameList, ArrayList<String> value1List, ArrayList<String> value2List, ArrayList<String> value3List*/) {
-		CareerCards careerCard1 = new CareerCards(fileLocation); 
-		List<String> inputList = careerCard1.readInCards();
-		ArrayList<String> careerNameList = careerCard1.getNameList(inputList);
-		ArrayList<String> careerValue1List = careerCard1.getValue1List(inputList);
-		ArrayList<String> careerValue2List = careerCard1.getValue2List(inputList);
+	public static ArrayList<CareerCards> getListOfCards(String fileLocation) {
+		//CareerCards careerCard1 = new CareerCards(fileLocation); 
+		List<String> inputList = Cards.readInCards(fileLocation);
+		ArrayList<String> careerNameList = Cards.getNameList(inputList);
+		ArrayList<String> careerValue1List = Cards.getValue1List(inputList);
+		ArrayList<String> careerValue2List = CareerCards.getValue2List(inputList);
 
 		ArrayList<CareerCards> listOfCards = new ArrayList<CareerCards>();
 		for (int x = 0; x<careerNameList.size(); x++) {

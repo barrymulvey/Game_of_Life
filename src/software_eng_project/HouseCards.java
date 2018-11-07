@@ -19,7 +19,7 @@ public class HouseCards extends Cards {
 	}
 
 	// Add methods
-	public ArrayList<String> getValue2List(List<String> inputList) {
+	public static ArrayList<String> getValue2List(List<String> inputList) {
 		// names of houses saved to ArrayList
 		ArrayList<String> value2List = new ArrayList<String>();
 		for (int x = 3; x < inputList.size(); x++)
@@ -31,7 +31,7 @@ public class HouseCards extends Cards {
 		return value2List;
 	}	
 
-	public ArrayList<String> getValue3List(List<String> inputList) {
+	public static ArrayList<String> getValue3List(List<String> inputList) {
 		// names of houses saved to ArrayList
 		ArrayList<String> value3List = new ArrayList<String>();
 		for (int x = 3; x < inputList.size(); x++)
@@ -44,13 +44,13 @@ public class HouseCards extends Cards {
 	}
 	
 	// card objects created and saved to an ArrayList
-	public ArrayList<HouseCards> getListOfCards(/*ArrayList<String> nameList, ArrayList<String> value1List, ArrayList<String> value2List, ArrayList<String> value3List*/) {
-		HouseCards houseCard1 = new HouseCards(fileLocation); 
-		List<String> inputList = houseCard1.readInCards();
-		ArrayList<String> houseNameList = houseCard1.getNameList(inputList);
-		ArrayList<String> houseValue1List = houseCard1.getValue1List(inputList);
-		ArrayList<String> houseValue2List = houseCard1.getValue2List(inputList);
-		ArrayList<String> houseValue3List = houseCard1.getValue3List(inputList);
+	public static ArrayList<HouseCards> getListOfCards(String fileLocation) {
+		//HouseCards houseCard1 = new HouseCards(fileLocation); 
+		List<String> inputList = Cards.readInCards(fileLocation);
+		ArrayList<String> houseNameList = Cards.getNameList(inputList);
+		ArrayList<String> houseValue1List = Cards.getValue1List(inputList);
+		ArrayList<String> houseValue2List = HouseCards.getValue2List(inputList);
+		ArrayList<String> houseValue3List = HouseCards.getValue3List(inputList);
 
 		
 		ArrayList<HouseCards> listOfCards = new ArrayList<HouseCards>();
