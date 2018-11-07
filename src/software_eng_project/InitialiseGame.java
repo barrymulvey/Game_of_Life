@@ -43,7 +43,7 @@ public class InitialiseGame {
 			listOfPlayers.get(x).printDetails();
 		}
 	
-		keyboard.close();
+		//keyboard.close();
 		return listOfPlayers;
 	}
 	

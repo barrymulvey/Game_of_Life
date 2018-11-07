@@ -99,9 +99,23 @@ public class Main {
 			System.out.println("Value: "+moves+"\nColour: "+spinner.getColour());
 		
 			for(int y=1;y<=moves;y++) {
-				new_listOfPlayers.get(x).movePlayer();
+				String next_space = null;
 				String current_space = new_listOfPlayers.get(x).getCurrentSpace();
 				System.out.println("Player "+x+" now at: "+current_space);
+				
+				// what are the next space choices?
+				java.util.List<String> next_space_choices = boardSpacesList.get(Integer.parseInt(current_space)).getNextSpace();
+				// ask user if there is a choice!
+				if(next_space_choices.size() > 1) {
+					System.out.println("Choose Path: " + next_space_choices.get(0) + " or " + next_space_choices.get(1)+ "??");
+					int next_space_int = keyboard.nextInt();				
+					next_space = Integer.toString(next_space_int);
+				} else {
+					next_space = next_space_choices.get(0);
+				}
+
+				new_listOfPlayers.get(x).movePlayer(next_space);
+				current_space = new_listOfPlayers.get(x).getCurrentSpace();
 				java.util.List<String> space_type = boardSpacesList.get(Integer.parseInt(current_space)-1).getSpaceType();
 				if(space_type.contains("STOP")) {
 					System.out.println("Stop");
@@ -111,6 +125,39 @@ public class Main {
 			}
 		}
 		
+		// 2nd turn
+		
+		for(int x=0;x<new_listOfPlayers.size();x++) {
+				
+			// spin spinner and print results
+			spinner.spinSpinner();
+			int moves = spinner.getNumber();
+			System.out.println("Value: "+moves+"\nColour: "+spinner.getColour());
+			
+			for(int y=1;y<=moves;y++) {
+				String next_space = null;
+				String current_space = new_listOfPlayers.get(x).getCurrentSpace();
+				System.out.println("Player "+x+" now at: "+current_space);
+				// what are the next space choices?
+				java.util.List<String> next_space_choices = boardSpacesList.get(Integer.parseInt(current_space)).getNextSpace();
+				// ask user if there is a choice!
+				if(next_space_choices.size() > 1) {
+					System.out.println("Choose Path: " + next_space_choices.get(0) + " or " + next_space_choices.get(1));
+					int next_space_int = keyboard.nextInt();
+					next_space = Integer.toString(next_space_int);
+				} else {
+					next_space = next_space_choices.get(0);
+				}
+				new_listOfPlayers.get(x).movePlayer(next_space);
+				
+				java.util.List<String> space_type = boardSpacesList.get(Integer.parseInt(current_space)-1).getSpaceType();
+				if(space_type.contains("STOP")) {
+					System.out.println("Stop");
+					System.out.println(space_type.get(1));
+					break;
+				}
+			}
+		}
 		
 		
 		keyboard.close();

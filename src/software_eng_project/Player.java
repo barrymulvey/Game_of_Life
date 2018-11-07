@@ -82,7 +82,7 @@ public class Player {
 		String lifeDecision = keyboard.next();
 
 		Player player1 = new Player(playerName, playerAge, startingSalary, colour, lifeDecision);
-
+		//keyboard.close();
 		return player1;
 	}
 
@@ -90,9 +90,8 @@ public class Player {
 		wallet = wallet+money;
 	}
 	
-	public void movePlayer() {
-		int current = Integer.parseInt(current_space);
-		current_space = Integer.toString(current+1);
+	public void movePlayer(String next_space) {
+		current_space = next_space;
 	}
 	
 	public void typeHouse(HouseCards houseChoice) {
