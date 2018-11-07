@@ -23,12 +23,7 @@ public class BoardReader {
 			while((line = reader.readLine()) != null){
 				StringTokenizer st = new StringTokenizer(line," ");
 				String current_space = st.nextToken();
-				List<String> space_type = new ArrayList<String>();
-				space_type.add(st.nextToken());
-				if(space_type.get(0).equals("STOP")) {
-					space_type.add(st.nextToken());
-				}
-			
+				String space_type = st.nextToken();
 				List<String> nextAreas = new ArrayList<String>();
 				while(st.hasMoreTokens()){
 					nextAreas.add(st.nextToken());
