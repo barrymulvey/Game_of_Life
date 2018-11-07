@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.2" icons="true" automaticImage="PNG" generate-combined-fragments="true">  
+  <object id="1" language="java" name="software_eng_project.Player" project="game_of_life" 
+    file="/game_of_life/src/software_eng_project/Player.java" binary="false" label="player" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="179" y="0"/>  
+  </object>  
+  <object id="2" language="java" name="software_eng_project.Cards" project="game_of_life" 
+    file="/game_of_life/src/software_eng_project/Cards.java" binary="false" label="cards" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="276" y="0"/>  
+  </object>  
+  <object id="3" language="java" name="software_eng_project.Player" project="game_of_life" 
+    file="/game_of_life/src/software_eng_project/Player.java" binary="false" label="player1" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>  
+  </object>
+</sequence-diagram>
