@@ -80,14 +80,19 @@ public class Player {
 
 		System.out.println(playerName+", choose College (L) or Career (R): ");
 		String lifeDecision = keyboard.next();
-
+		if(lifeDecision.equals("L")||lifeDecision.equals("l")) {
+			lifeDecision = "College";
+		}
+		else if(lifeDecision.equals("R")||lifeDecision.equals("r")) {
+			lifeDecision = "Career";
+		}
 
 		Player player1 = new Player(playerName, playerAge, startingSalary, colour, lifeDecision);
 		//keyboard.close();
-		if(lifeDecision.equals("L")||lifeDecision.equals("l")) {
+		if(lifeDecision.equals("College")) {
 			player1.current_space = "5";
 		}
-		else if(lifeDecision.equals("R")||lifeDecision.equals("r")) {
+		else if(lifeDecision.equals("Career")) {
 			player1.current_space = "1";
 		}
 		return player1;
