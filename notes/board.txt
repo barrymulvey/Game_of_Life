@@ -1,7 +1,7 @@
 0 STOP 2 6
 1 ACTION 2 // START of career path
 2 PAYDAY 3
-3 ACTION 19 // END of career path
+3 ACTION 18 // END of career path
 4 ACTION 5
 5 ACTION 6  // START of college path
 6 ACTION 7

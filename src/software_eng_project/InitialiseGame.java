@@ -9,6 +9,15 @@ public class InitialiseGame {
 	public InitialiseGame() {
 		
 	}
+	
+	public static ArrayList<Space> initialiseBoard() {
+	ArrayList<Space> boardSpacesList = BoardReader.readBoard();
+	for(int i=0;i<boardSpacesList.size();i++) {
+		boardSpacesList.get(i).printSpace();
+		System.out.println();
+		}
+	return boardSpacesList;
+	}
 
 	public static ArrayList<Player> initialisePawns() {
 		// create list of pawn colours available
