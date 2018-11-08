@@ -1,0 +1,6 @@
+Use Case Diagrams
+
+- Association
+> extends
+< Dependency
+^ Generalisation

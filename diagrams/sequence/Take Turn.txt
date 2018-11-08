@@ -1,0 +1,25 @@
+title Take Turn
+
+Player->Game: start turn
+
+Game->Player: ready to spin?
+Player->Game: spin spinner
+
+Game->Spinner: generate random number (1-10)
+Spinner->Spinner: choose random # (1-10)
+Spinner->Spinner: determine colour
+
+Spinner->Game: return number and colour
+
+Game->Player: retun number and colour
+
+loop # of moves, while space != stop
+Game->BoardReader: get current space
+BoardReader->Game: return current space
+Game->BoardReader: get next space
+BoardReader->Game: return next space
+Game->BoardReader: get space type
+BoardReader->Game: return space type
+end
+
+Game->Player: return current space
