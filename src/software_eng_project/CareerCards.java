@@ -52,6 +52,7 @@ public class CareerCards extends Cards {
 		return value2;
 	}
 	
+	/*
 	// PRINT DETAILS OVERRIDE
 	@Override
 	public void printCardDetails() {
@@ -59,4 +60,5 @@ public class CareerCards extends Cards {
 		System.out.println("Career Type: "+getName()+"\nSalary: "+getValue1()+"\nBonus Number: "+getValue2());
 		System.out.println("*** *** *** *** *** *** *** ***");	
 	}
+	*/
 }

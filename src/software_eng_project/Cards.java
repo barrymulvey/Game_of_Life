@@ -109,10 +109,12 @@ public abstract class Cards {
 		return cardList;
 	}
 
+	/*
 	// PRINT DETAILS
 	public void printCardDetails() {
 		System.out.println("*** *** *** *** *** *** *** ***");
 		System.out.println("Name: "+getName()+"\nValue 1: "+getValue1());
 		System.out.println("*** *** *** *** *** *** *** ***");	
 	}
+	*/
 }

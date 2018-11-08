@@ -55,8 +55,10 @@ public abstract class ActionCards {
         	}
         }
         
+        /*
         // Print full deck details
         System.out.println("Full Deck: " + cardList);
+        */
 	return cardList;
 	}
 	

@@ -12,10 +12,12 @@ public class InitialiseGame {
 	
 	public static ArrayList<Space> initialiseBoard() {
 	ArrayList<Space> boardSpacesList = BoardReader.readBoard();
+	/*
 	for(int i=0;i<boardSpacesList.size();i++) {
 		boardSpacesList.get(i).printSpace();
 		System.out.println();
 		}
+	*/
 	return boardSpacesList;
 	}
 
@@ -65,9 +67,11 @@ public class InitialiseGame {
 		
 		ArrayList<HouseCards> houseList = new ArrayList<HouseCards>();
 		houseList = HouseCards.getListOfCards(houseFileLocation);
+		/*
 		for (int i=0;i<houseList.size();i++) {
 			houseList.get(i).printCardDetails();
 		} 
+		*/
 	return houseList;
 	}
 
@@ -81,9 +85,11 @@ public class InitialiseGame {
 		
 		ArrayList<CareerCards> careerList = new ArrayList<CareerCards>();
 		careerList = CareerCards.getListOfCards(cardFileLocation);
+		/*
 		for (int i=0;i<careerList.size();i++) {
 			careerList.get(i).printCardDetails();
 		} 
+		*/
 	return careerList;
 	}
 	

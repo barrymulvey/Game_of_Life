@@ -1,7 +1,6 @@
 package software_eng_project;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Player {
@@ -95,6 +94,9 @@ public class Player {
 		else if(lifeDecision.equals("Career")) {
 			player1.current_space = "1";
 		}
+		
+		//keyboard.close();
+		
 		return player1;
 	}
 

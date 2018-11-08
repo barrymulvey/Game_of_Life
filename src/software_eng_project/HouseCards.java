@@ -74,6 +74,7 @@ public class HouseCards extends Cards {
 		return value3;
 	}
 	
+	/*
 	// PRINT DETAILS OVERRIDE
 	@Override
 	public void printCardDetails() {
@@ -81,4 +82,5 @@ public class HouseCards extends Cards {
 		System.out.println("House Type: "+getName()+"\nPurchase Price: "+getValue1()+"\nSale Price (red spin): "+getValue2()+"\nSale Price (black spin): " +getValue3());
 		System.out.println("*** *** *** *** *** *** *** ***");	
 	}
+	*/
 }
