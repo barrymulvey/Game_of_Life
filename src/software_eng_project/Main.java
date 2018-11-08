@@ -120,111 +120,47 @@ public class Main {
 			System.out.println("Next player's turn");
 		} */
 
-		// 1st TURN
+		for (int num_turns=0;num_turns<3;num_turns++) {
 
-		for(int x=0;x<new_listOfPlayers.size();x++) {
 
-			// spin spinner and print results
-			spinner.spinSpinner();
-			int moves = spinner.getNumber();
-			System.out.println("Spin value: "+moves+"\nColour: "+spinner.getColour());
+			// 1st TURN
 
-			for(int y=0;y<moves;y++) {
-				String next_space = null;
+			for(int x=0;x<new_listOfPlayers.size();x++) {
+
+				// spin spinner and print results
+				spinner.spinSpinner();
+				int moves = spinner.getNumber();
+				System.out.println("Spin value: "+moves+"\nColour: "+spinner.getColour());
+
+				for(int y=0;y<moves;y++) {
+					String next_space = null;
+					String current_space = new_listOfPlayers.get(x).getCurrentSpace();
+					// what are the next space choices?
+					java.util.List<String> next_space_choices = boardSpacesList.get(Integer.parseInt(current_space)-1).getNextSpace();
+					// ask user if there is a choice!
+					String space_type = boardSpacesList.get(Integer.parseInt(current_space)-1).getSpaceType();
+					if(y>0 && space_type.contains("STOP")) {
+						System.out.println("Stop");
+						break;
+					}
+					if(next_space_choices.size() > 1) {
+						System.out.println("Choose Path: " + next_space_choices.get(0) + " or " + next_space_choices.get(1));
+						int next_space_int = keyboard.nextInt();
+						next_space = Integer.toString(next_space_int);
+					} else {
+						next_space = next_space_choices.get(0);
+					}
+					new_listOfPlayers.get(x).movePlayer(next_space);
+				}
+
 				String current_space = new_listOfPlayers.get(x).getCurrentSpace();
-				// what are the next space choices?
-				java.util.List<String> next_space_choices = boardSpacesList.get(Integer.parseInt(current_space)-1).getNextSpace();
-				// ask user if there is a choice!
-				String space_type = boardSpacesList.get(Integer.parseInt(current_space)-1).getSpaceType();
-				if(y>0 && space_type.contains("STOP")) {
-					System.out.println("Stop");
-					break;
-				}
-				if(next_space_choices.size() > 1) {
-					System.out.println("Choose Path: " + next_space_choices.get(0) + " or " + next_space_choices.get(1));
-					int next_space_int = keyboard.nextInt();
-					next_space = Integer.toString(next_space_int);
-				} else {
-					next_space = next_space_choices.get(0);
-				}
-				new_listOfPlayers.get(x).movePlayer(next_space);
+				System.out.println("Player "+x+" now at: "+current_space);
+				System.out.println("\nNext player's turn");
 			}
 
-			String current_space = new_listOfPlayers.get(x).getCurrentSpace();
-			System.out.println("Player "+x+" now at: "+current_space);
-			System.out.println("\nNext player's turn");
-		}
-
-		// 2nd TURN
-
-		for(int x=0;x<new_listOfPlayers.size();x++) {
-
-			// spin spinner and print results
-			spinner.spinSpinner();
-			int moves = spinner.getNumber();
-			System.out.println("Spin value: "+moves+"\nColour: "+spinner.getColour());
-
-			for(int y=0;y<moves;y++) {
-				String next_space = null;
-				String current_space = new_listOfPlayers.get(x).getCurrentSpace();
-				// what are the next space choices?
-				java.util.List<String> next_space_choices = boardSpacesList.get(Integer.parseInt(current_space)-1).getNextSpace();
-				// ask user if there is a choice!
-				String space_type = boardSpacesList.get(Integer.parseInt(current_space)-1).getSpaceType();
-				if(y>0&&space_type.contains("STOP")) {
-					System.out.println("Stop");
-					break;
-				}
-				if(next_space_choices.size() > 1) {
-					System.out.println("Choose Path: " + next_space_choices.get(0) + " or " + next_space_choices.get(1));
-					int next_space_int = keyboard.nextInt();
-					next_space = Integer.toString(next_space_int);
-				} else {
-					next_space = next_space_choices.get(0);
-				}
-				new_listOfPlayers.get(x).movePlayer(next_space);
-			}
-			String current_space = new_listOfPlayers.get(x).getCurrentSpace();
-			System.out.println("Player "+x+" now at: "+current_space);
-			System.out.println("\nNext player's turn");
-		}
-
-		// 3rd TURN
-
-		for(int x=0;x<new_listOfPlayers.size();x++) {
-
-			// spin spinner and print results
-			spinner.spinSpinner();
-			int moves = spinner.getNumber();
-			System.out.println("Spin value: "+moves+"\nColour: "+spinner.getColour());
-
-			for(int y=0;y<moves;y++) {
-				String next_space = null;
-				String current_space = new_listOfPlayers.get(x).getCurrentSpace();
-				// what are the next space choices?
-				java.util.List<String> next_space_choices = boardSpacesList.get(Integer.parseInt(current_space)-1).getNextSpace();
-				// ask user if there is a choice!
-				String space_type = boardSpacesList.get(Integer.parseInt(current_space)-1).getSpaceType();
-				if(y>0&&space_type.contains("STOP")) {
-					System.out.println("Stop");
-					break;
-				}
-				if(next_space_choices.size() > 1) {
-					System.out.println("Choose Path: " + next_space_choices.get(0) + " or " + next_space_choices.get(1));
-					int next_space_int = keyboard.nextInt();
-					next_space = Integer.toString(next_space_int);
-				} else {
-					next_space = next_space_choices.get(0);
-				}
-				new_listOfPlayers.get(x).movePlayer(next_space);
-			}
-			String current_space = new_listOfPlayers.get(x).getCurrentSpace();
-			System.out.println("Player "+x+" now at: "+current_space);
-			System.out.println("\nNext player's turn");
 		}
 
 
 		keyboard.close();
-
 	}
 }
