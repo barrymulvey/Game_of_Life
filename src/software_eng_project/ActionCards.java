@@ -64,7 +64,7 @@ public abstract class ActionCards {
 	
 	
 	
-	public static ArrayList<String> chooseActionCard (ArrayList<String> cardList) {
+	public static ArrayList<String> chooseActionCard (ArrayList<String> cardList, Player player) {
         // Choose a card at random between 0 and 54
         Random rand = new Random();
     	int  i = rand.nextInt(54);
@@ -72,6 +72,9 @@ public abstract class ActionCards {
     	// Print number and type of card chosen
     	System.out.println("Card chosen is " + i);
     	System.out.println("Card chosen is " + cardList.get(i));
+    	
+    	// increment_number of action cards held by person
+    	player.increment_num_action_cards();
         
     	// Remove card and print updated deck
     	cardList.remove(i);

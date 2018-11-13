@@ -15,6 +15,7 @@ public class Player {
 	private String career;
 	private String house;
 	private String current_space;
+	private int num_action_cards;
 
 	public Player(String name, int age, double money, String colour, String path){
 		this.name = name;
@@ -30,6 +31,7 @@ public class Player {
 		this.career = null;
 		this.house = null;
 		this.current_space = "0";
+		this.num_action_cards = 0;
 	}
 
 	public Player() {
@@ -89,10 +91,10 @@ public class Player {
 		Player player1 = new Player(playerName, playerAge, startingSalary, colour, lifeDecision);
 		//keyboard.close();
 		if(lifeDecision.equals("College")) {
-			player1.current_space = "5";
+			player1.current_space = "4";
 		}
 		else if(lifeDecision.equals("Career")) {
-			player1.current_space = "1";
+			player1.current_space = "0";
 		}
 		
 		//keyboard.close();
@@ -156,9 +158,15 @@ public class Player {
 	public String getCurrentSpace() {
 		return current_space;
 	}
+	public void increment_num_action_cards() {
+		num_action_cards = num_action_cards + 1;
+	}
+	public int getNumActionCards() {
+		return num_action_cards;
+	}
 	protected void printDetails(){
 		System.out.println("*** *** *** *** *** *** *** ***");
-		System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace());
+		System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
 		System.out.println("*** *** *** *** *** *** *** ***");			
 	}
 

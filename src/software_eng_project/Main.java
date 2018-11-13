@@ -15,8 +15,8 @@ public class Main {
 		Scanner keyboard = new Scanner(System.in);
 		
 		// create list of players and initialise
-		ArrayList<Player> new_listOfPlayers = new ArrayList<Player>();
-		new_listOfPlayers = InitialiseGame.initialisePawns();
+		ArrayList<Player> listOfPlayers = new ArrayList<Player>();
+		listOfPlayers = InitialiseGame.initialisePawns();
 
 		// Initialise house deck
 		ArrayList<HouseCards> houseCardList = new ArrayList<HouseCards>();
@@ -42,10 +42,12 @@ public class Main {
 		Spinner spinner = new Spinner();
 
 		// PLAYERS PLAY
-
+		
+		// initialise string to hold space type
+		String output_space_type = null;
 		for (int num_turns=0;num_turns<3;num_turns++) { 				// for 3 turns
-			for(int x=0;x<new_listOfPlayers.size();x++) {
-				String current_player=new_listOfPlayers.get(x).getName();
+			for(int x=0;x<listOfPlayers.size();x++) {
+				String current_player=listOfPlayers.get(x).getName();
 				// Next player's turn
 				System.out.println("\n"+current_player+"'s turn");
 				
@@ -59,27 +61,57 @@ public class Main {
 
 				for(int y=0;y<moves;y++) {
 					String next_space = null;
-					String current_space = new_listOfPlayers.get(x).getCurrentSpace();
+					String current_space = listOfPlayers.get(x).getCurrentSpace();
 					// what are the next space choices?
-					java.util.List<String> next_space_choices = boardSpacesList.get(Integer.parseInt(current_space)-1).getNextSpace();
+					
+					// current space -1 because the array 'boardSpacesList' starts at 0
+					java.util.List<String> next_space_choices = boardSpacesList.get(Integer.parseInt(current_space)).getNextSpace();
 					// ask user if there is a choice!
-					String space_type = boardSpacesList.get(Integer.parseInt(current_space)-1).getSpaceType();
-					if(y>0 && space_type.contains("STOP")) { 						// Player lands on stop
-						System.out.println("Stop");
-						break;
-					}
-					if(next_space_choices.size() > 1) {
+					
+				    // move the player
+				    if(next_space_choices.size() > 1) {
 						System.out.println("Choose Path: " + next_space_choices.get(0) + " or " + next_space_choices.get(1));
 						int next_space_int = keyboard.nextInt();
 						next_space = Integer.toString(next_space_int);
 					} else {
 						next_space = next_space_choices.get(0);
 					}
-					new_listOfPlayers.get(x).movePlayer(next_space);
+					listOfPlayers.get(x).movePlayer(next_space);
+					
+					// add in exception here! do an else: space_type = null;
+					String space_type = null;
+					current_space = listOfPlayers.get(x).getCurrentSpace();
+					space_type = boardSpacesList.get(Integer.parseInt(current_space)).getSpaceType();
+					if(y>0 && space_type.contains("STOP")) { // Player lands on stop (if not starting space!)
+						output_space_type = "Stop! You reached a stop space";
+						break;
+					}
+					if (y==moves-1) { // print type of last space landed on!
+						switch(space_type) {
+							case "ACTION": output_space_type ="Draw an action card!";
+										   break;
+							case "PAYDAY": output_space_type = "Payday!";
+										   break;
+							case "HOUSE": output_space_type ="Draw house cards!";
+										  break;
+							case "TWINS": output_space_type ="Congrats, twins!";
+										  break;
+							case "HOLIDAY":	output_space_type ="Holiday time!";
+											break;
+							case "BABY": output_space_type ="Congrats, baby!";
+							             break;
+							case "SPIN_TO_WIN":	output_space_type ="Spin to Win!";
+													break;
+							case "RETIREMENT": output_space_type ="You made it, retirement!";							
+											   break;
+						    default: output_space_type = null;
+						}	
+					}
 				}
 
-				String current_space = new_listOfPlayers.get(x).getCurrentSpace();
+				String current_space = listOfPlayers.get(x).getCurrentSpace();
 				System.out.println(current_player+" moves to space "+current_space);
+				System.out.println(output_space_type);
 				//System.out.println(current_player+", press enter to end your turn.");
 				//keyboard.nextLine();
 				//System.out.println("\nNext player's turn");
