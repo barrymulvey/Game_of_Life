@@ -1,8 +1,8 @@
 package software_eng_project;
 
 import java.util.Random;
+import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.List;
 
 public abstract class ActionCards {
 	/* Deck of 55 cards. Composed of: 
@@ -11,7 +11,6 @@ public abstract class ActionCards {
 	 * Pay the Bank (5x4): 4x10k; 4x20k; 4x30k; 4x40k; 4x50k
 	 * Get Cash from the Bank (5x4): 4x10k; 4x20k; 4x30k; 4x40k; 4x50k
 	 */
-	
 	public static ArrayList<String> getListOfCards () {
         ArrayList<String> cardList = new ArrayList<String>(55);
         
@@ -62,23 +61,105 @@ public abstract class ActionCards {
 	return cardList;
 	}
 	
+	public static void doAction(String cardChosen, Player player, ArrayList<Player> listOfPlayers) {
+		
+		// Player receives money from bank (add money)
+		if (cardChosen.contains("Receive")) {
+			if(cardChosen.contains("10")) {
+				player.walletBalance(10);
+			}
+			else if(cardChosen.contains("20")) {
+				player.walletBalance(20);
+			}
+			else if(cardChosen.contains("30")) {
+				player.walletBalance(30);
+			}
+			else if(cardChosen.contains("40")) {
+				player.walletBalance(40);
+			}
+			else if(cardChosen.contains("50")) {
+				player.walletBalance(50);
+			}
+			System.out.println(player.getName()+"'s updated balance is: "+player.getBalanceWallet()+"K");
+		}
+		
+		// Player pays money to bank (subtract money)
+		if (cardChosen.contains("Pay bank")) {
+			if(cardChosen.contains("10")) {
+				player.walletBalance(-10);
+			}
+			else if(cardChosen.contains("20")) {
+				player.walletBalance(-20);
+			}
+			else if(cardChosen.contains("30")) {
+				player.walletBalance(-30);
+			}
+			else if(cardChosen.contains("40")) {
+				player.walletBalance(-40);
+			}
+			else if(cardChosen.contains("50")) {
+				player.walletBalance(-50);
+			}
+			System.out.println(player.getName()+"'s updated balance is: "+player.getBalanceWallet()+"K");
+		}
+		
+		// Player chooses another player and gets money off them
+		if (cardChosen.contains("Players pay")) {
+
+			Scanner keyboard = new Scanner(System.in);
+			System.out.println("Choose a player! (Enter number)");
+				
+			// print list of players without current player
+			int index = listOfPlayers.indexOf(player);
+			listOfPlayers.remove(index);
+			
+			for(int x=1;x<=listOfPlayers.size();x++) {
+				System.out.println(x+": "+listOfPlayers.get(x-1));				
+			}
+			
+			// read in chosen player to pay money
+			int chosenPlayer = keyboard.nextInt();
+			keyboard.close();
+			System.out.println("Chosen player is: "+listOfPlayers.get(chosenPlayer-1));
+			
+			// receive money
+			System.out.println(listOfPlayers.get(chosenPlayer-1)+" pay "+player+" 20K!");
+			player.walletBalance(20);
+			// pay money
+			listOfPlayers.get(chosenPlayer-1).walletBalance(-20);
+			
+			System.out.println(player.getName()+"'s updated balance is: "+player.getBalanceWallet());
+			System.out.println(listOfPlayers.get(chosenPlayer-1).getName()+"'s updated balance is: "+player.getBalanceWallet()+"K");
+			
+		}
+		if (cardChosen.contains("Career Change")) {
+			System.out.println("Career change!");
+			
+		}
+		
+	}
 	
 	
-	public static ArrayList<String> chooseActionCard (ArrayList<String> cardList, Player player) {
+	
+	public static ArrayList<String> chooseActionCard (ArrayList<String> cardList, Player player, ArrayList<Player> listOfPlayers) {
         // Choose a card at random between 0 and 54
-        Random rand = new Random();
-    	int  i = rand.nextInt(54);
+        int size = cardList.size();
+		Random rand = new Random();
+    	int  i = rand.nextInt(size);
+    	String cardChosen = cardList.get(i);
     	
     	// Print number and type of card chosen
-    	System.out.println("Card chosen is " + i);
-    	System.out.println("Card chosen is " + cardList.get(i));
+    	//System.out.println("Card chosen is " + i);
+    	System.out.println("Card chosen is " + cardChosen);
+    	
     	
     	// increment_number of action cards held by person
     	player.increment_num_action_cards();
+    	ActionCards.doAction(cardChosen, player, listOfPlayers);
         
     	// Remove card and print updated deck
     	cardList.remove(i);
-        System.out.println("Updated Deck: " + cardList);
+        //System.out.println("Updated Deck: " + cardList);
         return cardList;
     }
 }

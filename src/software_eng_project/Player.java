@@ -140,6 +140,11 @@ public class Player {
 	public double getBalanceWallet() {
 		return wallet;
 	}
+	
+	public int addChildren(int add) {
+		num_children = num_children + add;
+		return num_children;
+	}
 	public int getNumChildren() {
 		return num_children;
 	}

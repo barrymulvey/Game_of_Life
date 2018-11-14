@@ -82,26 +82,32 @@ public class Main {
 					String space_type = null;
 					current_space = listOfPlayers.get(x).getCurrentSpace();
 					space_type = boardSpacesList.get(Integer.parseInt(current_space)).getSpaceType();
+					
+					System.out.println(current_player+" moves to space "+current_space);
+					
 					if(y>0 && space_type.contains("STOP")) { // Player lands on stop (if not starting space!)
-						output_space_type = "Stop! You reached a stop space";
+						System.out.println("Stop! You reached a stop space");
 						break;
 					}
 					if (y==moves-1) { // print type of last space landed on!
 						switch(space_type) {
-							case "ACTION": output_space_type ="Draw an action card!";
+							case "ACTION": System.out.println("Draw an action card!");
+										   ActionCards.chooseActionCard(actionCardList, listOfPlayers.get(x), listOfPlayers);
 										   break;
 							case "PAYDAY": output_space_type = "Payday!";
 										   break;
 							case "HOUSE": output_space_type ="Draw house cards!";
 										  break;
 							case "TWINS": output_space_type ="Congrats, twins!";
+										  listOfPlayers.get(x).addChildren(2);
 										  break;
 							case "HOLIDAY":	output_space_type ="Holiday time!";
 											break;
 							case "BABY": output_space_type ="Congrats, baby!";
+							  			 listOfPlayers.get(x).addChildren(1);
 							             break;
 							case "SPIN_TO_WIN":	output_space_type ="Spin to Win!";
-													break;
+												break;
 							case "RETIREMENT": output_space_type ="You made it, retirement!";							
 											   break;
 						    default: output_space_type = null;
@@ -109,9 +115,7 @@ public class Main {
 					}
 				}
 
-				String current_space = listOfPlayers.get(x).getCurrentSpace();
-				System.out.println(current_player+" moves to space "+current_space);
-				System.out.println(output_space_type);
+
 				//System.out.println(current_player+", press enter to end your turn.");
 				//keyboard.nextLine();
 				//System.out.println("\nNext player's turn");
