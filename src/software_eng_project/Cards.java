@@ -66,7 +66,9 @@ public abstract class Cards {
 		return value1List;
 	}
 
-	public Cards chooseCards(ArrayList<HouseCards> cardList) {	
+	
+	// Check this: 
+	public Cards chooseCards(ArrayList<Cards> cardList) {	
 		// Choose a card #1 at random between 0 and (number of cards available)-1
 		int number_cards = cardList.size();
 		Random rand1 = new Random();

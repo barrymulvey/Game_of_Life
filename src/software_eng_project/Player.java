@@ -12,7 +12,7 @@ public class Player {
 	private String colour;
 	private String spouse;
 	private String path;
-	private String career;
+	private ArrayList<CareerCards> career;
 	private String house;
 	private String current_space;
 	private int num_action_cards;
@@ -35,7 +35,7 @@ public class Player {
 	}
 
 	public Player() {
-		
+
 	}
 
 	public Player initialisePlayer(ArrayList<String> carColour) { // initialise players
@@ -45,7 +45,7 @@ public class Player {
 		//String userColour = null;
 
 		Scanner keyboard = new Scanner(System.in);
-		
+
 		System.out.println("Enter name of player: ");
 		String playerName = keyboard.next();
 
@@ -58,7 +58,7 @@ public class Player {
 		//System.out.println(carCol);
 		char firstLetter = carCol.charAt(0);
 		//System.out.println(firstLetter);
-		
+
 		if (firstLetter == 'p' || firstLetter=='P') {
 			colour="Pink";
 			//carColour.remove("Pink");
@@ -96,27 +96,45 @@ public class Player {
 		else if(lifeDecision.equals("Career")) {
 			player1.current_space = "0";
 		}
-		
+
 		//keyboard.close();
-		
+
 		return player1;
 	}
 
 	public void walletBalance(float money) {
 		wallet = wallet+money;
 	}
-	
+
 	public void movePlayer(String next_space) {
 		current_space = next_space;
 	}
-	
+
 	public void typeHouse(HouseCards houseChoice) {
 		house = houseChoice.getName();
 	}
 
 	// TO DO- check this 'getter' works!
-	public void changeCareer(CareerCards careerChoice) {
-		career = careerChoice.getName();
+	public void changeCareer(CareerCards careerChoice, ArrayList<CareerCards> listOfCards) {
+		// choose 2 career cards
+		chooseCards(listOfCards);
+		
+		
+		
+		// ** Code below copied and pasted - must edit
+		// print list of players without current player
+		int index = listOfPlayers.indexOf(player);
+		listOfCards.remove(index);
+
+		for(int x=1;x<=listOfPlayers.size();x++) {
+			System.out.println(x+": "+listOfPlayers.get(x-1));				
+		}
+
+		// read in chosen player to pay money
+		int chosenPlayer = keyboard.nextInt();
+		keyboard.close();
+		System.out.println("Chosen player is: "+listOfPlayers.get(chosenPlayer-1));
+		career = careerChoice;
 	}
 	public void numLoans(int number_loans) {
 		num_loans = num_loans + number_loans;
@@ -140,7 +158,7 @@ public class Player {
 	public double getBalanceWallet() {
 		return wallet;
 	}
-	
+
 	public int addChildren(int add) {
 		num_children = num_children + add;
 		return num_children;
