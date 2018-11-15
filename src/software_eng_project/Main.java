@@ -45,8 +45,8 @@ public class Main {
 		
 		// initialise string to hold space type
 		String output_space_type = null;
-		for (int num_turns=0;num_turns<3;num_turns++) { 				// for 3 turns
-			for(int x=0;x<listOfPlayers.size();x++) {
+		for (int num_turns=0;num_turns<30;num_turns++) { 				// for 3 turns
+			for (int x=0;x<listOfPlayers.size();x++) {
 				String current_player=listOfPlayers.get(x).getName();
 				// Next player's turn
 				System.out.println("\n"+current_player+"'s turn");
@@ -83,32 +83,39 @@ public class Main {
 					current_space = listOfPlayers.get(x).getCurrentSpace();
 					space_type = boardSpacesList.get(Integer.parseInt(current_space)).getSpaceType();
 					
-					System.out.println(current_player+" moves to space "+current_space);
-					
 					if(y>0 && space_type.contains("STOP")) { // Player lands on stop (if not starting space!)
 						System.out.println("Stop! You reached a stop space");
 						break;
 					}
-					if (y==moves-1) { // print type of last space landed on!
+					
+					// Print spaces over which player travels
+					if(y!=(moves-1)) {
+						System.out.println(current_player+" moves past "+space_type+" on space "+current_space);
+					}
+					
+					// Print space on which player lands and take appropriate action
+					if (y==moves-1) {
+						System.out.println(current_player+" lands on "+space_type+" on space "+current_space);
 						switch(space_type) {
-							case "ACTION": System.out.println("Draw an action card!");
+							case "ACTION": System.out.println(current_player+", press enter to draw an action card!");
+										   keyboard.nextLine();
 										   ActionCards.chooseActionCard(actionCardList, listOfPlayers.get(x), listOfPlayers);
 										   break;
-							case "PAYDAY": output_space_type = "Payday!";
+							case "PAYDAY": System.out.println("Payday!");
 										   break;
-							case "HOUSE": output_space_type ="Draw house cards!";
+							case "HOUSE": System.out.println("Draw house cards!");
 										  break;
-							case "TWINS": output_space_type ="Congrats, twins!";
+							case "TWINS": System.out.println("Congrats, twins!");
 										  listOfPlayers.get(x).addChildren(2);
 										  break;
-							case "HOLIDAY":	output_space_type ="Holiday time!";
+							case "HOLIDAY":	System.out.println("Holiday time!");
 											break;
-							case "BABY": output_space_type ="Congrats, baby!";
+							case "BABY": System.out.println("Congrats, baby!");
 							  			 listOfPlayers.get(x).addChildren(1);
 							             break;
-							case "SPIN_TO_WIN":	output_space_type ="Spin to Win!";
+							case "SPIN_TO_WIN":	System.out.println("Spin to Win!");
 												break;
-							case "RETIREMENT": output_space_type ="You made it, retirement!";							
+							case "RETIREMENT": System.out.println("You made it, retirement!");
 											   break;
 						    default: output_space_type = null;
 						}	

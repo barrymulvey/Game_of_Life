@@ -139,8 +139,6 @@ public abstract class ActionCards {
 		
 	}
 	
-	
-	
 	public static ArrayList<String> chooseActionCard (ArrayList<String> cardList, Player player, ArrayList<Player> listOfPlayers) {
         // Choose a card at random between 0 and 54
         int size = cardList.size();
