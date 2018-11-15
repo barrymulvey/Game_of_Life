@@ -66,9 +66,17 @@ public abstract class Cards {
 		return value1List;
 	}
 
-	
+	/*
 	// Check this: 
-	public Cards chooseCards(ArrayList<Cards> cardList) {	
+	public static Cards chooseCards(ArrayList<Cards> cardList) {
+		
+		
+		Cards card1 = cardList.get(0);
+		if (card1 instanceof CareerCards) {
+			
+		}
+		
+		
 		// Choose a card #1 at random between 0 and (number of cards available)-1
 		int number_cards = cardList.size();
 		Random rand1 = new Random();
@@ -90,6 +98,9 @@ public abstract class Cards {
 		return cardList.get(i);
 
 	}
+	*/
+
+	
 
 	public String getName() {
 		return name;

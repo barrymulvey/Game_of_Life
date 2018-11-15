@@ -12,7 +12,7 @@ public class Player {
 	private String colour;
 	private String spouse;
 	private String path;
-	private ArrayList<CareerCards> career;
+	private CareerCards career;
 	private String house;
 	private String current_space;
 	private int num_action_cards;
@@ -38,7 +38,7 @@ public class Player {
 
 	}
 
-	public Player initialisePlayer(ArrayList<String> carColour) { // initialise players
+	public Player initialisePlayer(ArrayList<String> carColour, ArrayList<CareerCards> listOfCards) { // initialise players
 		double startingSalary = 100.0;
 		// 25th October
 
@@ -95,6 +95,9 @@ public class Player {
 		}
 		else if(lifeDecision.equals("Career")) {
 			player1.current_space = "0";
+			System.out.println(player1.getName()+", time to choose a career!");
+			
+			player1.changeCareer(listOfCards);
 		}
 
 		//keyboard.close();
@@ -102,8 +105,14 @@ public class Player {
 		return player1;
 	}
 
-	public void walletBalance(float money) {
-		wallet = wallet+money;
+	// ** must add which player (as an input)
+	public void walletBalance(float money, String operation) {
+		if (operation.equals("add")) {
+			wallet = wallet+money;
+		}
+		else {
+			wallet = wallet-money;
+		}
 	}
 
 	public void movePlayer(String next_space) {
@@ -114,28 +123,38 @@ public class Player {
 		house = houseChoice.getName();
 	}
 
-	// TO DO- check this 'getter' works!
-	public void changeCareer(CareerCards careerChoice, ArrayList<CareerCards> listOfCards) {
+	// Change Career
+	public void changeCareer(ArrayList<CareerCards> listOfCards) {
 		// choose 2 career cards
-		chooseCards(listOfCards);
+		CareerCards card1 = CareerCards.chooseCareerCards(listOfCards);
+		System.out.println("1st card chosen is: "+card1.getName());
+		listOfCards.remove(card1);
 		
+		CareerCards card2 = CareerCards.chooseCareerCards(listOfCards);
+		System.out.println("2nd card chosen is: "+card2.getName());
 		
+		System.out.println("Choose a card! Enter 1 or 2: ");
+		Scanner keyboard = new Scanner(System.in);
+		int careerCardChoice = keyboard.nextInt();
 		
-		// ** Code below copied and pasted - must edit
-		// print list of players without current player
-		int index = listOfPlayers.indexOf(player);
-		listOfCards.remove(index);
-
-		for(int x=1;x<=listOfPlayers.size();x++) {
-			System.out.println(x+": "+listOfPlayers.get(x-1));				
+		if (careerCardChoice==1) {
+			this.career = card1;
+			//listOfCards.remove(card1);
 		}
-
-		// read in chosen player to pay money
-		int chosenPlayer = keyboard.nextInt();
-		keyboard.close();
-		System.out.println("Chosen player is: "+listOfPlayers.get(chosenPlayer-1));
-		career = careerChoice;
+		else if (careerCardChoice==2) {
+			this.career = card2;
+			listOfCards.remove(card2);
+			listOfCards.add(card1);
+		}
+		else {
+			//player.career = null;
+			System.out.println("Error - choice must be 1 or 2.");
+		}
+		
+		//return listOfCards;
+		//keyboard.close();
 	}
+	
 	public void numLoans(int number_loans) {
 		num_loans = num_loans + number_loans;
 	}
@@ -173,8 +192,15 @@ public class Player {
 		return path;
 	}
 	public String getCareer() {
-		return career;		
+		return career.getName();		
 	}
+	public int getSalary() {
+		return career.getValue1();
+	}
+	public int getBonus() {
+		return career.getValue2();
+	}
+	
 	public String getHouse() {
 		return house;
 	}
@@ -188,9 +214,17 @@ public class Player {
 		return num_action_cards;
 	}
 	protected void printDetails(){
-		System.out.println("*** *** *** *** *** *** *** ***");
-		System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
-		System.out.println("*** *** *** *** *** *** *** ***");			
+		if (this.getPath().equals("College")) {
+			System.out.println("*** *** *** *** *** *** *** ***");
+			System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: Student"+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
+			System.out.println("*** *** *** *** *** *** *** ***");	
+		}
+		else {
+			System.out.println("*** *** *** *** *** *** *** ***");
+			System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
+			System.out.println("*** *** *** *** *** *** *** ***");	
+		}
+				
 	}
 
 }

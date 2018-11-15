@@ -21,7 +21,7 @@ public class InitialiseGame {
 	return boardSpacesList;
 	}
 
-	public static ArrayList<Player> initialisePawns() {
+	public static ArrayList<Player> initialisePawns(ArrayList<CareerCards> careerCardList) {
 		// create list of pawn colours available
 		ArrayList<String> carColour = new ArrayList<String>();
 		carColour.add("Pink");
@@ -41,7 +41,7 @@ public class InitialiseGame {
 			System.out.println("**** Player "+ i +"****");
 			Player player = new Player(); 
 			Player player1 = new Player(); 		
-			player1 = player.initialisePlayer(carColour);
+			player1 = player.initialisePlayer(carColour, careerCardList);
 			
 			String chosenColour = player1.getColour();
 			carColour.remove(chosenColour);

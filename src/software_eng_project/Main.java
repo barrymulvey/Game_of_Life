@@ -14,10 +14,6 @@ public class Main {
 		// open scanner
 		Scanner keyboard = new Scanner(System.in);
 		
-		// create list of players and initialise
-		ArrayList<Player> listOfPlayers = new ArrayList<Player>();
-		listOfPlayers = InitialiseGame.initialisePawns();
-
 		// Initialise house deck
 		ArrayList<HouseCards> houseCardList = new ArrayList<HouseCards>();
 		houseCardList = InitialiseGame.initialiseHouseDeck();
@@ -25,6 +21,10 @@ public class Main {
 		// initialise career card deck
 		ArrayList<CareerCards> careerCardList = new ArrayList<CareerCards>();
 		careerCardList = InitialiseGame.initialiseCareerCardDeck("careers_file");
+		
+		// create list of players and initialise
+		ArrayList<Player> listOfPlayers = new ArrayList<Player>();
+		listOfPlayers = InitialiseGame.initialisePawns(careerCardList);
 
 		// initialise college career card deck
 		ArrayList<CareerCards> collegeCareerCardList = new ArrayList<CareerCards>();

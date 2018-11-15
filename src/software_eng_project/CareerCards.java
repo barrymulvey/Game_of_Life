@@ -52,6 +52,24 @@ public class CareerCards extends Cards {
 		return value2;
 	}
 	
+	
+public static CareerCards chooseCareerCards(ArrayList<CareerCards> cardList) {
+		
+		// Choose a card at random between 0 and (number of cards available)-1
+		int number_cards = cardList.size();
+		Random rand1 = new Random();
+		int  i = rand1.nextInt(number_cards-1);
+
+		// Print number and type of card chosen
+		//System.out.println("Card chosen is " + i);
+		//System.out.println("Card chosen is " + cardList.get(i).getName());
+
+		// only choose one for now
+		return cardList.get(i);
+
+	}
+	
+	
 	/*
 	// PRINT DETAILS OVERRIDE
 	@Override

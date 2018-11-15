@@ -66,19 +66,19 @@ public abstract class ActionCards {
 		// Player receives money from bank (add money)
 		if (cardChosen.contains("Receive")) {
 			if(cardChosen.contains("10")) {
-				player.walletBalance(10);
+				player.walletBalance(10, "add");
 			}
 			else if(cardChosen.contains("20")) {
-				player.walletBalance(20);
+				player.walletBalance(20, "add");
 			}
 			else if(cardChosen.contains("30")) {
-				player.walletBalance(30);
+				player.walletBalance(30, "add");
 			}
 			else if(cardChosen.contains("40")) {
-				player.walletBalance(40);
+				player.walletBalance(40, "add");
 			}
 			else if(cardChosen.contains("50")) {
-				player.walletBalance(50);
+				player.walletBalance(50, "add");
 			}
 			System.out.println(player.getName()+"'s updated balance is: "+player.getBalanceWallet()+"K");
 		}
@@ -86,19 +86,19 @@ public abstract class ActionCards {
 		// Player pays money to bank (subtract money)
 		if (cardChosen.contains("Pay bank")) {
 			if(cardChosen.contains("10")) {
-				player.walletBalance(-10);
+				player.walletBalance(10, "subtract");
 			}
 			else if(cardChosen.contains("20")) {
-				player.walletBalance(-20);
+				player.walletBalance(20, "subtract");
 			}
 			else if(cardChosen.contains("30")) {
-				player.walletBalance(-30);
+				player.walletBalance(30, "subtract");
 			}
 			else if(cardChosen.contains("40")) {
-				player.walletBalance(-40);
+				player.walletBalance(40, "subtract");
 			}
 			else if(cardChosen.contains("50")) {
-				player.walletBalance(-50);
+				player.walletBalance(50, "subtract");
 			}
 			System.out.println(player.getName()+"'s updated balance is: "+player.getBalanceWallet()+"K");
 		}
@@ -114,19 +114,19 @@ public abstract class ActionCards {
 			listOfPlayers.remove(index);
 			
 			for(int x=1;x<=listOfPlayers.size();x++) {
-				System.out.println(x+": "+listOfPlayers.get(x-1));				
+				System.out.println(x+": "+listOfPlayers.get(x-1).getName());				
 			}
 			
 			// read in chosen player to pay money
 			int chosenPlayer = keyboard.nextInt();
 			keyboard.close();
-			System.out.println("Chosen player is: "+listOfPlayers.get(chosenPlayer-1));
+			System.out.println("Chosen player is: "+listOfPlayers.get(chosenPlayer-1).getName());
 			
 			// receive money
-			System.out.println(listOfPlayers.get(chosenPlayer-1)+" pay "+player+" 20K!");
-			player.walletBalance(20);
+			System.out.println(listOfPlayers.get(chosenPlayer-1).getName()+" pay "+player.getName()+" 20K!");
+			player.walletBalance(20, "add");
 			// pay money
-			listOfPlayers.get(chosenPlayer-1).walletBalance(-20);
+			listOfPlayers.get(chosenPlayer-1).walletBalance(20, "subtract");
 			
 			System.out.println(player.getName()+"'s updated balance is: "+player.getBalanceWallet());
 			System.out.println(listOfPlayers.get(chosenPlayer-1).getName()+"'s updated balance is: "+player.getBalanceWallet()+"K");
