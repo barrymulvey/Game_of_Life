@@ -127,11 +127,11 @@ public class Player {
 	public void changeCareer(ArrayList<CareerCards> listOfCards) {
 		// choose 2 career cards
 		CareerCards card1 = CareerCards.chooseCareerCards(listOfCards);
-		System.out.println("1st card chosen is: "+card1.getName());
+		System.out.println("1st card chosen is: "+card1.getName()+" with a salary of "+card1.getValue1()+"K");
 		listOfCards.remove(card1);
 		
 		CareerCards card2 = CareerCards.chooseCareerCards(listOfCards);
-		System.out.println("2nd card chosen is: "+card2.getName());
+		System.out.println("2nd card chosen is: "+card2.getName()+" with a salary of "+card2.getValue1()+"K");
 		
 		System.out.println("Choose a card! Enter 1 or 2: ");
 		Scanner keyboard = new Scanner(System.in);
@@ -158,7 +158,7 @@ public class Player {
 	public void numLoans(int number_loans) {
 		num_loans = num_loans + number_loans;
 	}
-	public void married() {
+	public void getMarried() {
 		spouse = "Married";
 	}
 

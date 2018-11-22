@@ -117,9 +117,11 @@ public abstract class ActionCards {
 				System.out.println(x+": "+listOfPlayers.get(x-1).getName());				
 			}
 			
+			listOfPlayers.add(player);
+			
 			// read in chosen player to pay money
 			int chosenPlayer = keyboard.nextInt();
-			keyboard.close();
+			//keyboard.close();
 			System.out.println("Chosen player is: "+listOfPlayers.get(chosenPlayer-1).getName());
 			
 			// receive money
@@ -128,13 +130,14 @@ public abstract class ActionCards {
 			// pay money
 			listOfPlayers.get(chosenPlayer-1).walletBalance(20, "subtract");
 			
-			System.out.println(player.getName()+"'s updated balance is: "+player.getBalanceWallet());
-			System.out.println(listOfPlayers.get(chosenPlayer-1).getName()+"'s updated balance is: "+player.getBalanceWallet()+"K");
+			System.out.println(player.getName()+"'s updated balance is: "+player.getBalanceWallet()+"K");
+			System.out.println(listOfPlayers.get(chosenPlayer-1).getName()+"'s updated balance is: "+listOfPlayers.get(chosenPlayer-1).getBalanceWallet()+"K");
 			
 		}
 		if (cardChosen.contains("Career Change")) {
 			System.out.println("Career change!");
-			
+			//player.changeCareer(CareerCards.getListOfCards("careers_file"));
+			//player.changeCareer(collegeCareerCardList);
 		}
 		
 	}

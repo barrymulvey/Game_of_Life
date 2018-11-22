@@ -45,7 +45,7 @@ public class Main {
 		
 		// initialise string to hold space type
 		String output_space_type = null;
-		for (int num_turns=0;num_turns<30;num_turns++) { 				// for 3 turns
+		for (int num_turns=0;num_turns<30;num_turns++) { 				// for 30 turns
 			for (int x=0;x<listOfPlayers.size();x++) {
 				String current_player=listOfPlayers.get(x).getName();
 				// Next player's turn
@@ -81,16 +81,68 @@ public class Main {
 					// add in exception here! do an else: space_type = null;
 					String space_type = null;
 					current_space = listOfPlayers.get(x).getCurrentSpace();
-					space_type = boardSpacesList.get(Integer.parseInt(current_space)).getSpaceType();
+					int space_number = Integer.parseInt(current_space);
+					space_type = boardSpacesList.get(space_number).getSpaceType();
 					
 					if(y>0 && space_type.contains("STOP")) { // Player lands on stop (if not starting space!)
-						System.out.println("Stop! You reached a stop space");
+						System.out.println("Stop! You reached a stop space (space "+current_space+")\n");
+						
+						if(space_number==14) {
+							System.out.println("Happy graduation!");
+							listOfPlayers.get(x).changeCareer(collegeCareerCardList);
+						}
+						else if(space_number==27) {
+							System.out.println("Wedding bells!");
+							listOfPlayers.get(x).getMarried();
+						}
+						else if(space_number==39) {
+							System.out.println("Night school stop! What would you like to do?");
+							System.out.println("1: Keep current job");
+							System.out.println("2: Change career (costs 100K)");
+							int night_choice = keyboard.nextInt();
+							//keyboard.nextLine();
+							if (night_choice==2) {
+								listOfPlayers.get(x).walletBalance(100, "subtract");
+								listOfPlayers.get(x).changeCareer(collegeCareerCardList);
+								x = x-1; // current player gets another turn
+							}
+						}
+						else if(space_number==68) {
+							System.out.println("Family time! Choose family or life");
+						}
+						else if(space_number==78) {
+							System.out.println("You're expecting! Spin the spinner to find out how many babies you're having!");
+							System.out.println("(1-3 = 0 kids. 4-6 = 1 kid. 7-8 = 2 kids. 9-10 = 3 kids.)");
+							keyboard.nextLine();
+							spinner.spinSpinner();
+							int spinNum = spinner.getNumber();
+							if (spinNum>=4 && spinNum<=6) {
+								listOfPlayers.get(x).addChildren(1);
+								System.out.println("Congrats! You had 1 kid.");
+							}
+							else if (spinNum==7 || spinNum==8) {
+								listOfPlayers.get(x).addChildren(2);
+								System.out.println("Congrats! You had 2 kids.");
+							}
+							else if (spinNum==9 || spinNum==10) {
+								listOfPlayers.get(x).addChildren(3);
+								System.out.println("Congrats! You had 3 kids.");
+							}
+							else System.out.println("No kids this time!");
+						}
+						else if(space_number==95) System.out.println("Time to relax!");
 						break;
 					}
 					
 					// Print spaces over which player travels
 					if(y!=(moves-1)) {
 						System.out.println(current_player+" moves past "+space_type+" on space "+current_space);
+						if (space_type.contains("PAYDAY")) {
+							int currentSalary = listOfPlayers.get(x).getSalary();
+							listOfPlayers.get(x).walletBalance(currentSalary, "add");
+							System.out.println(listOfPlayers.get(x).getName()+" receives salary of "+currentSalary+"K");
+							System.out.println(listOfPlayers.get(x).getName()+"'s updated balance is: "+listOfPlayers.get(x).getBalanceWallet()+"K");
+						}
 					}
 					
 					// Print space on which player lands and take appropriate action
@@ -102,15 +154,23 @@ public class Main {
 										   ActionCards.chooseActionCard(actionCardList, listOfPlayers.get(x), listOfPlayers);
 										   break;
 							case "PAYDAY": System.out.println("Payday!");
+										   int currentSalary = listOfPlayers.get(x).getSalary();
+										   listOfPlayers.get(x).walletBalance(currentSalary, "add");
+										   listOfPlayers.get(x).walletBalance(100, "add");
+										   System.out.println(listOfPlayers.get(x).getName()+" receives salary of "+currentSalary+"K plus bonus of 100K");
+										   System.out.println(listOfPlayers.get(x).getName()+"'s updated balance is: "+listOfPlayers.get(x).getBalanceWallet()+"K");
 										   break;
-							case "HOUSE": System.out.println("Draw house cards!");
+							case "HOUSE": //System.out.println("Draw house cards!");
+										  System.out.println(current_player+", press enter to draw a house card!");
+										  keyboard.nextLine();
+										  //HouseCards.chooseHouseCard(houseCardList, listOfPlayers.get(x), listOfPlayers);
 										  break;
-							case "TWINS": System.out.println("Congrats, twins!");
+							case "TWINS": System.out.println("Congrats, you had twins!");
 										  listOfPlayers.get(x).addChildren(2);
 										  break;
 							case "HOLIDAY":	System.out.println("Holiday time!");
 											break;
-							case "BABY": System.out.println("Congrats, baby!");
+							case "BABY": System.out.println("Congrats, you had a baby!");
 							  			 listOfPlayers.get(x).addChildren(1);
 							             break;
 							case "SPIN_TO_WIN":	System.out.println("Spin to Win!");

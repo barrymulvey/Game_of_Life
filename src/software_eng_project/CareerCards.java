@@ -64,7 +64,7 @@ public static CareerCards chooseCareerCards(ArrayList<CareerCards> cardList) {
 		//System.out.println("Card chosen is " + i);
 		//System.out.println("Card chosen is " + cardList.get(i).getName());
 
-		// only choose one for now
+		// choose a card
 		return cardList.get(i);
 
 	}
