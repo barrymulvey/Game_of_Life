@@ -61,7 +61,7 @@ public abstract class ActionCards {
 	return cardList;
 	}
 	
-	public static void doAction(String cardChosen, Player player, ArrayList<Player> listOfPlayers) {
+	public static void doAction(String cardChosen, Player player, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList) {
 		
 		// Player receives money from bank (add money)
 		if (cardChosen.contains("Receive")) {
@@ -105,44 +105,48 @@ public abstract class ActionCards {
 		
 		// Player chooses another player and gets money off them
 		if (cardChosen.contains("Players pay")) {
-
+			ArrayList<Player> tempPlayerList = new ArrayList<>();
+			int numOfPlayers = listOfPlayers.size();
+			
+			for (int p=0;p<numOfPlayers;p++) {
+				if (!listOfPlayers.get(p).getName().equals(player.getName())) {
+					Player playerToAdd = listOfPlayers.get(p);
+					tempPlayerList.add(playerToAdd);
+				}
+			}
+			
 			Scanner keyboard = new Scanner(System.in);
 			System.out.println("Choose a player! (Enter number)");
 				
-			// print list of players without current player
-			int index = listOfPlayers.indexOf(player);
-			listOfPlayers.remove(index);
-			
-			for(int x=1;x<=listOfPlayers.size();x++) {
-				System.out.println(x+": "+listOfPlayers.get(x-1).getName());				
+			for(int x=1;x<=tempPlayerList.size();x++) {
+				System.out.println(x+": "+tempPlayerList.get(x-1).getName());				
 			}
 			
-			listOfPlayers.add(player);
+			//listOfPlayers.add(player);
 			
 			// read in chosen player to pay money
 			int chosenPlayer = keyboard.nextInt();
 			//keyboard.close();
-			System.out.println("Chosen player is: "+listOfPlayers.get(chosenPlayer-1).getName());
+			System.out.println("Chosen player is: "+tempPlayerList.get(chosenPlayer-1).getName());
 			
 			// receive money
-			System.out.println(listOfPlayers.get(chosenPlayer-1).getName()+" pay "+player.getName()+" 20K!");
+			System.out.println(tempPlayerList.get(chosenPlayer-1).getName()+" pay "+player.getName()+" 20K!");
 			player.walletBalance(20, "add");
 			// pay money
-			listOfPlayers.get(chosenPlayer-1).walletBalance(20, "subtract");
+			tempPlayerList.get(chosenPlayer-1).walletBalance(20, "subtract");
 			
 			System.out.println(player.getName()+"'s updated balance is: "+player.getBalanceWallet()+"K");
-			System.out.println(listOfPlayers.get(chosenPlayer-1).getName()+"'s updated balance is: "+listOfPlayers.get(chosenPlayer-1).getBalanceWallet()+"K");
+			System.out.println(tempPlayerList.get(chosenPlayer-1).getName()+"'s updated balance is: "+tempPlayerList.get(chosenPlayer-1).getBalanceWallet()+"K");
 			
 		}
 		if (cardChosen.contains("Career Change")) {
 			System.out.println("Career change!");
-			//player.changeCareer(CareerCards.getListOfCards("careers_file"));
-			//player.changeCareer(collegeCareerCardList);
+			player.changeCareer(collegeCareerCardList);
 		}
 		
 	}
 	
-	public static ArrayList<String> chooseActionCard (ArrayList<String> cardList, Player player, ArrayList<Player> listOfPlayers) {
+	public static ArrayList<String> chooseActionCard (ArrayList<String> cardList, Player player, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList) {
         // Choose a card at random between 0 and 54
         int size = cardList.size();
 		Random rand = new Random();
@@ -156,7 +160,7 @@ public abstract class ActionCards {
     	
     	// increment_number of action cards held by person
     	player.increment_num_action_cards();
-    	ActionCards.doAction(cardChosen, player, listOfPlayers);
+    	ActionCards.doAction(cardChosen, player, listOfPlayers, collegeCareerCardList);
         
     	// Remove card and print updated deck
     	cardList.remove(i);
