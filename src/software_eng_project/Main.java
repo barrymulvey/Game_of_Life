@@ -174,6 +174,37 @@ public class Main {
 							  			 listOfPlayers.get(x).addChildren(1);
 							             break;
 							case "SPIN_TO_WIN":	System.out.println("Spin to Win!");
+												//int[] spinChoice;
+												int[] spinChoice = new int[listOfPlayers.size()+1];
+												System.out.println(current_player+", enter a number: ");
+												spinChoice[0] = keyboard.nextInt();
+												System.out.println(current_player+", enter another number: ");
+												spinChoice[1] = keyboard.nextInt();
+												int  j=2;
+												
+												for (int i=0;i<listOfPlayers.size();i++) {
+													if (!listOfPlayers.get(i).getName().equals(current_player)) {
+														System.out.println(current_player+", enter a different number: ");
+														spinChoice[j] = keyboard.nextInt();
+														j++;
+													}
+												}
+												
+												System.out.println("The numbers chosen are: ");
+												for (j=0;j<listOfPlayers.size()+1;j++) {
+													System.out.println(spinChoice[j]+" - ");
+												}
+												
+												int spinWinNum = spinner.getNumber();
+												System.out.println("The number spun is: "+spinWinNum);
+												for (j=0;j<listOfPlayers.size()+1;j++) {
+													if (spinChoice[j]==spinWinNum) {
+														System.out.println("Number matches");
+													}
+													else System.out.println("Number does not match");
+												}
+												
+												
 												break;
 							case "RETIREMENT": System.out.println("You made it, retirement!");
 											   break;
