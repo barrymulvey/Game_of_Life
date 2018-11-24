@@ -29,6 +29,7 @@ public class InitialiseGame {
 		carColour.add("Green");
 		carColour.add("Yellow");
 		//String userColour = null;
+		ArrayList<Player> first_listOfPlayers = new ArrayList<Player>();
 		ArrayList<Player> listOfPlayers = new ArrayList<Player>();
 		
 		// Ascertain how many players there are
@@ -46,8 +47,30 @@ public class InitialiseGame {
 			String chosenColour = player1.getColour();
 			carColour.remove(chosenColour);
 			
-			listOfPlayers.add(player1);
+			// add players as info is entered
+			first_listOfPlayers.add(player1);
+		}
+		
+		// arrange players in correct order (youngest goes first!)
+		// at the moment, nothing to decide who goes first out of two people with same age!
+		Player youngestPlayer = null;
+		int playerListSize = first_listOfPlayers.size();
+		
+		while (playerListSize > 1) {
+			int youngest = first_listOfPlayers.get(0).getAge();
+			for(int y=0;y<first_listOfPlayers.size(); y++) {
+				if (first_listOfPlayers.get(y).getAge() <= youngest) {
+					youngest = first_listOfPlayers.get(y).getAge();
+					youngestPlayer = first_listOfPlayers.get(y);
+				}
 			}
+			listOfPlayers.add(youngestPlayer);
+			first_listOfPlayers.remove(youngestPlayer);
+			playerListSize = first_listOfPlayers.size();
+		}
+		// add last player
+		listOfPlayers.add(first_listOfPlayers.get(0));
+		
 		
 		// print out player details
 		for (int x=0; x<listOfPlayers.size(); x++) {

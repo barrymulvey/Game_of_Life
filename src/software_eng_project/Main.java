@@ -47,7 +47,7 @@ public class Main {
 		// initialise string to hold space type
 		String output_space_type = null;
 
-		
+		System.out.println("Start the game! (Youngest goes first)");
 		for (int num_turns=0;num_turns<30;num_turns++) { 				// for 30 turns
 			for (int x=0;x<listOfPlayers.size();x++) {
 				String current_player=listOfPlayers.get(x).getName();
@@ -90,16 +90,22 @@ public class Main {
 					if(space_type.contains("STOP")) { // Player lands on stop (if not starting space!)
 						System.out.println("Stop! You reached a stop space (space "+current_space+")\n");
 						
-						if(space_number==14) {
-							System.out.println("Happy graduation!");
+						//if(space_number==14) {
+						if(space_type.contains("GRADUATION")) {
+						    System.out.println("Happy graduation!");
 							listOfPlayers.get(x).changeCareer(collegeCareerCardList);
 						}
-						else if(space_number==27) {
-							System.out.println("Wedding bells!");
-							listOfPlayers.get(x).getMarried();
+						//else if(space_number==27) {
+						else if(space_type.contains("WEDDING")) {
+						    System.out.println("Wedding bells!");
+							listOfPlayers.get(x).getMarried(listOfPlayers, listOfPlayers.get(x), spinner);
+							// Player gets another turn
+							x = x-1;
+							break;
 						}
-						else if(space_number==39) {
-							System.out.println("Night school stop! What would you like to do?");
+						//else if(space_number==39) {
+						else if(space_type.contains("NIGHTSCHOOL")) {
+						    System.out.println("Night school stop! What would you like to do?");
 							System.out.println("1: Keep current job");
 							System.out.println("2: Change career (costs 100K)");
 							int night_choice = keyboard.nextInt();
@@ -110,10 +116,12 @@ public class Main {
 								x = x-1; // current player gets another turn
 							}
 						}
-						else if(space_number==68) {
+						//else if(space_number==68) {
+						else if(space_type.contains("FAMILYORLIFE")) {
 							System.out.println("Family time! Choose family or life");
 						}
-						else if(space_number==78) {
+						//else if(space_number==78) {
+						else if(space_type.contains("CHILDREN")) {
 							System.out.println("You're expecting! Spin the spinner to find out how many babies you're having!");
 							System.out.println("(1-3 = 0 kids. 4-6 = 1 kid. 7-8 = 2 kids. 9-10 = 3 kids.)");
 							keyboard.nextLine();
@@ -133,7 +141,8 @@ public class Main {
 							}
 							else System.out.println("No kids this time!");
 						}
-						else if(space_number==95) System.out.println("Holiday - time to relax!");
+						//else if(space_number==95) System.out.println("Holiday - time to relax!");
+						else if(space_type.contains("HOLIDAY"))
 						break;
 					}
 					

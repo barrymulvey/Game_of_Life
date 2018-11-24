@@ -158,8 +158,48 @@ public class Player {
 	public void numLoans(int number_loans) {
 		num_loans = num_loans + number_loans;
 	}
-	public void getMarried() {
+	
+	public void getMarried(ArrayList<Player> listOfPlayers, Player current_player, Spinner spinner) {
 		spouse = "Married";
+
+		// create list of players excluding current player
+		int numOfPlayers = listOfPlayers.size();
+		ArrayList<Player> temporaryPlayerList = new ArrayList<Player>();
+		for (int p=0;p<numOfPlayers;p++) {
+			if (!listOfPlayers.get(p).getName().equals(current_player.getName())) {
+				Player playerToAdd = listOfPlayers.get(p);
+				temporaryPlayerList.add(playerToAdd);
+			}
+		}
+		
+
+		System.out.println("\nTime to organise wedding gifts!");
+		// players pay married player 50K/100K depending on spin
+		for(int x = 0; x<temporaryPlayerList.size();x++) {
+			// spin spinner and print results
+			System.out.println(temporaryPlayerList.get(x).getName()+", press enter to spin the spinner!");
+			Scanner keyboard = new Scanner(System.in);
+			keyboard.nextLine();
+			
+			spinner.spinSpinner();
+			int spinNumber = spinner.getNumber();
+			System.out.println("Spin value: "+spinNumber+"\nColour: "+spinner.getColour());
+			
+			// if even, pay married person 50K
+			if(spinNumber/2 == 0) {
+				System.out.println(temporaryPlayerList.get(x).getName()+" give a wedding gift of 50K to "+current_player.getName()+"!");
+				temporaryPlayerList.get(x).walletBalance(50, "subtract");
+				current_player.walletBalance(50, "add");				
+			}
+			// if odd, pay married person 100K
+			else {
+				System.out.println(temporaryPlayerList.get(x).getName()+" give a wedding gift of 100K to "+current_player.getName()+"!");
+				temporaryPlayerList.get(x).walletBalance(100, "subtract");
+				current_player.walletBalance(100, "add");	
+			}
+		}
+		
+		
 	}
 
 	public String getMaritalStatus() {
