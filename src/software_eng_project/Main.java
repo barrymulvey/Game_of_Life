@@ -46,11 +46,7 @@ public class Main {
 		
 		// initialise string to hold space type
 		String output_space_type = null;
-		
-		ArrayList<Integer> spinnerList=new ArrayList<>();
-		for (int y=1;y<=10;y++) {
-			spinnerList.add(y);
-		}
+
 		
 		for (int num_turns=0;num_turns<30;num_turns++) { 				// for 30 turns
 			for (int x=0;x<listOfPlayers.size();x++) {
@@ -186,6 +182,10 @@ public class Main {
 												String[] playerSpinList = new String[listOfPlayers.size()+1];
 												ArrayList<Player> temporaryPlayerList = new ArrayList<Player>();
 												
+												ArrayList<Integer> spinnerList=new ArrayList<>();
+												for (int q=1;q<=10;q++) {
+													spinnerList.add(q);
+												}
 												// Current player picks two numbers
 												for (int w=0;w<=1;w++) {
 													System.out.println("Numbers available: "+spinnerList);
@@ -204,7 +204,7 @@ public class Main {
 												
 												
 												int numOfPlayers = listOfPlayers.size();
-												
+												// create list of players excluding current player
 												for (int p=0;p<numOfPlayers;p++) {
 													if (!listOfPlayers.get(p).getName().equals(current_player)) {
 														Player playerToAdd = listOfPlayers.get(p);
@@ -214,9 +214,8 @@ public class Main {
 												
 												
 												int count = 0;
-												
 												// Other players pick one number each
-												for (int w=2;w<=listOfPlayers.size()+1;w++) {
+												for (int w=2;w<listOfPlayers.size()+1;w++) {
 													System.out.println("Numbers available: "+spinnerList);
 													System.out.println(temporaryPlayerList.get(count).getName()+", enter a number from the list: ");
 													int numChosen = keyboard.nextInt();
@@ -237,13 +236,31 @@ public class Main {
 													System.out.println(spinChoice[w]+" - ");
 												}
 												
-												int spinWinNum = spinner.getNumber();
-												System.out.println("The number spun is: "+spinWinNum);
-												for (int w=0;w<listOfPlayers.size()+1;w++) {
-													if (spinChoice[w]==spinWinNum) {
-														System.out.println("Number matches");
+												Player winningPlayer = null;
+												boolean winner = false;
+												while (winner == false) {	
+													spinner.spinSpinner();
+													int spinWinNum = spinner.getNumber();
+													System.out.println(current_player+", press enter to spin the spinner!");
+													keyboard.nextLine();
+													System.out.println("The number spun is: "+spinWinNum);
+													for (int w=0;w<listOfPlayers.size()+1;w++) {
+														if (spinChoice[w]==spinWinNum) {
+															System.out.println("Number matches! "+playerSpinList[w]+" wins!");
+															
+															for(int i = 0; i<listOfPlayers.size(); i++) {
+																if (playerSpinList[w].equals(listOfPlayers.get(i).getName())) {
+																	winningPlayer = listOfPlayers.get(i);
+																}
+															}
+															
+															winningPlayer.walletBalance(200, "add");
+															System.out.println(playerSpinList[w]+"'s updated balance is: "+winningPlayer.getBalanceWallet()+"K");
+												            winner = true;
+															break;
+														}
+														//else System.out.println("Number does not match");
 													}
-													else System.out.println("Number does not match");
 												}
 												
 												
