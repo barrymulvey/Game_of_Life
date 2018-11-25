@@ -242,7 +242,7 @@ public class Main {
 												
 												System.out.println("The numbers chosen are: ");
 												for (int w=0;w<listOfPlayers.size()+1;w++) {
-													System.out.println(spinChoice[w]+" - ");
+													System.out.println(playerSpinList[w]+": "+spinChoice[w]);
 												}
 												
 												Player winningPlayer = null;
@@ -255,7 +255,7 @@ public class Main {
 													System.out.println("The number spun is: "+spinWinNum);
 													for (int w=0;w<listOfPlayers.size()+1;w++) {
 														if (spinChoice[w]==spinWinNum) {
-															System.out.println("Number matches! "+playerSpinList[w]+" wins!");
+															System.out.println("Number matches! "+playerSpinList[w]+" wins 200K!");
 															
 															for(int i = 0; i<listOfPlayers.size(); i++) {
 																if (playerSpinList[w].equals(listOfPlayers.get(i).getName())) {
@@ -280,6 +280,9 @@ public class Main {
 						}	
 					}
 				}
+				
+				System.out.println("\n"+current_player+"'s updated details summary: ");
+				listOfPlayers.get(x).printDetailsSummary();
 
 
 				//System.out.println(current_player+", press enter to end your turn.");

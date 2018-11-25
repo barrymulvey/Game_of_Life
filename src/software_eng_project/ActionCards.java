@@ -159,7 +159,7 @@ public abstract class ActionCards {
     	
     	
     	// increment_number of action cards held by person
-    	player.increment_num_action_cards();
+    	player.addActionCard();
     	ActionCards.doAction(cardChosen, player, listOfPlayers, collegeCareerCardList);
         
     	// Remove card and print updated deck

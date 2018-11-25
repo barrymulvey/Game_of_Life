@@ -15,7 +15,7 @@ public class Player {
 	private CareerCards career;
 	private String house;
 	private String current_space;
-	private int num_action_cards;
+	private int numActionCards;
 
 	public Player(String name, int age, double money, String colour, String path){
 		this.name = name;
@@ -31,7 +31,7 @@ public class Player {
 		this.career = null;
 		this.house = null;
 		this.current_space = "0";
-		this.num_action_cards = 0;
+		this.numActionCards = 0;
 	}
 
 	public Player() {
@@ -39,7 +39,7 @@ public class Player {
 	}
 
 	public Player initialisePlayer(ArrayList<String> carColour, ArrayList<CareerCards> listOfCards) { // initialise players
-		double startingSalary = 100.0;
+		double startingSalary = 200.0;
 		// 25th October
 
 		//String userColour = null;
@@ -79,7 +79,8 @@ public class Player {
 			colour=null;
 		}
 
-		System.out.println(playerName+", choose College (L) or Career (R): ");
+		System.out.println(playerName+", choose your life path!");
+		System.out.println("Enter L for College Path (costs 100K) or R for Career Path: ");
 		String lifeDecision = keyboard.next();
 		if(lifeDecision.equals("L")||lifeDecision.equals("l")) {
 			lifeDecision = "College";
@@ -91,6 +92,7 @@ public class Player {
 		Player player1 = new Player(playerName, playerAge, startingSalary, colour, lifeDecision);
 		//keyboard.close();
 		if(lifeDecision.equals("College")) {
+			player1.walletBalance(100, "subtract");
 			player1.current_space = "4";
 		}
 		else if(lifeDecision.equals("Career")) {
@@ -186,7 +188,7 @@ public class Player {
 			System.out.println("Spin value: "+spinNumber+"\nColour: "+spinner.getColour());
 			
 			// if even, pay married person 50K
-			if(spinNumber/2 == 0) {
+			if(spinNumber%2 == 0) {
 				System.out.println(temporaryPlayerList.get(x).getName()+" give a wedding gift of 50K to "+current_player.getName()+"!");
 				temporaryPlayerList.get(x).walletBalance(50, "subtract");
 				current_player.walletBalance(50, "add");				
@@ -247,11 +249,11 @@ public class Player {
 	public String getCurrentSpace() {
 		return current_space;
 	}
-	public void increment_num_action_cards() {
-		num_action_cards = num_action_cards + 1;
+	public void addActionCard() {
+		numActionCards = numActionCards + 1;
 	}
 	public int getNumActionCards() {
-		return num_action_cards;
+		return numActionCards;
 	}
 	protected void printDetails(){
 		if (this.getPath().equals("College")) {
@@ -262,6 +264,19 @@ public class Player {
 		else {
 			System.out.println("*** *** *** *** *** *** *** ***");
 			System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
+			System.out.println("*** *** *** *** *** *** *** ***");	
+		}
+				
+	}
+	protected void printDetailsSummary(){
+		if (this.getPath().equals("College")) {
+			System.out.println("*** *** *** *** *** *** *** ***");
+			System.out.println("Wallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: Student"+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
+			System.out.println("*** *** *** *** *** *** *** ***");	
+		}
+		else {
+			System.out.println("*** *** *** *** *** *** *** ***");
+			System.out.println("Wallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
 			System.out.println("*** *** *** *** *** *** *** ***");	
 		}
 				
