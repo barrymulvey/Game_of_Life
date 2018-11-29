@@ -54,6 +54,10 @@ public class Main {
 				// Next player's turn
 				System.out.println("\n"+current_player+"'s turn");
 				
+				while (listOfPlayers.get(x).getBalance() <= 0) {
+					listOfPlayers.get(x).takeLoan();
+				}
+				
 				// spin spinner and print results
 				System.out.println(current_player+", press enter to spin the spinner!");
 				keyboard.nextLine();
@@ -111,6 +115,9 @@ public class Main {
 							int night_choice = keyboard.nextInt();
 							//keyboard.nextLine();
 							if (night_choice==2) {
+								while (listOfPlayers.get(x).getBalance() < 100) {
+									listOfPlayers.get(x).takeLoan();
+								}
 								listOfPlayers.get(x).walletBalance(100, "subtract");
 								listOfPlayers.get(x).changeCareer(collegeCareerCardList);
 								x = x-1; // current player gets another turn
@@ -155,7 +162,7 @@ public class Main {
 							int currentSalary = listOfPlayers.get(x).getSalary();
 							listOfPlayers.get(x).walletBalance(currentSalary, "add");
 							System.out.println(listOfPlayers.get(x).getName()+" receives salary of "+currentSalary+"K");
-							System.out.println(listOfPlayers.get(x).getName()+"'s updated balance is: "+listOfPlayers.get(x).getBalanceWallet()+"K");
+							System.out.println(listOfPlayers.get(x).getName()+"'s updated balance is: "+listOfPlayers.get(x).getBalance()+"K");
 						}
 					}
 					
@@ -172,7 +179,7 @@ public class Main {
 										   listOfPlayers.get(x).walletBalance(currentSalary, "add");
 										   listOfPlayers.get(x).walletBalance(100, "add");
 										   System.out.println(listOfPlayers.get(x).getName()+" receives salary of "+currentSalary+"K plus bonus of 100K");
-										   System.out.println(listOfPlayers.get(x).getName()+"'s updated balance is: "+listOfPlayers.get(x).getBalanceWallet()+"K");
+										   System.out.println(listOfPlayers.get(x).getName()+"'s updated balance is: "+listOfPlayers.get(x).getBalance()+"K");
 										   break;
 							case "HOUSE": //System.out.println("Draw house cards!");
 										  System.out.println(current_player+", press enter to draw a house card!");
@@ -266,7 +273,7 @@ public class Main {
 															}
 															
 															winningPlayer.walletBalance(200, "add");
-															System.out.println(playerSpinList[w]+"'s updated balance is: "+winningPlayer.getBalanceWallet()+"K");
+															System.out.println(playerSpinList[w]+"'s updated balance is: "+winningPlayer.getBalance()+"K");
 												            winner = true;
 															break;
 														}

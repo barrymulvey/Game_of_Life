@@ -63,44 +63,53 @@ public abstract class ActionCards {
 	
 	public static void doAction(String cardChosen, Player player, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList) {
 		
+		int getValue = 0;
 		// Player receives money from bank (add money)
 		if (cardChosen.contains("Receive")) {
 			if(cardChosen.contains("10")) {
-				player.walletBalance(10, "add");
+				getValue = 10;
 			}
 			else if(cardChosen.contains("20")) {
-				player.walletBalance(20, "add");
+				getValue = 20;
 			}
 			else if(cardChosen.contains("30")) {
-				player.walletBalance(30, "add");
+				getValue = 30;
 			}
 			else if(cardChosen.contains("40")) {
-				player.walletBalance(40, "add");
+				getValue = 40;
 			}
 			else if(cardChosen.contains("50")) {
-				player.walletBalance(50, "add");
+				getValue = 50;
 			}
-			System.out.println(player.getName()+"'s updated balance is: "+player.getBalanceWallet()+"K");
+			player.walletBalance(getValue, "add");
+			System.out.println(player.getName()+"'s updated balance is: "+player.getBalance()+"K");
 		}
 		
+		int payValue = 0;
 		// Player pays money to bank (subtract money)
 		if (cardChosen.contains("Pay bank")) {
 			if(cardChosen.contains("10")) {
-				player.walletBalance(10, "subtract");
+				payValue = 10;
 			}
 			else if(cardChosen.contains("20")) {
-				player.walletBalance(20, "subtract");
+				payValue = 20;
 			}
 			else if(cardChosen.contains("30")) {
-				player.walletBalance(30, "subtract");
+				payValue = 30;
 			}
 			else if(cardChosen.contains("40")) {
-				player.walletBalance(40, "subtract");
+				payValue = 40;
 			}
 			else if(cardChosen.contains("50")) {
-				player.walletBalance(50, "subtract");
+				payValue = 50;
 			}
-			System.out.println(player.getName()+"'s updated balance is: "+player.getBalanceWallet()+"K");
+			
+			while (player.getBalance() < 100) {
+				player.takeLoan();
+			}
+			player.walletBalance(payValue, "subtract");
+			
+			System.out.println(player.getName()+"'s updated balance is: "+player.getBalance()+"K");
 		}
 		
 		// Player chooses another player and gets money off them
@@ -131,12 +140,17 @@ public abstract class ActionCards {
 			
 			// receive money
 			System.out.println(tempPlayerList.get(chosenPlayer-1).getName()+" pay "+player.getName()+" 20K!");
+			
+			while (tempPlayerList.get(chosenPlayer-1).getBalance() < 20) {
+				tempPlayerList.get(chosenPlayer-1).takeLoan();
+			}
+			
 			player.walletBalance(20, "add");
 			// pay money
 			tempPlayerList.get(chosenPlayer-1).walletBalance(20, "subtract");
 			
-			System.out.println(player.getName()+"'s updated balance is: "+player.getBalanceWallet()+"K");
-			System.out.println(tempPlayerList.get(chosenPlayer-1).getName()+"'s updated balance is: "+tempPlayerList.get(chosenPlayer-1).getBalanceWallet()+"K");
+			System.out.println(player.getName()+"'s updated balance is: "+player.getBalance()+"K");
+			System.out.println(tempPlayerList.get(chosenPlayer-1).getName()+"'s updated balance is: "+tempPlayerList.get(chosenPlayer-1).getBalance()+"K");
 			
 		}
 		if (cardChosen.contains("Career Change")) {

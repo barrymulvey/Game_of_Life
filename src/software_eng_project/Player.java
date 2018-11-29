@@ -166,14 +166,19 @@ public class Player {
 	
 	
 	
-	public void numLoans(int number_loans) {
-		num_loans = num_loans + number_loans;
+	public void numLoans(int numberLoans) {
+		int loanValue = numberLoans*50;
+		this.walletBalance(loanValue, "add");
+		num_loans = num_loans + numberLoans;
 	}
 	
 	public void takeLoan() {
-		System.out.println("Balance too low! You need to take out loans...");
+		System.out.println(this.getName()+", your balance of "+this.getBalance()+" is too low! You need to take out loans...");
 		System.out.println("Each loan gives you 50K (but incurs 20% interest!)");
 		System.out.println("Enter the number of loans you would like to take out: ");
+		Scanner keyboard = new Scanner(System.in);
+		int numberLoans = keyboard.nextInt();
+		this.numLoans(numberLoans);
 	}
 	
 	public void getMarried(ArrayList<Player> listOfPlayers, Player current_player, Spinner spinner) {
@@ -202,18 +207,22 @@ public class Player {
 			int spinNumber = spinner.getNumber();
 			System.out.println("Spin value: "+spinNumber+"\nColour: "+spinner.getColour());
 			
+			int giftValue = 0;
+			
 			// if even, pay married person 50K
 			if(spinNumber%2 == 0) {
-				System.out.println(temporaryPlayerList.get(x).getName()+" give a wedding gift of 50K to "+current_player.getName()+"!");
-				temporaryPlayerList.get(x).walletBalance(50, "subtract");
-				current_player.walletBalance(50, "add");				
-			}
+				giftValue = 50;
+			}	
 			// if odd, pay married person 100K
 			else {
-				System.out.println(temporaryPlayerList.get(x).getName()+" give a wedding gift of 100K to "+current_player.getName()+"!");
-				temporaryPlayerList.get(x).walletBalance(100, "subtract");
-				current_player.walletBalance(100, "add");	
+				giftValue = 100;
 			}
+			while (current_player.getBalance() < giftValue) {
+				current_player.takeLoan();
+			}
+			System.out.println(temporaryPlayerList.get(x).getName()+" give a wedding gift of "+giftValue+"K to "+current_player.getName()+"!");
+			temporaryPlayerList.get(x).walletBalance(giftValue, "subtract");
+			current_player.walletBalance(giftValue, "add");	
 		}
 		
 		
@@ -231,7 +240,7 @@ public class Player {
 	public int getAge() {
 		return age;
 	}
-	public double getBalanceWallet() {
+	public double getBalance() {
 		return wallet;
 	}
 
@@ -278,7 +287,7 @@ public class Player {
 		}
 		else {*/
 			System.out.println("*** *** *** *** *** *** *** ***");
-			System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
+			System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalance()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
 			System.out.println("*** *** *** *** *** *** *** ***");	
 		//}
 				
@@ -291,7 +300,7 @@ public class Player {
 		}
 		else {*/
 			System.out.println("*** *** *** *** *** *** *** ***");
-			System.out.println("Wallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
+			System.out.println("Wallet Balance: " +getBalance()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
 			System.out.println("*** *** *** *** *** *** *** ***");	
 		//}
 				
