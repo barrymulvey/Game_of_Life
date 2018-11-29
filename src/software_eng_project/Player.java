@@ -94,6 +94,7 @@ public class Player {
 		if(lifeDecision.equals("College")) {
 			player1.walletBalance(100, "subtract");
 			player1.current_space = "4";
+			player1.getStudentCard();
 		}
 		else if(lifeDecision.equals("Career")) {
 			player1.current_space = "0";
@@ -157,8 +158,22 @@ public class Player {
 		//keyboard.close();
 	}
 	
+	public CareerCards getStudentCard() {
+		CareerCards careerCardObj = new CareerCards(null, "Student", 0, 0);
+		this.career = careerCardObj;
+		return careerCardObj;
+	}
+	
+	
+	
 	public void numLoans(int number_loans) {
 		num_loans = num_loans + number_loans;
+	}
+	
+	public void takeLoan() {
+		System.out.println("Balance too low! You need to take out loans...");
+		System.out.println("Each loan gives you 50K (but incurs 20% interest!)");
+		System.out.println("Enter the number of loans you would like to take out: ");
 	}
 	
 	public void getMarried(ArrayList<Player> listOfPlayers, Player current_player, Spinner spinner) {
@@ -256,29 +271,29 @@ public class Player {
 		return numActionCards;
 	}
 	protected void printDetails(){
-		if (this.getPath().equals("College")) {
+		/*if (this.getPath().equals("College")) {
 			System.out.println("*** *** *** *** *** *** *** ***");
 			System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: Student"+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
 			System.out.println("*** *** *** *** *** *** *** ***");	
 		}
-		else {
+		else {*/
 			System.out.println("*** *** *** *** *** *** *** ***");
 			System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
 			System.out.println("*** *** *** *** *** *** *** ***");	
-		}
+		//}
 				
 	}
 	protected void printDetailsSummary(){
-		if (this.getPath().equals("College")) {
+		/*if (this.getPath().equals("College")) {
 			System.out.println("*** *** *** *** *** *** *** ***");
 			System.out.println("Wallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: Student"+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
 			System.out.println("*** *** *** *** *** *** *** ***");	
 		}
-		else {
+		else {*/
 			System.out.println("*** *** *** *** *** *** *** ***");
 			System.out.println("Wallet Balance: " +getBalanceWallet()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
 			System.out.println("*** *** *** *** *** *** *** ***");	
-		}
+		//}
 				
 	}
 

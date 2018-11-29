@@ -142,7 +142,9 @@ public class Main {
 							else System.out.println("No kids this time!");
 						}
 						//else if(space_number==95) System.out.println("Holiday - time to relax!");
-						else if(space_type.contains("HOLIDAY"))
+						else if(space_type.contains("HOLIDAY")) {
+							break;
+						}
 						break;
 					}
 					
@@ -159,7 +161,7 @@ public class Main {
 					
 					// Print space on which player lands and take appropriate action
 					if (y==moves-1) {
-						System.out.println(current_player+" lands on "+space_type+" on space "+current_space);
+						System.out.println(current_player+" stopped on "+space_type+" on space "+current_space);
 						switch(space_type) {
 							case "ACTION": System.out.println(current_player+", press enter to draw an action card!");
 										   keyboard.nextLine();
