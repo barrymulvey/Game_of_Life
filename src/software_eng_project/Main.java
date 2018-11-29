@@ -26,7 +26,8 @@ public class Main {
 		// create list of players and initialise
 		ArrayList<Player> listOfPlayers = new ArrayList<Player>();
 		listOfPlayers = InitialiseGame.initialisePawns(careerCardList);
-
+		ArrayList<Player> retiredList = new ArrayList<Player>();
+		
 		// initialise college career card deck
 		ArrayList<CareerCards> collegeCareerCardList = new ArrayList<CareerCards>();
 		collegeCareerCardList = InitialiseGame.initialiseCareerCardDeck("college_careers_file");
@@ -48,7 +49,7 @@ public class Main {
 		String output_space_type = null;
 
 		System.out.println("Start the game! (Youngest goes first)");
-		for (int num_turns=0;num_turns<30;num_turns++) { 				// for 30 turns
+		while(listOfPlayers.size() > 0) { 				// until all players retire
 			for (int x=0;x<listOfPlayers.size();x++) {
 				String current_player=listOfPlayers.get(x).getName();
 				// Next player's turn
@@ -76,15 +77,16 @@ public class Main {
 					// ask user if there is a choice!
 					
 				    // move the player
-				    if(next_space_choices.size() > 1) {
-						System.out.println("Choose Path: " + next_space_choices.get(0) + " or " + next_space_choices.get(1));
-						int next_space_int = keyboard.nextInt();
-						next_space = Integer.toString(next_space_int);
-					} else {
-						next_space = next_space_choices.get(0);
+					if(!(boardSpacesList.get(Integer.parseInt(current_space)).getSpaceType().contains("RETIREMENT"))) {
+					    if(next_space_choices.size() > 1 && !(current_space == "68")) {
+							System.out.println("Choose Path: " + next_space_choices.get(0) + " or " + next_space_choices.get(1));
+							int next_space_int = keyboard.nextInt();
+							next_space = Integer.toString(next_space_int);
+						} else {
+							next_space = next_space_choices.get(0);
+						}
+						listOfPlayers.get(x).movePlayer(next_space);
 					}
-					listOfPlayers.get(x).movePlayer(next_space);
-					
 					// add in exception here! do an else: space_type = null;
 					String space_type = null;
 					current_space = listOfPlayers.get(x).getCurrentSpace();
@@ -126,6 +128,7 @@ public class Main {
 						//else if(space_number==68) {
 						else if(space_type.contains("FAMILYORLIFE")) {
 							System.out.println("Family time! Choose family or life");
+							ChoosePath.selectPath(boardSpacesList.get(space_number), "Family", "Life", listOfPlayers.get(x));
 						}
 						//else if(space_number==78) {
 						else if(space_type.contains("CHILDREN")) {
@@ -284,6 +287,8 @@ public class Main {
 												
 												break;
 							case "RETIREMENT": System.out.println("You made it, retirement!");
+											   retiredList.add(listOfPlayers.get(x));
+											   listOfPlayers.remove(x);
 											   break;
 						    default: output_space_type = null;
 						}	
@@ -291,7 +296,7 @@ public class Main {
 				}
 				
 				System.out.println("\n"+current_player+"'s updated details summary: ");
-				listOfPlayers.get(x).printDetailsSummary();
+				//listOfPlayers.get(x).printDetailsSummary();
 
 
 				//System.out.println(current_player+", press enter to end your turn.");
@@ -300,6 +305,12 @@ public class Main {
 			}
 
 		}
+	
+		// retire players
+		//update wallet- evaluate assets
+		Player.playersRetire(retiredList);
+		Player.determineWinner(retiredList);
+		
 		System.out.println("\nEnd of game!");
 
 		keyboard.close();
