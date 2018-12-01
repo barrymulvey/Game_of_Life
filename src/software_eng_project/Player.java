@@ -1,6 +1,7 @@
 package software_eng_project;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Player {
@@ -13,7 +14,9 @@ public class Player {
 	private String spouse;
 	private String path;
 	private CareerCards career;
-	private String house;
+	private ArrayList<HouseCards> houses;
+	//private ArrayList<String> houseList;
+	private List<String> houseList = new ArrayList<String>();
 	private String current_space;
 	private int numActionCards;
 
@@ -29,7 +32,8 @@ public class Player {
 		this.num_loans = 0;		
 		this.spouse = "Single";
 		this.career = null;
-		this.house = null;
+		this.houses = new ArrayList<HouseCards>();
+		this.houseList = new ArrayList<String>();
 		this.current_space = "0";
 		this.numActionCards = 0;
 	}
@@ -39,7 +43,7 @@ public class Player {
 	}
 
 	public Player initialisePlayer(ArrayList<String> carColour, ArrayList<CareerCards> listOfCards) { // initialise players
-		double startingSalary = 200.0;
+		int startingSalary = 200;
 		// 25th October
 
 		//String userColour = null;
@@ -51,8 +55,10 @@ public class Player {
 
 		System.out.println("Enter age of "+playerName+": ");
 		int playerAge = keyboard.nextInt();
+		
+		String carColourString = carColour.toString().replace("[","").replace("]","");
 
-		System.out.println("Enter colour of car for "+playerName+". Car colours still available: "+carColour);
+		System.out.println("Enter colour of car for "+playerName+". Car colours still available: "+carColourString);
 		System.out.println("Enter first letter of colour to select: ");
 		String carCol = keyboard.next();
 		//System.out.println(carCol);
@@ -121,11 +127,27 @@ public class Player {
 	public void movePlayer(String next_space) {
 		current_space = next_space;
 	}
-
-	public void typeHouse(HouseCards houseChoice) {
-		house = houseChoice.getName();
+	
+	public void addHouse(HouseCards newHouse) {
+		this.houses.add(newHouse);
+		this.houseList.add(newHouse.getName());
 	}
-
+	
+	public void removeHouse(HouseCards houseChosen) {
+		this.houses.remove(houseChosen);
+		this.houseList.remove(houseChosen.getName());
+	}
+	
+	public ArrayList<HouseCards> getHouses() {
+		return houses;
+	}
+	
+	public String getHouseList() {
+		String houseListString = houseList.toString().replace("[","").replace("]","");
+		return houseListString;
+	}
+	
+	
 	// Change Career
 	public void changeCareer(ArrayList<CareerCards> listOfCards) {
 		// choose 2 career cards
@@ -173,7 +195,7 @@ public class Player {
 	}
 
 	public void takeLoan() {
-		System.out.println(this.getName()+", your balance of "+this.getBalance()+" is too low! You need to take out loans...");
+		System.out.println(this.getName()+", your balance of "+this.getBalance()+"K is too low! You need to take out loans...");
 		System.out.println("Each loan gives you 50K (but incurs 20% interest!)");
 		System.out.println("Enter the number of loans you would like to take out: ");
 		Scanner keyboard = new Scanner(System.in);
@@ -328,9 +350,6 @@ public class Player {
 	public int getBonus() {
 		return career.getValue2();
 	}
-	public String getHouse() {
-		return house;
-	}
 	public String getCurrentSpace() {
 		return current_space;
 	}
@@ -345,13 +364,13 @@ public class Player {
 	}
 	protected void printDetails(){
 		System.out.println("*** *** *** *** *** *** *** ***");
-		System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalance()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
+		System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalance()+"K\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouses: "+getHouseList()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
 		System.out.println("*** *** *** *** *** *** *** ***");	
 
 	}
 	protected void printDetailsSummary(){
 		System.out.println("*** *** *** *** *** *** *** ***");
-		System.out.println("Wallet Balance: " +getBalance()+"\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouse: "+getHouse()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
+		System.out.println("Wallet Balance: "+getBalance()+"K\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouses: "+getHouseList()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
 		System.out.println("*** *** *** *** *** *** *** ***");	
 
 	}

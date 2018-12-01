@@ -103,11 +103,12 @@ public class Main {
 						}
 						//else if(space_number==27) {
 						else if(space_type.contains("WEDDING")) {
-						    System.out.println("Wedding bells!");
+						    break;/*
+							System.out.println("Wedding bells!");
 							listOfPlayers.get(x).getMarried(listOfPlayers, listOfPlayers.get(x), spinner);
 							// Player gets another turn
 							x = x-1;
-							break;
+							break;*/
 						}
 						//else if(space_number==39) {
 						else if(space_type.contains("NIGHTSCHOOL")) {
@@ -185,8 +186,25 @@ public class Main {
 										   System.out.println(listOfPlayers.get(x).getName()+"'s updated balance is: "+listOfPlayers.get(x).getBalance()+"K");
 										   break;
 							case "HOUSE": //System.out.println("Draw house cards!");
-										  System.out.println(current_player+", press enter to draw a house card!");
-										  keyboard.nextLine();
+										  System.out.println("\nProperty time!");
+										  System.out.println("Enter 1 to buy a house");
+										  System.out.println("Enter 2 to sell a house");
+										  System.out.println("Enter 3 to do nothing");
+										  System.out.println("Choose what you would like to do: ");
+										  int houseChoice = keyboard.nextInt();
+										  
+										  if (houseChoice == 1) {
+											  System.out.println(current_player+", press enter to draw 2 house cards!");
+											  keyboard.nextLine();
+											  HouseCards.buyHouse(houseCardList, listOfPlayers.get(x));
+										  }
+										  else if (houseChoice == 2) {
+											  HouseCards.sellHouse(houseCardList, listOfPlayers.get(x));
+										  }
+										  else {
+											  break;
+										  }
+
 										  //HouseCards.chooseHouseCard(houseCardList, listOfPlayers.get(x), listOfPlayers);
 										  break;
 							case "TWINS": System.out.println("Congrats, you had twins!");
@@ -296,7 +314,7 @@ public class Main {
 				}
 				
 				System.out.println("\n"+current_player+"'s updated details summary: ");
-				//listOfPlayers.get(x).printDetailsSummary();
+				listOfPlayers.get(x).printDetailsSummary();
 
 
 				//System.out.println(current_player+", press enter to end your turn.");

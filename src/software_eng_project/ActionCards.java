@@ -104,7 +104,7 @@ public abstract class ActionCards {
 				payValue = 50;
 			}
 			
-			while (player.getBalance() < 100) {
+			while (player.getBalance() < payValue) {
 				player.takeLoan();
 			}
 			player.walletBalance(payValue, "subtract");
