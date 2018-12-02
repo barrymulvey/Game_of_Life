@@ -98,63 +98,27 @@ public class Main {
 						
 						//if(space_number==14) {
 						if(space_type.contains("GRADUATION")) {
-						    System.out.println("Happy graduation!");
-							listOfPlayers.get(x).changeCareer(collegeCareerCardList);
+						    StopSpace.graduation(listOfPlayers.get(x), collegeCareerCardList);
 						}
 						//else if(space_number==27) {
 						else if(space_type.contains("WEDDING")) {
-						    break;/*
-							System.out.println("Wedding bells!");
-							listOfPlayers.get(x).getMarried(listOfPlayers, listOfPlayers.get(x), spinner);
-							// Player gets another turn
-							x = x-1;
-							break;*/
+							StopSpace.wedding(listOfPlayers.get(x), listOfPlayers, spinner, x);
 						}
 						//else if(space_number==39) {
 						else if(space_type.contains("NIGHTSCHOOL")) {
-						    System.out.println("Night school stop! What would you like to do?");
-							System.out.println("1: Keep current job");
-							System.out.println("2: Change career (costs 100K)");
-							int night_choice = keyboard.nextInt();
-							//keyboard.nextLine();
-							if (night_choice==2) {
-								while (listOfPlayers.get(x).getBalance() < 100) {
-									listOfPlayers.get(x).takeLoan();
-								}
-								listOfPlayers.get(x).walletBalance(100, "subtract");
-								listOfPlayers.get(x).changeCareer(collegeCareerCardList);
-								x = x-1; // current player gets another turn
-							}
+							StopSpace.nightSchool(listOfPlayers.get(x), collegeCareerCardList, x);
 						}
 						//else if(space_number==68) {
 						else if(space_type.contains("FAMILYORLIFE")) {
-							System.out.println("Family time! Choose family or life");
-							ChoosePath.selectPath(boardSpacesList.get(space_number), "Family", "Life", listOfPlayers.get(x));
+							StopSpace.familyOrLife(boardSpacesList, listOfPlayers.get(x), x);
 						}
 						//else if(space_number==78) {
 						else if(space_type.contains("CHILDREN")) {
-							System.out.println("You're expecting! Spin the spinner to find out how many babies you're having!");
-							System.out.println("(1-3 = 0 kids. 4-6 = 1 kid. 7-8 = 2 kids. 9-10 = 3 kids.)");
-							keyboard.nextLine();
-							spinner.spinSpinner();
-							int spinNum = spinner.getNumber();
-							if (spinNum>=4 && spinNum<=6) {
-								listOfPlayers.get(x).addChildren(1);
-								System.out.println("Congrats! You had 1 kid.");
-							}
-							else if (spinNum==7 || spinNum==8) {
-								listOfPlayers.get(x).addChildren(2);
-								System.out.println("Congrats! You had 2 kids.");
-							}
-							else if (spinNum==9 || spinNum==10) {
-								listOfPlayers.get(x).addChildren(3);
-								System.out.println("Congrats! You had 3 kids.");
-							}
-							else System.out.println("No kids this time!");
+							StopSpace.haveChildren(spinner, listOfPlayers.get(x));
 						}
 						//else if(space_number==95) System.out.println("Holiday - time to relax!");
 						else if(space_type.contains("HOLIDAY")) {
-							break;
+							SpaceTypes.holiday();
 						}
 						break;
 					}
@@ -163,10 +127,7 @@ public class Main {
 					if(y!=(moves-1)) {
 						System.out.println(current_player+" moves past "+space_type+" on space "+current_space);
 						if (space_type.contains("PAYDAY")) {
-							int currentSalary = listOfPlayers.get(x).getSalary();
-							listOfPlayers.get(x).walletBalance(currentSalary, "add");
-							System.out.println(listOfPlayers.get(x).getName()+" receives salary of "+currentSalary+"K");
-							System.out.println(listOfPlayers.get(x).getName()+"'s updated balance is: "+listOfPlayers.get(x).getBalance()+"K");
+							SpaceTypes.Payday(listOfPlayers.get(x), false);
 						}
 					}
 					
@@ -174,140 +135,29 @@ public class Main {
 					if (y==moves-1) {
 						System.out.println(current_player+" stopped on "+space_type+" on space "+current_space);
 						switch(space_type) {
-							case "ACTION": System.out.println(current_player+", press enter to draw an action card!");
-										   keyboard.nextLine();
-										   ActionCards.chooseActionCard(actionCardList, listOfPlayers.get(x), listOfPlayers, collegeCareerCardList);
+							case "ACTION": SpaceTypes.actionSpace(listOfPlayers.get(x), actionCardList, listOfPlayers, collegeCareerCardList);
 										   break;
-							case "PAYDAY": System.out.println("Payday!");
-										   int currentSalary = listOfPlayers.get(x).getSalary();
-										   listOfPlayers.get(x).walletBalance(currentSalary, "add");
-										   listOfPlayers.get(x).walletBalance(100, "add");
-										   System.out.println(listOfPlayers.get(x).getName()+" receives salary of "+currentSalary+"K plus bonus of 100K");
-										   System.out.println(listOfPlayers.get(x).getName()+"'s updated balance is: "+listOfPlayers.get(x).getBalance()+"K");
+							case "PAYDAY": SpaceTypes.Payday(listOfPlayers.get(x), true);
 										   break;
-							case "HOUSE": //System.out.println("Draw house cards!");
-										  System.out.println("\nProperty time!");
-										  System.out.println("Enter 1 to buy a house");
-										  System.out.println("Enter 2 to sell a house");
-										  System.out.println("Enter 3 to do nothing");
-										  System.out.println("Choose what you would like to do: ");
-										  int houseChoice = keyboard.nextInt();
+										   
+							case "HOUSE": SpaceTypes.houseSpace(listOfPlayers.get(x));
+										  break;
 										  
-										  if (houseChoice == 1) {
-											  System.out.println(current_player+", press enter to draw 2 house cards!");
-											  keyboard.nextLine();
-											  HouseCards.buyHouse(houseCardList, listOfPlayers.get(x));
-										  }
-										  else if (houseChoice == 2) {
-											  HouseCards.sellHouse(houseCardList, listOfPlayers.get(x));
-										  }
-										  else {
-											  break;
-										  }
-
-										  //HouseCards.chooseHouseCard(houseCardList, listOfPlayers.get(x), listOfPlayers);
+							case "TWINS": SpaceTypes.babySpace(listOfPlayers.get(x), true);
 										  break;
-							case "TWINS": System.out.println("Congrats, you had twins!");
-										  listOfPlayers.get(x).addChildren(2);
-										  break;
-							case "HOLIDAY":	System.out.println("Holiday time!");
+										  
+							case "HOLIDAY":	SpaceTypes.holiday();
 											break;
-							case "BABY": System.out.println("Congrats, you had a baby!");
-							  			 listOfPlayers.get(x).addChildren(1);
+											
+							case "BABY": SpaceTypes.babySpace(listOfPlayers.get(x), false);
 							             break;
-							case "SPIN_TO_WIN":	System.out.println("Spin to Win!");
-												
-												int[] spinChoice = new int[listOfPlayers.size()+1];
-												String[] playerSpinList = new String[listOfPlayers.size()+1];
-												ArrayList<Player> temporaryPlayerList = new ArrayList<Player>();
-												
-												ArrayList<Integer> spinnerList=new ArrayList<>();
-												for (int q=1;q<=10;q++) {
-													spinnerList.add(q);
-												}
-												// Current player picks two numbers
-												for (int w=0;w<=1;w++) {
-													System.out.println("Numbers available: "+spinnerList);
-													System.out.println(current_player+", enter a number from the list: ");
-													int numChosen = keyboard.nextInt();
-													
-													for (int z=0;z<=spinnerList.size();z++) {
-														if (spinnerList.contains(numChosen)) {
-															int chosen = spinnerList.indexOf(numChosen);
-															spinnerList.remove(chosen);
-															spinChoice[w] = numChosen;
-															playerSpinList[w] = current_player;
-														}
-													}
-												}
-												
-												
-												int numOfPlayers = listOfPlayers.size();
-												// create list of players excluding current player
-												for (int p=0;p<numOfPlayers;p++) {
-													if (!listOfPlayers.get(p).getName().equals(current_player)) {
-														Player playerToAdd = listOfPlayers.get(p);
-														temporaryPlayerList.add(playerToAdd);
-													}
-												}
-												
-												
-												int count = 0;
-												// Other players pick one number each
-												for (int w=2;w<listOfPlayers.size()+1;w++) {
-													System.out.println("Numbers available: "+spinnerList);
-													System.out.println(temporaryPlayerList.get(count).getName()+", enter a number from the list: ");
-													int numChosen = keyboard.nextInt();
-													
-													for (int z=0;z<=spinnerList.size();z++) {
-														if (spinnerList.contains(numChosen)) {
-															int chosen = spinnerList.indexOf(numChosen);
-															spinnerList.remove(chosen);
-															spinChoice[w] = numChosen;
-															playerSpinList[w] = temporaryPlayerList.get(count).getName();
-														}
-													}
-													count++;
-												}
-												
-												System.out.println("The numbers chosen are: ");
-												for (int w=0;w<listOfPlayers.size()+1;w++) {
-													System.out.println(playerSpinList[w]+": "+spinChoice[w]);
-												}
-												
-												Player winningPlayer = null;
-												boolean winner = false;
-												while (winner == false) {	
-													spinner.spinSpinner();
-													int spinWinNum = spinner.getNumber();
-													System.out.println(current_player+", press enter to spin the spinner!");
-													keyboard.nextLine();
-													System.out.println("The number spun is: "+spinWinNum);
-													for (int w=0;w<listOfPlayers.size()+1;w++) {
-														if (spinChoice[w]==spinWinNum) {
-															System.out.println("Number matches! "+playerSpinList[w]+" wins 200K!");
-															
-															for(int i = 0; i<listOfPlayers.size(); i++) {
-																if (playerSpinList[w].equals(listOfPlayers.get(i).getName())) {
-																	winningPlayer = listOfPlayers.get(i);
-																}
-															}
-															
-															winningPlayer.walletBalance(200, "add");
-															System.out.println(playerSpinList[w]+"'s updated balance is: "+winningPlayer.getBalance()+"K");
-												            winner = true;
-															break;
-														}
-														//else System.out.println("Number does not match");
-													}
-												}
-												
-												
+							             
+							case "SPIN_TO_WIN":	SpaceTypes.spinToWin(listOfPlayers, listOfPlayers.get(x), spinner);
 												break;
-							case "RETIREMENT": System.out.println("You made it, retirement!");
-											   retiredList.add(listOfPlayers.get(x));
-											   listOfPlayers.remove(x);
+												
+							case "RETIREMENT": SpaceTypes.retirementSpace(listOfPlayers, retiredList, listOfPlayers.get(x));
 											   break;
+											   
 						    default: output_space_type = null;
 						}	
 					}
