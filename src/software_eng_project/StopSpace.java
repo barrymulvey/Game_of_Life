@@ -16,35 +16,44 @@ public class StopSpace extends Space {
 		player.changeCareer(collegeCareerCardList);
 	}
 	
-	public static int wedding(Player player, ArrayList<Player> listOfPlayers, Spinner spinner, int currentTurn) {
-	    System.out.println("Wedding bells!");
+	public static int wedding(ArrayList<Player> listOfPlayers, Spinner spinner, int currentPlayer) {
+		Player player = listOfPlayers.get(currentPlayer);
+		System.out.println("Wedding bells!");
 		player.getMarried(listOfPlayers, player, spinner);
-		// Player gets another turn
-		currentTurn = currentTurn-1;
-		return currentTurn;
+		int x = player.takeExtraTurn(listOfPlayers, currentPlayer);
+		return x;
 	}
 	
-	public static int nightSchool(Player player, ArrayList<CareerCards> collegeCareerCardList, int currentTurn) {
+	public static int nightSchool(ArrayList<CareerCards> collegeCareerCardList, int currentPlayer, ArrayList<Player> listOfPlayers) {
+		Player player = listOfPlayers.get(currentPlayer);
 		Scanner keyboard = new Scanner(System.in);
 		System.out.println("Night school stop! What would you like to do?");
 		System.out.println("1: Keep current job");
 		System.out.println("2: Change career (costs 100K)");
 		int nightChoice = keyboard.nextInt();
 		//keyboard.nextLine();
+		int pathChosen = 0;
 		if (nightChoice==2) {
 			while (player.getBalance() < 100) {
 				player.takeLoan();
 			}
 			player.walletBalance(100, "subtract");
 			player.changeCareer(collegeCareerCardList);
-			currentTurn = currentTurn-1; // current player gets another turn
+			pathChosen = 40;
 		}
-		return currentTurn;
+		else pathChosen = 49;
+		
+		ChoosePath.selectPath(pathChosen, player);
+		
+		// player gets an extra turn, regardless of choice
+		int x = player.takeExtraTurn(listOfPlayers, currentPlayer);
+		return x;
 	}
 	
 	public static void familyOrLife(ArrayList<Space> boardSpacesList, Player player, int spaceNumber) {
 		System.out.println("Family time! Choose family or life");
-		ChoosePath.selectPath(boardSpacesList.get(spaceNumber), "Family", "Life", player);
+		int pathChosen = ChoosePath.choosePath(boardSpacesList.get(spaceNumber), "Family", "Life");
+		ChoosePath.selectPath(pathChosen, player);
 	}
 	
 	public static void haveChildren(Spinner spinner, Player player) {

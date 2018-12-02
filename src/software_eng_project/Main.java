@@ -76,17 +76,30 @@ public class Main {
 					java.util.List<String> next_space_choices = boardSpacesList.get(Integer.parseInt(current_space)).getNextSpace();
 					// ask user if there is a choice!
 					
-				    // move the player
-					if(!(boardSpacesList.get(Integer.parseInt(current_space)).getSpaceType().contains("RETIREMENT"))) {
-					    if(next_space_choices.size() > 1 && !(current_space == "68")) {
-							System.out.println("Choose Path: " + next_space_choices.get(0) + " or " + next_space_choices.get(1));
-							int next_space_int = keyboard.nextInt();
-							next_space = Integer.toString(next_space_int);
-						} else {
+				    				
+					// if not start of game
+					if(!(boardSpacesList.get(Integer.parseInt(current_space)).getSpaceType().contains("STARTGAME"))) {
+						if(!(boardSpacesList.get(Integer.parseInt(current_space)).getSpaceType().contains("RETIREMENT"))) {
 							next_space = next_space_choices.get(0);
 						}
-						listOfPlayers.get(x).movePlayer(next_space);
+										
 					}
+					// if start of game
+					else {
+						boolean college = false;
+						if(listOfPlayers.get(x).getPath().equals("College")) {
+							college = true;
+						}
+						System.out.println("College = "+college);
+						
+						int nextSpace = SpaceTypes.startGame(college, listOfPlayers.get(x));
+						next_space= Integer.toString(nextSpace);
+					}
+					
+					// move the player
+					listOfPlayers.get(x).movePlayer(next_space);
+
+					//}
 					// add in exception here! do an else: space_type = null;
 					String space_type = null;
 					current_space = listOfPlayers.get(x).getCurrentSpace();
@@ -96,21 +109,21 @@ public class Main {
 					if(space_type.contains("STOP")) { // Player lands on stop (if not starting space!)
 						System.out.println("Stop! You reached a stop space (space "+current_space+")\n");
 						
-						//if(space_number==14) {
+					   //if(space_number==14) {
 						if(space_type.contains("GRADUATION")) {
 						    StopSpace.graduation(listOfPlayers.get(x), collegeCareerCardList);
 						}
 						//else if(space_number==27) {
 						else if(space_type.contains("WEDDING")) {
-							StopSpace.wedding(listOfPlayers.get(x), listOfPlayers, spinner, x);
+							x = StopSpace.wedding(listOfPlayers, spinner, x);
 						}
 						//else if(space_number==39) {
 						else if(space_type.contains("NIGHTSCHOOL")) {
-							StopSpace.nightSchool(listOfPlayers.get(x), collegeCareerCardList, x);
+							x = StopSpace.nightSchool(collegeCareerCardList, x, listOfPlayers);
 						}
 						//else if(space_number==68) {
 						else if(space_type.contains("FAMILYORLIFE")) {
-							StopSpace.familyOrLife(boardSpacesList, listOfPlayers.get(x), x);
+							StopSpace.familyOrLife(boardSpacesList, listOfPlayers.get(x), Integer.parseInt(current_space));
 						}
 						//else if(space_number==78) {
 						else if(space_type.contains("CHILDREN")) {
@@ -140,7 +153,7 @@ public class Main {
 							case "PAYDAY": SpaceTypes.Payday(listOfPlayers.get(x), true);
 										   break;
 										   
-							case "HOUSE": SpaceTypes.houseSpace(listOfPlayers.get(x));
+							case "HOUSE": SpaceTypes.houseSpace(listOfPlayers.get(x), houseCardList, listOfPlayers);
 										  break;
 										  
 							case "TWINS": SpaceTypes.babySpace(listOfPlayers.get(x), true);

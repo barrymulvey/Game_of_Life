@@ -10,29 +10,27 @@ public class ChoosePath extends Space {
 
 	}
 
-	public static void selectPath(Space currentSpace, String choice1, String choice2, Player player) {
+	public static int choosePath(Space currentSpace, String choice1, String choice2) {
 		// open scanner
 		Scanner keyboard = new Scanner(System.in);
 
-		List<String> next_space_choices = currentSpace.getNextSpace();
-		String nextSpace = null;
 		System.out.println("Time to Choose Your Life Path!");
 		System.out.println("Enter 1 for "+choice1+" or enter 2 for "+choice2+": ");
 		int lifeChoice = keyboard.nextInt();
-		nextSpace = Integer.toString(lifeChoice);
+		
+		List<String> next_space_choices = currentSpace.getNextSpace();
+		System.out.println("next space choices: "+next_space_choices);
+		
+		//String nextSpace = null;
+		String nextSpaceChoice = next_space_choices.get(lifeChoice-1);
+		int nextSpace = Integer.parseInt(nextSpaceChoice);
+		return nextSpace;
+		
+	}
 
-		if(lifeChoice == 1) {
-			player.setCurrentSpace(next_space_choices.get(0));
-		}
-		else if (lifeChoice == 2) {
-			player.setCurrentSpace(next_space_choices.get(1));
-		}
-		
-		// TODO
-		else {
-			System.out.println("error");
-		}
-		
+	public static void selectPath(int nextSpace, Player player) {
+		String nextSpaceString = Integer.toString(nextSpace-1);
+		player.setCurrentSpace(nextSpaceString);
 
 	}
 

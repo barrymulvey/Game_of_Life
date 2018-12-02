@@ -95,23 +95,21 @@ public class Player {
 			lifeDecision = "Career";
 		}
 
-		Player player1 = new Player(playerName, playerAge, startingSalary, colour, lifeDecision);
+		Player player = new Player(playerName, playerAge, startingSalary, colour, lifeDecision);
 		//keyboard.close();
 		if(lifeDecision.equals("College")) {
-			player1.walletBalance(100, "subtract");
-			player1.current_space = "4";
-			player1.getStudentCard();
+			//ChoosePath.selectPath(4, player);
+			player.walletBalance(100, "subtract");
+			player.getStudentCard();
 		}
 		else if(lifeDecision.equals("Career")) {
-			player1.current_space = "0";
-			System.out.println(player1.getName()+", time to choose a career!");
-
-			player1.changeCareer(listOfCards);
+			//ChoosePath.selectPath(1, player);
+			System.out.println(player.getName()+", time to choose a career!");
+			player.changeCareer(listOfCards);
 		}
 
 		//keyboard.close();
-
-		return player1;
+		return player;
 	}
 
 	// ** must add which player (as an input)
@@ -187,7 +185,6 @@ public class Player {
 	}
 
 
-
 	public void numLoans(int numberLoans) {
 		int loanValue = numberLoans*50;
 		this.walletBalance(loanValue, "add");
@@ -246,8 +243,13 @@ public class Player {
 			temporaryPlayerList.get(x).walletBalance(giftValue, "subtract");
 			current_player.walletBalance(giftValue, "add");	
 		}
-
-
+	}
+	
+	public int takeExtraTurn(ArrayList<Player> listOfPlayers, int x) {
+		System.out.println(listOfPlayers.get(x).getName()+" gets an extra turn!");
+		if(x == 0) x = listOfPlayers.size()-1;
+		else x = x-1;
+		return x;
 	}
 
 	// evaluates player's assets
