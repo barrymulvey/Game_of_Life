@@ -21,6 +21,7 @@ public class Player {
 	private String current_space;
 	private int numActionCards;
 
+	// constructor player
 	public Player(String name, int age, double money, String colour, String path){
 		this.name = name;
 		this.path = path;
@@ -39,11 +40,13 @@ public class Player {
 		this.numActionCards = 0;
 	}
 
+	// constructor player
 	public Player() {
 
 	}
-
-	public Player initialisePlayer(ArrayList<String> carColour, ArrayList<CareerCards> listOfCards) { // initialise players
+	
+	// initialise players
+	public Player initialisePlayer(ArrayList<String> carColour, ArrayList<CareerCards> listOfCards) { 
 		int startingSalary = 200;
 		// 25th October
 
