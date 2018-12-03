@@ -1,5 +1,6 @@
 package software_eng_project;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -7,6 +8,31 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 class ActionCardsTest {
+	
+	@Test
+	void testGetName() {
+
+		// initialise action card deck
+		ArrayList<ActionCards> actionCardList = new ArrayList<ActionCards>();
+		actionCardList = InitialiseGame.initialiseActionCardDeck("action_file");
+
+		String cardName = "Career Change";
+		String result = actionCardList.get(0).getName();
+
+		assertEquals("getName output should be equal to name of card", cardName, result);
+	}
+
+	@Test
+	void testGetValue1() {
+		// initialise action card deck
+		ArrayList<ActionCards> actionCardList = new ArrayList<ActionCards>();
+		actionCardList = InitialiseGame.initialiseActionCardDeck("action_file");
+
+		int chosen = 0;
+		int result = actionCardList.get(0).getValue1();
+
+		assertEquals("getValue1 should return the first integer value on a line of the text file", chosen, result);
+	}
 	
 	@Test
 	public void testPlayersPay_1Player() {
@@ -59,9 +85,11 @@ class ActionCardsTest {
 		boolean result = ActionCards.careerChange(player1, collegeCareerCardList);
 		
 		// output flag will be false if all executing correctly
+		
 		// expected to fail here (flag = true) if user chooses player to be a student as player has no career yet!
-		// expected to pass here (flag = false) if user chooses player to have a career
 		//assertTrue(result);
+		
+		// expected to pass here (flag = false) if user chooses player to have a career
 		assertFalse(result);
 	}
 }
