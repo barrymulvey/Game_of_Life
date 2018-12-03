@@ -155,7 +155,7 @@ public class Player {
 
 	// Change Career
 	public void changeCareer(ArrayList<CareerCards> listOfCards) {
-		// choose 2 career cards
+		// Draw 2 career cards
 		CareerCards card1 = CareerCards.chooseCareerCards(listOfCards);
 		System.out.println("1st card chosen is: "+card1.getName()+" with a salary of "+card1.getValue1()+"K");
 		listOfCards.remove(card1);
@@ -163,12 +163,7 @@ public class Player {
 		CareerCards card2 = CareerCards.chooseCareerCards(listOfCards);
 		System.out.println("2nd card chosen is: "+card2.getName()+" with a salary of "+card2.getValue1()+"K");
 
-		//System.out.println("Choose a card! Enter 1 or 2: ");
-		//Scanner keyboard = new Scanner(System.in);
-		//int careerCardChoice = keyboard.nextInt();
-
-		// Ascertain how many players there are and check for correct user input
-		//Scanner keyboard = new Scanner(System.in);
+		// Choose Career Card
 		int careerCardChoice = 0;
 		careerCardChoice = ErrorCheck.rangeCheck("Choose a card! Enter 1 or 2: ", 1, 2, careerCardChoice);
 		

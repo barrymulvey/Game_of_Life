@@ -1,7 +1,6 @@
 package software_eng_project;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class InitialiseGame {
 
@@ -29,12 +28,11 @@ public class InitialiseGame {
 		ArrayList<Player> first_listOfPlayers = new ArrayList<Player>();
 		// create final ListOfPlayers
 		ArrayList<Player> listOfPlayers = new ArrayList<Player>();
-		int numPlayers = 0;
-
+		
 		// Ascertain how many players there are and check for correct user input
-		Scanner keyboard = new Scanner(System.in);
+		int numPlayers = 0;
 		numPlayers = ErrorCheck.rangeCheck("How many players? (2-4): ", 2, 4, numPlayers);
-
+		
 		// initialise each new player
 		for (int i=1; i<=numPlayers; i++) {
 			System.out.println("**** Player "+ i +"****");

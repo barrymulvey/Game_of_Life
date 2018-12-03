@@ -69,41 +69,8 @@ public abstract class Cards {
 		}
 		return value1List;
 	}
-
-	/*
-	// Check this: 
-	public static Cards chooseCards(ArrayList<Cards> cardList) {
-		
-		
-		Cards card1 = cardList.get(0);
-		if (card1 instanceof CareerCards) {
-			
-		}
-		
-		
-		// Choose a card #1 at random between 0 and (number of cards available)-1
-		int number_cards = cardList.size();
-		Random rand1 = new Random();
-		int  i = rand1.nextInt(number_cards-1);
-
-		// Print number and type of card chosen
-		System.out.println("Card chosen is " + i);
-		System.out.println("Card chosen is " + cardList.get(i).getName());
-
-		// Choose card #2 at random between 0 and (number of houses available) -1
-		Random rand = new Random();
-		int j = rand.nextInt(number_cards-1);
-
-		// Print number and type of card chosen
-		System.out.println("Card chosen is " + j);
-		System.out.println("Card chosen is " + cardList.get(j).getName());
-
-		// only choose one for now
-		return cardList.get(i);
-
-	}
-	*/
-
+	
+	
 	// method to return name of Cards object
 	public String getName() {
 		return name;
@@ -125,13 +92,4 @@ public abstract class Cards {
 		System.out.println(this.name + " has been removed from the card deck"); // include name of card deck
 		return cardList;
 	}
-
-	/*
-	// PRINT DETAILS
-	public void printCardDetails() {
-		System.out.println("*** *** *** *** *** *** *** ***");
-		System.out.println("Name: "+getName()+"\nValue 1: "+getValue1());
-		System.out.println("*** *** *** *** *** *** *** ***");	
-	}
-	*/
 }
