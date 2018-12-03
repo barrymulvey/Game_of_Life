@@ -1,6 +1,8 @@
 package software_eng_project;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +19,7 @@ class ActionCardsTest {
 		listOfPlayers1.add(player1);
 		
 		boolean result = ActionCards.playersPay(player1, listOfPlayers1);
-		assertEquals("Players Pay output should be true if exectues correctly", true, result);
+		assertTrue(result);
 	}
 	
 	@Test
@@ -34,7 +36,7 @@ class ActionCardsTest {
 		listOfPlayers2.add(player2);
 		
 		boolean result = ActionCards.playersPay(player1, listOfPlayers2);
-		assertEquals("Players Pay output should be true if exectues correctly", false, result);
+		assertFalse(result);
 	}
 	
 	@Test
@@ -59,6 +61,7 @@ class ActionCardsTest {
 		// output flag will be false if all executing correctly
 		// expected to fail here (flag = true) if user chooses player to be a student as player has no career yet!
 		// expected to pass here (flag = false) if user chooses player to have a career
-		assertEquals("Career Change output should be true if exectues correctly", false, result);
+		//assertTrue(result);
+		assertFalse(result);
 	}
 }

@@ -4,6 +4,8 @@ import java.util.*;
 
 // READ IN DETAILS FROM TEXT FILE
 public class HouseCards extends Cards {
+	
+	// HouseCards objects have two attributes to add to those inherrited from Cards
 	private int value2;
 	private int value3;
 

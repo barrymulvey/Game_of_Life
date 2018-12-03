@@ -37,8 +37,6 @@ public class InitialiseGame {
 		// Ascertain how many players there are
 		Scanner keyboard = new Scanner(System.in);
 		
-		
-		
 		numPlayers = ErrorCheck.rangeCheck("How many players? (2-4): ", 2, 4, numPlayers);
 		
 
