@@ -118,6 +118,4 @@ public class InitialiseGame {
 		actionCardList = ActionCards.getListOfCards(cardFileLocation);
 		return actionCardList;
 	}
-
-
 }

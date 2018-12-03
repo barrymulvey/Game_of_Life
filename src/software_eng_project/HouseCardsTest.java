@@ -62,7 +62,7 @@ class HouseCardsTest {
 
 	@Test
 	void testSellHouse1() {
-		// test sellHouse method when player has no houses
+		// test sellHouse method when player has houses
 
 		// initialise house card deck
 		ArrayList<HouseCards> houseCardList = new ArrayList<HouseCards>();
@@ -99,7 +99,7 @@ class HouseCardsTest {
 	
 	@Test
 	void testSellHouse2() {
-		// test sellHouse method when player has houses
+		// test sellHouse method when player has no houses
 
 		// initialise house card deck
 		ArrayList<HouseCards> houseCardList = new ArrayList<HouseCards>();

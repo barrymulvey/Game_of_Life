@@ -27,7 +27,7 @@ public class Utility {
 		return prop.getProperty(key);
 	}
 	
-	public  static Utility getInstance(){
+	public static Utility getInstance(){
 		if(utility == null)
 			try{
 				utility = new Utility();
