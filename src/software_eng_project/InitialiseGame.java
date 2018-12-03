@@ -1,38 +1,39 @@
 package software_eng_project;
 
-import java.awt.List;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InitialiseGame {
 
+	// constructor
 	public InitialiseGame() {
-
 	}
 
+	// method to read in spaces which will make up the board
 	public static ArrayList<Space> initialiseBoard() {
 		ArrayList<Space> boardSpacesList = BoardReader.readBoard();
 		return boardSpacesList;
 	}
 
+	// method to initialise the players and their pawns
 	public static ArrayList<Player> initialisePawns(ArrayList<CareerCards> careerCardList) {
+		
 		// create list of pawn colours available
 		ArrayList<String> carColour = new ArrayList<String>();
 		carColour.add("Pink");
 		carColour.add("Blue");
 		carColour.add("Green");
 		carColour.add("Yellow");
-		//String userColour = null;
+		
+		// create original ArrayList of players 
 		ArrayList<Player> first_listOfPlayers = new ArrayList<Player>();
+		// create final ListOfPlayers
 		ArrayList<Player> listOfPlayers = new ArrayList<Player>();
 		int numPlayers = 0;
 
-		// Ascertain how many players there are
+		// Ascertain how many players there are and check for correct user input
 		Scanner keyboard = new Scanner(System.in);
-		
 		numPlayers = ErrorCheck.rangeCheck("How many players? (2-4): ", 2, 4, numPlayers);
-		
 
 		// initialise each new player
 		for (int i=1; i<=numPlayers; i++) {
@@ -78,24 +79,21 @@ public class InitialiseGame {
 		return listOfPlayers;
 	}
 
+	// initialise the houseCard deck- this is an ArrayList of HouseCard Objects
 	public static ArrayList<HouseCards> initialiseHouseDeck() {
-		// house cards read in and sorted into array houseList, details printed to check if correct!
 
 		//identifies were the board file is located
 		Utility utility = Utility.getInstance();
 		String houseFileLocation = utility.getProperty("house_file");
 
+		// call method to get list of house cards from text file
 		ArrayList<HouseCards> houseList = new ArrayList<HouseCards>();
 		houseList = HouseCards.getListOfCards(houseFileLocation);
-		/*
-		for (int i=0;i<houseList.size();i++) {
-			houseList.get(i).printCardDetails();
-		} 
-		 */
 		return houseList;
 	}
 
-	// used for college career cards and career cards
+	// method to create an ArrayList of CareerCards Objects 
+	// NB used for college career cards and career cards
 	public static ArrayList<CareerCards> initialiseCareerCardDeck(String fileName) {
 		// house cards read in and sorted into array houseList, details printed to check if correct!
 
@@ -103,16 +101,19 @@ public class InitialiseGame {
 		Utility utility = Utility.getInstance();
 		String cardFileLocation = utility.getProperty(fileName);
 
+		// call method to create ArrayList of CareerCards using location of text file storing details
 		ArrayList<CareerCards> careerList = new ArrayList<CareerCards>();
 		careerList = CareerCards.getListOfCards(cardFileLocation);
 		return careerList;
 	}
 
+	// method to create and populate an ArrayList of ActionCards objects
 	public static ArrayList<ActionCards> initialiseActionCardDeck(String actionCardFilename) {
 		//identifies were the file is located
 		Utility utility = Utility.getInstance();
 		String cardFileLocation = utility.getProperty(actionCardFilename);
 
+		// call method to create ArrayList of ActionCards using location of text file storing details
 		ArrayList<ActionCards> actionCardList = new ArrayList<ActionCards>();
 		actionCardList = ActionCards.getListOfCards(cardFileLocation);
 		return actionCardList;
