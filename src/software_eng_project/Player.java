@@ -16,7 +16,6 @@ public class Player {
 	private String path;
 	private CareerCards career;
 	private ArrayList<HouseCards> houses;
-	//private ArrayList<String> houseList;
 	private List<String> houseList = new ArrayList<String>();
 	private String current_space;
 	private int numActionCards;
@@ -44,7 +43,7 @@ public class Player {
 	public Player() {
 
 	}
-	
+
 	// initialise players
 	public Player initialisePlayer(ArrayList<String> carColour, ArrayList<CareerCards> listOfCards) { 
 		int startingSalary = 200;
@@ -77,25 +76,19 @@ public class Player {
 		System.out.println("Enter colour of car for "+playerName+". Car colours still available: "+carColourString);
 		System.out.println("Enter first letter of colour to select: ");
 		String carCol = keyboard.next();
-		//System.out.println(carCol);
 		char firstLetter = carCol.charAt(0);
-		//System.out.println(firstLetter);
 
 		if (firstLetter == 'p' || firstLetter=='P') {
 			colour="Pink";
-			//carColour.remove("Pink");
 		}
 		else if (firstLetter=='b' || firstLetter=='B') {
 			colour="Blue";
-			//carColour.remove("Blue");
 		}
 		else if (firstLetter=='g' || firstLetter=='G') {
 			colour="Green";
-			//carColour.remove("Green");
 		}
 		else if (firstLetter=='y' || firstLetter=='Y') {
 			colour="Yellow";
-			//carColour.remove("Yellow");
 		}
 		else {
 			colour=null;
@@ -112,7 +105,7 @@ public class Player {
 		}
 
 		Player player = new Player(playerName, playerAge, startingSalary, colour, lifeDecision);
-		//keyboard.close();
+
 		if(lifeDecision.equals("College")) {
 			//ChoosePath.selectPath(4, player);
 			player.walletBalance(100, "subtract");
@@ -124,11 +117,9 @@ public class Player {
 			player.changeCareer(listOfCards);
 		}
 
-		//keyboard.close();
 		return player;
 	}
 
-	// ** must add which player (as an input)
 	public void walletBalance(float money, String operation) {
 		if (operation.equals("add")) {
 			wallet = wallet+money;
@@ -172,24 +163,24 @@ public class Player {
 		CareerCards card2 = CareerCards.chooseCareerCards(listOfCards);
 		System.out.println("2nd card chosen is: "+card2.getName()+" with a salary of "+card2.getValue1()+"K");
 
-		System.out.println("Choose a card! Enter 1 or 2: ");
-		Scanner keyboard = new Scanner(System.in);
-		int careerCardChoice = keyboard.nextInt();
+		//System.out.println("Choose a card! Enter 1 or 2: ");
+		//Scanner keyboard = new Scanner(System.in);
+		//int careerCardChoice = keyboard.nextInt();
 
+		// Ascertain how many players there are and check for correct user input
+		//Scanner keyboard = new Scanner(System.in);
+		int careerCardChoice = 0;
+		careerCardChoice = ErrorCheck.rangeCheck("Choose a card! Enter 1 or 2: ", 1, 2, careerCardChoice);
+		
 		if (careerCardChoice==1) {
 			this.career = card1;
-			//listOfCards.remove(card1);
 		}
-		else if (careerCardChoice==2) {
+		else {
 			this.career = card2;
 			listOfCards.remove(card2);
 			listOfCards.add(card1);
 		}
-		else {
-			//player.career = null;
-			System.out.println("Error - choice must be 1 or 2.");
-		}
-
+		
 		//return listOfCards;
 		//keyboard.close();
 	}
@@ -210,9 +201,10 @@ public class Player {
 	public void takeLoan() {
 		System.out.println(this.getName()+", your balance of "+this.getBalance()+"K is too low! You need to take out loans...");
 		System.out.println("Each loan gives you 50K (but incurs 20% interest!)");
-		System.out.println("Enter the number of loans you would like to take out: ");
-		Scanner keyboard = new Scanner(System.in);
-		int numberLoans = keyboard.nextInt();
+		//System.out.println("Enter the number of loans you would like to take out: ");
+		//Scanner keyboard = new Scanner(System.in);
+		int numberLoans = 0;
+		numberLoans = ErrorCheck.rangeCheck("Enter the number of loans you would like to take out: ", 0, 100, numberLoans);
 		this.numLoans(numberLoans);
 		System.out.println(this.getName()+"'s updated balance is: "+this.getBalance()+"K");
 	}

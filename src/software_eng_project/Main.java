@@ -2,17 +2,15 @@ package software_eng_project;
 
 import software_eng_project.Player;
 
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Arrays;
 
 import software_eng_project.HouseCards;
 
 public class Main {
 
 	public static void main(String[] args) {
-		// open scanner
+		// Open keyboard to receive user input
 		Scanner keyboard = new Scanner(System.in);
 		
 		// Initialise house deck
@@ -42,23 +40,20 @@ public class Main {
 
 		// Create a new spinner
 		Spinner spinner = new Spinner();
-
+		
+		// Add cards to card decks
 		ArrayList<Cards> cardDecks = new ArrayList<Cards>();
 		cardDecks.addAll(houseCardList);
 		cardDecks.addAll(careerCardList);
 		cardDecks.addAll(collegeCareerCardList);
 		cardDecks.addAll(actionCardList);
 		
-		
-		
-		
-		// PLAYERS PLAY		
+		// Players play the game
 		ArrayList<Player> retiredPlayerList = new ArrayList<Player>();
 		retiredPlayerList = PlayGame.playersPlay(listOfPlayers, retiredList, spinner, keyboard, boardSpacesList, collegeCareerCardList, houseCardList, actionCardList);
 		PlayGame.EndOfGame(retiredPlayerList);
 		
-
-
+		// Close keyboard
 		keyboard.close();
 	}
 }

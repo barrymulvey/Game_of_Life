@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 public class PlayGame {
 
-
 	public static ArrayList<Player> playersPlay(ArrayList<Player> listOfPlayers, ArrayList<Player> retiredList, Spinner spinner, Scanner keyboard, ArrayList<Space> boardSpacesList, ArrayList<CareerCards> collegeCareerCardList, ArrayList<HouseCards> houseCardList, ArrayList<ActionCards> actionCardList) {
 		// player turns
 		
