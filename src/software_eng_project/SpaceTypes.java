@@ -47,8 +47,8 @@ public class SpaceTypes extends Space {
 			System.out.println("Enter 1 to buy a house");
 			System.out.println("Enter 2 to sell a house");
 			System.out.println("Enter 3 to do nothing");
-			System.out.println("Choose what you would like to do: ");
-			int houseChoice = keyboard.nextInt();
+			int houseChoice = 0;
+			houseChoice = ErrorCheck.rangeCheck("Choose what you would like to do: ", 1, 3, houseChoice);
 
 			if (houseChoice == 1) {
 				System.out.println(player.getName()+", press enter to draw 2 house cards!");
@@ -57,7 +57,7 @@ public class SpaceTypes extends Space {
 				flag = false;
 			}
 			else if (houseChoice == 2) {
-				int houseListSize = player.getHouses().size();
+				//int houseListSize = player.getHouses().size();
 				flag = HouseCards.sellHouse(houseCardList, player, listOfPlayers);
 			}
 			else 

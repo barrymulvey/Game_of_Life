@@ -196,8 +196,6 @@ public class Player {
 	public void takeLoan() {
 		System.out.println(this.getName()+", your balance of "+this.getBalance()+"K is too low! You need to take out loans...");
 		System.out.println("Each loan gives you 50K (but incurs 20% interest!)");
-		//System.out.println("Enter the number of loans you would like to take out: ");
-		//Scanner keyboard = new Scanner(System.in);
 		int numberLoans = 0;
 		numberLoans = ErrorCheck.rangeCheck("Enter the number of loans you would like to take out: ", 0, 100, numberLoans);
 		this.numLoans(numberLoans);

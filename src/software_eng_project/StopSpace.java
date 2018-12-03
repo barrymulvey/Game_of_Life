@@ -26,13 +26,14 @@ public class StopSpace extends Space {
 	
 	public static int nightSchool(ArrayList<CareerCards> collegeCareerCardList, int currentPlayer, ArrayList<Player> listOfPlayers) {
 		Player player = listOfPlayers.get(currentPlayer);
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("Night school stop! What would you like to do?");
+		System.out.println("Night school stop!");
 		System.out.println("1: Keep current job");
 		System.out.println("2: Change career (costs 100K)");
-		int nightChoice = keyboard.nextInt();
-		//keyboard.nextLine();
+		System.out.println("What would you like to do? Enter 1 or 2: ");
+		int nightChoice = 0;
+		nightChoice = ErrorCheck.rangeCheck("Choose what you would like to do: ", 1, 2, nightChoice);
 		int pathChosen = 0;
+		
 		if (nightChoice==2) {
 			while (player.getBalance() < 100) {
 				player.takeLoan();
@@ -78,7 +79,5 @@ public class StopSpace extends Space {
 			System.out.println("Congrats! You had 3 kids");
 		}
 		else System.out.println("No kids this time!");
-	}
-	
-		
+	}		
 }

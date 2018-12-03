@@ -102,10 +102,8 @@ public class HouseCards extends Cards {
 		System.out.println("2nd card chosen is: "+card2.getName()+" with a purchase price of "+card2.getValue1()+"K");
 
 		// ask user to choose a card
-		System.out.println("Choose a card! Enter 1 or 2: ");
-		// open scanner and save user input
-		Scanner keyboard = new Scanner(System.in);
-		int houseCardChoice = keyboard.nextInt();
+		int houseCardChoice = 0;
+		houseCardChoice = ErrorCheck.rangeCheck("Choose a card! Enter 1 or 2: ", 1, 2, houseCardChoice);
 		HouseCards chosenCard = null;
 
 		// if choose card1, update player with corresponding HouseCards object
@@ -114,15 +112,12 @@ public class HouseCards extends Cards {
 			player.addHouse(card1);
 		}
 		// if choose card2, update player with corresponding HouseCards object
-		else if (houseCardChoice==2) {
+		else {
 			chosenCard = card2;
 			// if card 2 chosen, add card 1 back to deck and instead remove card1
 			player.addHouse(card2);
 			listOfCards.remove(card2);
 			listOfCards.add(card1);
-		}
-		else {
-			System.out.println("Error - choice must be 1 or 2.");
 		}
 
 		// prompt user to take out loan if player's wallet has insufficient funds to buy selected house
@@ -161,13 +156,14 @@ public class HouseCards extends Cards {
 		
 		// save user's choice of which house to sell
 		System.out.println("Enter number of house to sell: ");
-		Scanner keyboard = new Scanner(System.in);
-		int houseCardChoice = keyboard.nextInt();
+		int houseCardChoice = 0;
+		houseCardChoice = ErrorCheck.rangeCheck("Enter number of house to sell: ", 1, houseListSize, houseCardChoice);
 		HouseCards chosenCard = player.getHouses().get(houseCardChoice-1);
 
 		// spin spinner to determine sale price of selected house
 		Spinner spinner = new Spinner();
 		System.out.println(player.getName()+", press enter to spin the spinner!");
+		Scanner keyboard = new Scanner(System.in);
 		keyboard.nextLine();
 		spinner.spinSpinner(listOfPlayers);
 		
