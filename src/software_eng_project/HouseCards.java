@@ -130,12 +130,19 @@ public static HouseCards chooseHouseCards(ArrayList<HouseCards> cardList) {
 		//keyboard.close();
 	}
 	
-	public static void sellHouse(ArrayList<HouseCards> listOfCards, Player player) {
+	public static boolean sellHouse(ArrayList<HouseCards> listOfCards, Player player, ArrayList<Player> listOfPlayers) {
+		boolean flag = false;
 		int houseListSize = player.getHouses().size();
+		
+		if (houseListSize<=0) {
+			System.out.println("You don't have any houses to sell - you must choose another option!");
+			flag = true;
+			return flag;
+		}
 		
 		for (int x=0;x<houseListSize;x++) {
 			HouseCards currentHouse = player.getHouses().get(x);
-			System.out.println((x+1)+": "+currentHouse.getName()+" with a red sale price of "+currentHouse.getValue1()+"K and a black sale price of "+currentHouse.getValue1()+"K");
+			System.out.println((x+1)+": "+currentHouse.getName()+" with a red sale price of "+currentHouse.getValue2()+"K and a black sale price of "+currentHouse.getValue3()+"K");
 		}
 		System.out.println("Enter number of house to sell: ");
 		Scanner keyboard = new Scanner(System.in);
@@ -148,22 +155,57 @@ public static HouseCards chooseHouseCards(ArrayList<HouseCards> cardList) {
 		System.out.println(player.getName()+", press enter to spin the spinner!");
 		keyboard.nextLine();
 		
-		spinner.spinSpinner();
-		int moves = spinner.getNumber();
-		System.out.println("Spin value: "+moves+"\nColour: "+spinner.getColour());
+		spinner.spinSpinner(listOfPlayers);
 		int houseValue = 0;
 		
 		if (spinner.getColour().equals("red")) {
-			houseValue = chosenCard.getValue1();
+			houseValue = chosenCard.getValue2();
 		}
-		else houseValue = chosenCard.getValue2();
+		else houseValue = chosenCard.getValue3();
 		
 		player.removeHouse(chosenCard);
 		player.walletBalance(houseValue, "add");
-		System.out.println(player.getName()+", your house has been sold for "+houseValue);
+		System.out.println(player.getName()+", your house has been sold for "+houseValue+"K");
 		System.out.println(player.getName()+"'s updated balance is: "+player.getBalance()+"K");
 		
 		listOfCards.add(chosenCard); // add sold house back to House card deck
+		return flag;
+	}
+	
+	public static void sellAllHouses(ArrayList<HouseCards> listOfCards, Player player, ArrayList<Player> listOfPlayers) {
+		int houseListSize = player.getHouses().size();
+		Scanner keyboard = new Scanner(System.in);
+		System.out.println("\nTime to sell your houses!");
+		
+		for (int x=0;x<houseListSize;x++) {
+			HouseCards currentHouse = player.getHouses().get(0);
+			//System.out.println((x+1)+": "+currentHouse.getName()+" with a red sale price of "+currentHouse.getValue2()+"K and a black sale price of "+currentHouse.getValue3()+"K");
+			
+			Spinner spinner = new Spinner();
+			
+			// spin spinner and print results
+			System.out.println(player.getName()+", press enter to spin the spinner!");
+			keyboard.nextLine();
+			
+			spinner.spinSpinner(listOfPlayers);
+			int houseValue = 0;
+			
+			if (spinner.getColour().equals("red")) {
+				houseValue = currentHouse.getValue2();
+			}
+			else houseValue = currentHouse.getValue3();
+			
+			player.removeHouse(currentHouse);
+			player.walletBalance(houseValue, "add");
+			System.out.println(player.getName()+", "+currentHouse.getName()+" has been sold for "+houseValue+"K");
+			System.out.println(player.getName()+"'s updated balance is: "+player.getBalance()+"K");
+			
+			listOfCards.add(currentHouse); // add sold house back to House card deck
+		
+		
+		}
+		
+		
 	}
 	
 	/*

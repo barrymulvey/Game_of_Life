@@ -33,8 +33,8 @@ public class Main {
 		collegeCareerCardList = InitialiseGame.initialiseCareerCardDeck("college_careers_file");
 
 		// initialise action card deck
-		ArrayList<String> actionCardList = new ArrayList<String>();
-		actionCardList = InitialiseGame.initialiseActionCardDeck();
+		ArrayList<ActionCards> actionCardList = new ArrayList<ActionCards>();
+		actionCardList = InitialiseGame.initialiseActionCardDeck("action_file");
 
 		// Read in spaces and save to arraylist
 		ArrayList<Space> boardSpacesList = new ArrayList<Space>();
@@ -47,10 +47,14 @@ public class Main {
 		
 		// initialise string to hold space type
 		String output_space_type = null;
+		
+		int numRetired = 0;
 
 		System.out.println("Start the game! (Youngest goes first)");
 		while(listOfPlayers.size() > 0) { 				// until all players retire
 			for (int x=0;x<listOfPlayers.size();x++) {
+				boolean secondTurn = false;
+				boolean retired = false;
 				String current_player=listOfPlayers.get(x).getName();
 				// Next player's turn
 				System.out.println("\n"+current_player+"'s turn");
@@ -63,12 +67,12 @@ public class Main {
 				System.out.println(current_player+", press enter to spin the spinner!");
 				keyboard.nextLine();
 				
-				spinner.spinSpinner();
+				spinner.spinSpinner(listOfPlayers);
 				int moves = spinner.getNumber();
-				System.out.println("Spin value: "+moves+"\nColour: "+spinner.getColour());
 
 				for(int y=0;y<moves;y++) {
 					String next_space = null;
+					
 					String current_space = listOfPlayers.get(x).getCurrentSpace();
 					// what are the next space choices?
 					
@@ -78,26 +82,29 @@ public class Main {
 					
 				    				
 					// if not start of game
-					if(!(boardSpacesList.get(Integer.parseInt(current_space)).getSpaceType().contains("STARTGAME"))) {
-						if(!(boardSpacesList.get(Integer.parseInt(current_space)).getSpaceType().contains("RETIREMENT"))) {
+					if(!(boardSpacesList.get(Integer.parseInt(current_space)).getSpaceType().contains("RETIREMENT"))) {
+						if((boardSpacesList.get(Integer.parseInt(current_space)).getSpaceType().contains("STARTGAME"))) {
+							boolean college = false;
+							if(listOfPlayers.get(x).getPath().equals("College")) {
+								college = true;
+							}
+							
+							int nextSpace = SpaceTypes.startGame(college, listOfPlayers.get(x));
+							next_space= Integer.toString(nextSpace);
+						}
+						// if start of game
+						else {
+							
+							
+							
 							next_space = next_space_choices.get(0);
 						}
-										
-					}
-					// if start of game
-					else {
-						boolean college = false;
-						if(listOfPlayers.get(x).getPath().equals("College")) {
-							college = true;
-						}
-						System.out.println("College = "+college);
 						
-						int nextSpace = SpaceTypes.startGame(college, listOfPlayers.get(x));
-						next_space= Integer.toString(nextSpace);
+						// move the player
+						listOfPlayers.get(x).movePlayer(next_space);
+								
 					}
 					
-					// move the player
-					listOfPlayers.get(x).movePlayer(next_space);
 
 					//}
 					// add in exception here! do an else: space_type = null;
@@ -116,10 +123,12 @@ public class Main {
 						//else if(space_number==27) {
 						else if(space_type.contains("WEDDING")) {
 							x = StopSpace.wedding(listOfPlayers, spinner, x);
+							secondTurn = true;
 						}
 						//else if(space_number==39) {
 						else if(space_type.contains("NIGHTSCHOOL")) {
 							x = StopSpace.nightSchool(collegeCareerCardList, x, listOfPlayers);
+							secondTurn = true;
 						}
 						//else if(space_number==68) {
 						else if(space_type.contains("FAMILYORLIFE")) {
@@ -127,7 +136,7 @@ public class Main {
 						}
 						//else if(space_number==78) {
 						else if(space_type.contains("CHILDREN")) {
-							StopSpace.haveChildren(spinner, listOfPlayers.get(x));
+							StopSpace.haveChildren(spinner, x, listOfPlayers);
 						}
 						//else if(space_number==95) System.out.println("Holiday - time to relax!");
 						else if(space_type.contains("HOLIDAY")) {
@@ -135,6 +144,12 @@ public class Main {
 						}
 						break;
 					}
+					if(space_type.contains("RETIREMENT")) {
+						numRetired = SpaceTypes.retirementSpace(listOfPlayers, retiredList, listOfPlayers.get(x), numRetired, houseCardList);
+						retired = true;
+						break;
+					}
+					
 					
 					// Print spaces over which player travels
 					if(y!=(moves-1)) {
@@ -168,18 +183,19 @@ public class Main {
 							case "SPIN_TO_WIN":	SpaceTypes.spinToWin(listOfPlayers, listOfPlayers.get(x), spinner);
 												break;
 												
-							case "RETIREMENT": SpaceTypes.retirementSpace(listOfPlayers, retiredList, listOfPlayers.get(x));
-											   break;
+							//case "RETIREMENT": SpaceTypes.retirementSpace(listOfPlayers, retiredList, listOfPlayers.get(x));
+											   //break;
 											   
 						    default: output_space_type = null;
 						}	
 					}
 				}
 				
-				System.out.println("\n"+current_player+"'s updated details summary: ");
-				listOfPlayers.get(x).printDetailsSummary();
-
-
+				if (!secondTurn && !retired) {
+					System.out.println("\n"+current_player+"'s updated details summary: ");
+					listOfPlayers.get(x).printDetailsSummary();
+				}
+				
 				//System.out.println(current_player+", press enter to end your turn.");
 				//keyboard.nextLine();
 				//System.out.println("\nNext player's turn");
@@ -189,7 +205,7 @@ public class Main {
 	
 		// retire players
 		//update wallet- evaluate assets
-		Player.playersRetire(retiredList);
+		
 		Player.determineWinner(retiredList);
 		
 		System.out.println("\nEnd of game!");

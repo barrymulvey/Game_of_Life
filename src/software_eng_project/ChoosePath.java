@@ -19,7 +19,6 @@ public class ChoosePath extends Space {
 		int lifeChoice = keyboard.nextInt();
 		
 		List<String> next_space_choices = currentSpace.getNextSpace();
-		System.out.println("next space choices: "+next_space_choices);
 		
 		//String nextSpace = null;
 		String nextSpaceChoice = next_space_choices.get(lifeChoice-1);

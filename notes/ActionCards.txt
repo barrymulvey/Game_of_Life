@@ -1,0 +1,58 @@
+NOTE: all numbers in thousands
+Title---value
+----------------------------------
+Career Change---0
+Career Change---0
+Career Change---0
+Career Change---0
+Career Change---0
+Players pay---0
+Players pay---0
+Players pay---0
+Players pay---0
+Players pay---0
+Players pay---0
+Players pay---0
+Players pay---0
+Players pay---0
+Players pay---0
+Pay bank---10
+Pay bank---10
+Pay bank---10
+Pay bank---10
+Pay bank---20
+Pay bank---20
+Pay bank---20
+Pay bank---20
+Pay bank---30
+Pay bank---30
+Pay bank---30
+Pay bank---30
+Pay bank---40
+Pay bank---40
+Pay bank---40
+Pay bank---40
+Pay bank---50
+Pay bank---50
+Pay bank---50
+Pay bank---50
+Receive---10
+Receive---10
+Receive---10
+Receive---10
+Receive---20
+Receive---20
+Receive---20
+Receive---20
+Receive---30
+Receive---30
+Receive---30
+Receive---30
+Receive---40
+Receive---40
+Receive---40
+Receive---40
+Receive---50
+Receive---50
+Receive---50
+Receive---50

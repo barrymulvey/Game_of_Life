@@ -32,7 +32,7 @@ public class SpaceTypes extends Space {
 		System.out.println(player.getName()+"'s updated balance is: "+player.getBalance()+"K");
 	}
 
-	public static void actionSpace(Player player, ArrayList<String> actionCardList, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList) {
+	public static void actionSpace(Player player, ArrayList<ActionCards> actionCardList, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList) {
 		Scanner keyboard = new Scanner(System.in);
 		System.out.println(player.getName()+", press enter to draw an action card!");
 		keyboard.nextLine();
@@ -40,23 +40,29 @@ public class SpaceTypes extends Space {
 	}
 
 	public static void houseSpace(Player player, ArrayList<HouseCards> houseCardList, ArrayList<Player> listOfPlayers) {
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("\nProperty time!");
-		System.out.println("Enter 1 to buy a house");
-		System.out.println("Enter 2 to sell a house");
-		System.out.println("Enter 3 to do nothing");
-		System.out.println("Choose what you would like to do: ");
-		int houseChoice = keyboard.nextInt();
+		boolean flag = true;
+		while (flag == true) {
+			Scanner keyboard = new Scanner(System.in);
+			System.out.println("\nProperty time!");
+			System.out.println("Enter 1 to buy a house");
+			System.out.println("Enter 2 to sell a house");
+			System.out.println("Enter 3 to do nothing");
+			System.out.println("Choose what you would like to do: ");
+			int houseChoice = keyboard.nextInt();
 
-		if (houseChoice == 1) {
-			System.out.println(player+", press enter to draw 2 house cards!");
-			keyboard.nextLine();
-			HouseCards.buyHouse(houseCardList, player);
+			if (houseChoice == 1) {
+				System.out.println(player.getName()+", press enter to draw 2 house cards!");
+				keyboard.nextLine();
+				HouseCards.buyHouse(houseCardList, player);
+				flag = false;
+			}
+			else if (houseChoice == 2) {
+				int houseListSize = player.getHouses().size();
+				flag = HouseCards.sellHouse(houseCardList, player, listOfPlayers);
+			}
+			else 
+				flag = false;
 		}
-		else if (houseChoice == 2) {
-			HouseCards.sellHouse(houseCardList, player);
-		}
-
 	}
 
 	public static void babySpace(Player player, boolean twins) {
@@ -139,12 +145,13 @@ public class SpaceTypes extends Space {
 
 		Player winningPlayer = null;
 		boolean winner = false;
+		System.out.println("");
 		while (winner == false) {	
-			spinner.spinSpinner();
-			int spinWinNum = spinner.getNumber();
 			System.out.println(player.getName()+", press enter to spin the spinner!");
 			keyboard.nextLine();
-			System.out.println("The number spun is: "+spinWinNum);
+
+			spinner.spinSpinner(listOfPlayers);
+			int spinWinNum = spinner.getNumber();
 			for (int w=0;w<listOfPlayers.size()+1;w++) {
 				if (spinChoice[w]==spinWinNum) {
 					System.out.println("Number matches! "+playerSpinList[w]+" wins 200K!");
@@ -168,10 +175,17 @@ public class SpaceTypes extends Space {
 
 	}
 
-	public static void retirementSpace(ArrayList<Player> listOfPlayers, ArrayList<Player> retiredList, Player player) {
+	public static int retirementSpace(ArrayList<Player> listOfPlayers, ArrayList<Player> retiredList, Player player, int numRetired, ArrayList<HouseCards> listOfCards) {
 		System.out.println("You made it, retirement!");
+
+		player.retirePlayer(numRetired, listOfCards, listOfPlayers);
+		System.out.println("\n"+player.getName()+"'s updated details summary: ");
+		player.printDetailsSummary();
+
 		retiredList.add(player);
 		listOfPlayers.remove(player);
+		numRetired = numRetired+1;
+		return numRetired;
 	}
 }
 

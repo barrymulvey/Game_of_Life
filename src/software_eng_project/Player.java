@@ -1,6 +1,7 @@
 package software_eng_project;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -52,10 +53,22 @@ public class Player {
 
 		System.out.println("Enter name of player: ");
 		String playerName = keyboard.next();
+		int playerAge = 0;
 
-		System.out.println("Enter age of "+playerName+": ");
-		int playerAge = keyboard.nextInt();
-		
+		// Check if user inputs are valid
+		while (true) {
+			try {
+				System.out.println("Enter age of "+playerName+": ");
+				playerAge = keyboard.nextInt();
+				if (playerAge>=0) break;
+				else System.out.println("Invalid input - please try again!");
+			}
+			catch (InputMismatchException e) {
+				System.out.println("Invalid input - please try again!");
+				keyboard.next();
+			}
+		}
+
 		String carColourString = carColour.toString().replace("[","").replace("]","");
 
 		System.out.println("Enter colour of car for "+playerName+". Car colours still available: "+carColourString);
@@ -125,27 +138,27 @@ public class Player {
 	public void movePlayer(String next_space) {
 		current_space = next_space;
 	}
-	
+
 	public void addHouse(HouseCards newHouse) {
 		this.houses.add(newHouse);
 		this.houseList.add(newHouse.getName());
 	}
-	
+
 	public void removeHouse(HouseCards houseChosen) {
 		this.houses.remove(houseChosen);
 		this.houseList.remove(houseChosen.getName());
 	}
-	
+
 	public ArrayList<HouseCards> getHouses() {
 		return houses;
 	}
-	
+
 	public String getHouseList() {
 		String houseListString = houseList.toString().replace("[","").replace("]","");
 		return houseListString;
 	}
-	
-	
+
+
 	// Change Career
 	public void changeCareer(ArrayList<CareerCards> listOfCards) {
 		// choose 2 career cards
@@ -198,6 +211,7 @@ public class Player {
 		Scanner keyboard = new Scanner(System.in);
 		int numberLoans = keyboard.nextInt();
 		this.numLoans(numberLoans);
+		System.out.println(this.getName()+"'s updated balance is: "+this.getBalance()+"K");
 	}
 
 	public void getMarried(ArrayList<Player> listOfPlayers, Player current_player, Spinner spinner) {
@@ -222,9 +236,8 @@ public class Player {
 			Scanner keyboard = new Scanner(System.in);
 			keyboard.nextLine();
 
-			spinner.spinSpinner();
+			spinner.spinSpinner(listOfPlayers);
 			int spinNumber = spinner.getNumber();
-			System.out.println("Spin value: "+spinNumber+"\nColour: "+spinner.getColour());
 
 			int giftValue = 0;
 
@@ -236,61 +249,73 @@ public class Player {
 			else {
 				giftValue = 100;
 			}
-			while (current_player.getBalance() < giftValue) {
-				current_player.takeLoan();
+			while (temporaryPlayerList.get(x).getBalance() < giftValue) {
+				temporaryPlayerList.get(x).takeLoan();
 			}
 			System.out.println(temporaryPlayerList.get(x).getName()+" give a wedding gift of "+giftValue+"K to "+current_player.getName()+"!");
 			temporaryPlayerList.get(x).walletBalance(giftValue, "subtract");
 			current_player.walletBalance(giftValue, "add");	
+
+			// print updated balances following transaction
+			System.out.println(temporaryPlayerList.get(x).getName()+"'s updated balance is: "+temporaryPlayerList.get(x).getBalance()+"K");
+			System.out.println(current_player.getName()+"'s updated balance is: "+current_player.getBalance()+"K");
 		}
 	}
-	
+
 	public int takeExtraTurn(ArrayList<Player> listOfPlayers, int x) {
-		System.out.println(listOfPlayers.get(x).getName()+" gets an extra turn!");
+		System.out.println("\n"+listOfPlayers.get(x).getName()+" gets an extra turn!");
 		if(x == 0) x = listOfPlayers.size()-1;
 		else x = x-1;
 		return x;
 	}
 
 	// evaluates player's assets
-	public static void playersRetire(ArrayList<Player> retiredList) {
-		for(int x=0;x<retiredList.size();x++) {
-			
-			// award bonus
-			int bonus = 0;
-			if(x == 0) bonus = 400;
-			else if(x == 1) bonus = 300;
-			else if(x == 2) bonus = 200;
-			else if(x == 3) bonus = 100;
-			retiredList.get(x).walletBalance(bonus, "add");
-			
-			// pay off loans
-			int loans = retiredList.get(x).getNumLoans();
-			int valueLoans = loans*60;
-			retiredList.get(x).walletBalance(valueLoans, "subtract");
+	public void retirePlayer(int x, ArrayList<HouseCards> listOfCards, ArrayList<Player> listOfPlayers) {
+		Scanner keyboard = new Scanner(System.in);
 
-			// TODO
-			//sell houses and add value of houses
+		//sell houses and add value of houses
+		HouseCards.sellAllHouses(listOfCards, this, listOfPlayers);
 
-			// action cards
-			int numActionCards = retiredList.get(x).getNumActionCards();
-			int valueActionCards = numActionCards*100;
-			retiredList.get(x).walletBalance(valueActionCards, "add");
+		// pay off loans
+		int loans = this.getNumLoans();
+		int valueLoans = loans*60;
+		this.walletBalance(valueLoans, "subtract");
 
-			// children
-			int numChildren = retiredList.get(x).getNumChildren();
-			int valueChildren = numChildren*50;
-			retiredList.get(x).walletBalance(valueChildren, "add");
-		}
+		// action cards
+		int numActionCards = this.getNumActionCards();
+		int valueActionCards = numActionCards*100;
+		this.walletBalance(valueActionCards, "add");
 
+		// children
+		int numChildren = this.getNumChildren();
+		int valueChildren = numChildren*50;
+		this.walletBalance(valueChildren, "add");
+
+		// award bonus
+		int bonus = 0;
+		if(x == 0) bonus = 400;
+		else if(x == 1) bonus = 300;
+		else if(x == 2) bonus = 200;
+		else if(x == 3) bonus = 100;
+		this.walletBalance(bonus, "add");
+
+		System.out.println(this.getName()+", press enter to tot up your winnings!");
+		keyboard.nextLine();
+		System.out.println("\n"+this.getName()+", your winnings have been added up! \n");
+		System.out.println("You paid:\n"+valueLoans+"K to the bank for your "+loans+" Loans");
+		System.out.println("\nYou were awarded:\n"+valueActionCards+"K from the bank for your "+numActionCards+" Action Cards");
+		System.out.println(valueChildren+"K from the bank for your "+numChildren+" children");
+		System.out.println(bonus+"K for being player number "+(x+1)+" to finish the game");
+		System.out.println("Happy retirement!");
 	}
+
 	// evaluates player's assets
 	public static void determineWinner(ArrayList<Player> retiredList) {
-		
+
 		Player winner = null;
 		int playerListSize = retiredList.size();
 		ArrayList<Player> winnerList =  new ArrayList<Player>();
-		
+
 		while (playerListSize > 1) {
 			// starting condition- to compare to
 			double mostMoney = retiredList.get(0).getBalance();
@@ -306,12 +331,12 @@ public class Player {
 		}
 		// add last player
 		winnerList.add(retiredList.get(0));
-		System.out.println("Final placings of players:");
+		System.out.println("\nFinal placings of players:");
 		for(int y=0;y<winnerList.size(); y++) {
 			System.out.println((y+1)+": "+winnerList.get(y).getName()+", with a final balance of: "+winnerList.get(y).getBalance());
 		}
 
-		System.out.println("Congratulations "+winnerList.get(0).getName()+", you have won the Game of Life!");
+		System.out.println("\nCongratulations "+winnerList.get(0).getName()+", you have won the Game of Life!");
 	}
 
 
@@ -366,13 +391,13 @@ public class Player {
 	}
 	protected void printDetails(){
 		System.out.println("*** *** *** *** *** *** *** ***");
-		System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalance()+"K\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouses: "+getHouseList()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
+		System.out.println("Name: "+getName()+"\nAge: "+getAge()+"\nCar: "+getColour()+"\nWallet Balance: " +getBalance()+"K\nNumber of Children: "+getNumChildren()+"\nNumber of Loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nInitial Path Choice: "+getPath()+"\nCareer: "+getCareer()+"\nBonus Number: "+getBonus()+"\nHouses: "+getHouseList()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber of Action Cards: "+getNumActionCards());
 		System.out.println("*** *** *** *** *** *** *** ***");	
 
 	}
 	protected void printDetailsSummary(){
 		System.out.println("*** *** *** *** *** *** *** ***");
-		System.out.println("Wallet Balance: "+getBalance()+"K\nNumber children: "+getNumChildren()+"\nNumber loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nPath Choice: "+getPath()+"\nCareer: "+getCareer()+"\nHouses: "+getHouseList()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber Action Cards: "+getNumActionCards());
+		System.out.println("Wallet Balance: "+getBalance()+"K\nNumber of Children: "+getNumChildren()+"\nNumber of Loans: "+getNumLoans()+"\nMarital Status: "+getMaritalStatus()+"\nCareer: "+getCareer()+"\nBonus Number: "+getBonus()+"\nHouses: "+getHouseList()+"\nCurrent Space: "+getCurrentSpace()+"\nNumber of Action Cards: "+getNumActionCards());
 		System.out.println("*** *** *** *** *** *** *** ***");	
 
 	}
