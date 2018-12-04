@@ -13,6 +13,7 @@ public class Utility {
 	private static Utility utility;
 	private Properties prop;
 	
+	// error thrown if file not found
 	private Utility() throws IOException{
 		prop = new Properties();
 		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
@@ -23,10 +24,12 @@ public class Utility {
 		}
 	}
 	
+	// method to return property of utility
 	public String getProperty(String key){
 		return prop.getProperty(key);
 	}
 	
+	// method to create an instance
 	public static Utility getInstance(){
 		if(utility == null)
 			try{
@@ -36,5 +39,4 @@ public class Utility {
 			}
 		return utility;
 	}
-
 }

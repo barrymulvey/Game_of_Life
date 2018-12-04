@@ -5,15 +5,17 @@ import java.util.List;
 public class Space {
 	private String number;
 	private String type;
-	// set to null if not input, null by default
+	// set this attribute to null if it is not input to constructor
 	private List<String> next = null;
 	
+	// constructor
 	public Space(String number, String type, List<String> next){
 		this.number = number;
 		this.type = type;
 		this.next = next;
 	}
 	
+	// print details of Space object
 	public void printSpace(){
 		System.out.println("Current Space: "+number);
 		System.out.print("Type: "+type);
@@ -23,14 +25,18 @@ public class Space {
 		}
 		System.out.println(" ");
 	}
+	
+	// return type of Space object
 	public String getSpaceType() {
 		return type;
 	}
 	
+	// return next space(s) of Space object
 	public List<String> getNextSpace() {
 		return next;
 	}
 	
+	// return number of Space object
 	public String getNumberSpace() {
 		return number;
 	}

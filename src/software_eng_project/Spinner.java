@@ -7,47 +7,49 @@ public class Spinner {
 	int spin;
 	String colour;
 	
+	// constructor
 	protected Spinner() {
 		value = 10;
 		spin = 0;
 		colour = null;
 	}
 	
-	protected void spinSpinner(ArrayList<Player> listOfPlayers) {
-    //public static void main(String[] args) {
-        //int value = 10;   // number of values on spinner
-				
+	// method to spin the spinner to select a random number 1-10
+	protected void spinSpinner(ArrayList<Player> listOfPlayers) {				
         // spin is a random number in the range 1-10
         this.spin = (int) (Math.random()*value) + 1;
-
-        // print value
-        //System.out.println(spin);
         
-        // print colour of value
+        // print colour of value (black if even)
         if (spin%2==0) {
         	this.colour = "black";
-        	//System.out.println("Even number: black");
         }
+        // if value of spin is odd
         else {
         	this.colour = "red";
-        	//System.out.println("Odd number: red");
         }
         
         // print info
         System.out.println("Spin value: "+getNumber()+"\nColour: "+getColour());
+        
+        // check if any player's bonus number = number spun
         giveBonus(listOfPlayers, spin);
     }
 	
+	// method to return number spun
 	public int getNumber() {
 		return spin;
 	}
+	
+	// method to return colour associated with number spun
 	public String getColour() {
 		return colour;
 	}
 	
+	// method to allocate bonus to a player if their bonus number is selected
 	public static void giveBonus(ArrayList<Player> listOfPlayers, int spin) {
 		int numPlayers = listOfPlayers.size();
 		for (int x=0;x<numPlayers; x++) {
+			// increase balance of player if bonus number selected
 			if (spin == listOfPlayers.get(x).getBonus()) {
 				System.out.println("\n"+listOfPlayers.get(x).getName()+"'s bonus number matches the number spun");
 				System.out.println(listOfPlayers.get(x).getName()+" receives a bonus of 20K!");
@@ -57,7 +59,5 @@ public class Spinner {
 				System.out.println(listOfPlayers.get(x).getName()+"'s updated balance is: "+listOfPlayers.get(x).getBalance()+"K\n");
 			}
 		}
-	}
-
-	
+	}	
 }

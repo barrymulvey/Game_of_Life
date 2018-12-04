@@ -42,6 +42,7 @@ public class InitialiseGame {
 			Player player1 = new Player(); 		
 			player1 = player.initialisePlayer(carColour, careerCardList, keyboard);
 
+			// remove colour chosen by player as each player must have a different colour
 			String chosenColour = player1.getColour();
 			carColour.remove(chosenColour);
 
@@ -50,7 +51,6 @@ public class InitialiseGame {
 		}
 
 		// arrange players in correct order (youngest goes first!)
-		// at the moment, nothing to decide who goes first out of two people with same age!
 		Player youngestPlayer = null;
 		int playerListSize = first_listOfPlayers.size();
 
@@ -74,8 +74,6 @@ public class InitialiseGame {
 		for (int x=0; x<listOfPlayers.size(); x++) {
 			listOfPlayers.get(x).printDetails();
 		}
-
-		//keyboard.close();
 		return listOfPlayers;
 	}
 
