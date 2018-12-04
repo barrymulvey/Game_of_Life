@@ -33,6 +33,7 @@ public class ErrorCheck {
 		return toCheck;
 	}
 
+	
 	public static int containsIntCheck(String question, ArrayList<Integer> integerList, int toCheck) {
 		// Check user inputs, throw exception if not valid
 		// Keep looping until they enter an integer chosen from the available list
@@ -61,9 +62,9 @@ public class ErrorCheck {
 	}
 
 
-	public static String containsStringCheck(String question, ArrayList<String> listOfStrings, String toCheck) {
+	public static String startsWithCheck(String question, ArrayList<String> listOfStrings, String toCheck) {
 		// Check user inputs, throw exception if not valid
-		// Keep looping until user enters character from the available list
+		// Keep looping until user enters String with first letter matching a first letter of an entry from the available list
 
 		// open scanner
 		Scanner keyboard = new Scanner(System.in);
@@ -76,9 +77,7 @@ public class ErrorCheck {
 				for (String s: listOfStrings) {
 					if (s.toUpperCase().startsWith(toCheck.toUpperCase())) {
 						return toCheck.toUpperCase();
-						//break;
 					}
-
 				}
 				System.out.println("Invalid input - please try again!");
 			}
@@ -89,7 +88,6 @@ public class ErrorCheck {
 			}
 		}
 	}
-
 
 
 	public static String pathCheck(String question, String lifeDecision) {
@@ -119,31 +117,4 @@ public class ErrorCheck {
 		return lifeDecision;
 	}
 
-
-	public static String carCheck(String question, String carCol) {
-		// Check user inputs, throw exception if not valid
-		// Keep looping until they enter an integer within the specified range
-
-		// open scanner
-		Scanner keyboard = new Scanner(System.in);
-
-		// continue to execute try-catch until correct input entered by user
-		while (true) {
-			try {
-				System.out.println(question);
-				carCol = keyboard.next();
-				if(carCol.equalsIgnoreCase("P") || carCol.equalsIgnoreCase("Pink") || carCol.equalsIgnoreCase("B") || carCol.equalsIgnoreCase("Blue") || carCol.equalsIgnoreCase("G") || carCol.equalsIgnoreCase("Green") || carCol.equalsIgnoreCase("Y") || carCol.equalsIgnoreCase("Yellow")) {
-					break;
-				}
-				else System.out.println("Invalid input - please try again!");
-			}
-
-			// throw exception if input is out of specified range or not an integer
-			catch (InputMismatchException e) {
-				System.out.println("Invalid input - please try again!");
-				keyboard.next();
-			}
-		}
-		return carCol;
-	}
 }

@@ -60,7 +60,7 @@ public class Player {
 		System.out.println("Choose car colour for "+playerName+". Car colours still available: "+carColourString);
 		String carCol = null;
 		
-		carCol = ErrorCheck.containsStringCheck("Enter first letter of colour to select: ", carColour, carCol);
+		carCol = ErrorCheck.startsWithCheck("Enter first letter of colour to select: ", carColour, carCol);
 		System.out.println(carCol);
 		
 		if (carCol.startsWith("P")) {
@@ -78,32 +78,6 @@ public class Player {
 		else {
 			colour=null;
 		}
-		
-		/*
-		 * If making carCheck method for error checking input
-		System.out.println("Enter colour of car for "+playerName+". Car colours still available: "+carColourString);
-		System.out.println("Enter first letter of colour to select: ");
-		String carCol = keyboard.next();
-		//char firstLetter = carCol.charAt(0);
-		
-		carCol = ErrorCheck.carCheck("Enter L for College Path (costs 100K) or R for Career Path: ", carCol);
-
-		if (carCol.equalsIgnoreCase("P") || carCol.equalsIgnoreCase("Pink")) {
-			colour="Pink";
-		}
-		else if (carCol.equalsIgnoreCase("B") || carCol.equalsIgnoreCase("Blue")) {
-			colour="Blue";
-		}
-		else if (carCol.equalsIgnoreCase("G") || carCol.equalsIgnoreCase("Green")) {
-			colour="Green";
-		}
-		else if (carCol.equalsIgnoreCase("Y") || carCol.equalsIgnoreCase("Yellow")) {
-			colour="Yellow";
-		}
-		else {
-			colour=null;
-		}
-		 */
 
 		System.out.println(playerName+", choose your life path!");
 		String lifeDecision = null;
