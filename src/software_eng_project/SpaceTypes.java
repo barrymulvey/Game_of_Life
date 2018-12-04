@@ -97,8 +97,9 @@ public class SpaceTypes extends Space {
 		for (int w=0;w<=1;w++) {
 			String spinnerListString = spinnerList.toString().replace("[","").replace("]","");
 			System.out.println("Numbers available: "+spinnerListString);
-			System.out.println(player.getName()+", enter a number from the list: ");
-			int numChosen = keyboard.nextInt();
+			
+			int numChosen = 0;
+			numChosen = ErrorCheck.containsIntCheck(player.getName()+", enter a number from the list: ", spinnerList, numChosen);
 
 			for (int z=0;z<=spinnerList.size();z++) {
 				if (spinnerList.contains(numChosen)) {
@@ -124,8 +125,8 @@ public class SpaceTypes extends Space {
 		for (int w=2;w<listOfPlayers.size()+1;w++) {
 			String spinnerListString = spinnerList.toString().replace("[","").replace("]","");
 			System.out.println("Numbers available: "+spinnerListString);
-			System.out.println(temporaryPlayerList.get(count).getName()+", enter a number from the list: ");
-			int numChosen = keyboard.nextInt();
+			int numChosen = 0;
+			numChosen = ErrorCheck.containsIntCheck(temporaryPlayerList.get(count).getName()+", enter a number from the list: ", spinnerList, numChosen);
 
 			for (int z=0;z<=spinnerList.size();z++) {
 				if (spinnerList.contains(numChosen)) {

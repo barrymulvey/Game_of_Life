@@ -155,7 +155,6 @@ public class HouseCards extends Cards {
 		}
 		
 		// save user's choice of which house to sell
-		System.out.println("Enter number of house to sell: ");
 		int houseCardChoice = 0;
 		houseCardChoice = ErrorCheck.rangeCheck("Enter number of house to sell: ", 1, houseListSize, houseCardChoice);
 		HouseCards chosenCard = player.getHouses().get(houseCardChoice-1);

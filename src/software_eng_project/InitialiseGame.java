@@ -31,6 +31,7 @@ public class InitialiseGame {
 		
 		// Ascertain how many players there are and check for correct user input
 		int numPlayers = 0;
+		System.out.println("**** Welcome to the Game of Life! ****\n");
 		numPlayers = ErrorCheck.rangeCheck("How many players? (2-4): ", 2, 4, numPlayers);
 		
 		// initialise each new player

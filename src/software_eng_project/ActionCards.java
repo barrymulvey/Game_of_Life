@@ -1,7 +1,6 @@
 package software_eng_project;
 
 import java.util.Random;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,8 +141,7 @@ public class ActionCards extends Cards {
 		}
 
 		// ask current player to choose another player 
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println("Choose a player! (Enter number)");
+		System.out.println("Choose a player from the list!");
 
 		// print out all possible players to choose from
 		for(int x=1;x<=tempPlayerList.size();x++) {
@@ -152,7 +150,7 @@ public class ActionCards extends Cards {
 
 		// read in chosen player to pay money- error check for incorrect input
 		int chosenPlayer = 0;
-		chosenPlayer = ErrorCheck.rangeCheck("", 1, tempPlayerList.size(), chosenPlayer);
+		chosenPlayer = ErrorCheck.rangeCheck("Enter number of player: ", 1, tempPlayerList.size(), chosenPlayer);
 		
 		//keyboard.close();
 		System.out.println("Chosen player is: "+tempPlayerList.get(chosenPlayer-1).getName());

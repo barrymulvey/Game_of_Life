@@ -29,9 +29,8 @@ public class StopSpace extends Space {
 		System.out.println("Night school stop!");
 		System.out.println("1: Keep current job");
 		System.out.println("2: Change career (costs 100K)");
-		System.out.println("What would you like to do? Enter 1 or 2: ");
 		int nightChoice = 0;
-		nightChoice = ErrorCheck.rangeCheck("Choose what you would like to do: ", 1, 2, nightChoice);
+		nightChoice = ErrorCheck.rangeCheck("What would you like to do? Enter 1 or 2: ", 1, 2, nightChoice);
 		int pathChosen = 0;
 		
 		if (nightChoice==2) {
