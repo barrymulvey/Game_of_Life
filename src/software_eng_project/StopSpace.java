@@ -16,10 +16,10 @@ public class StopSpace extends Space {
 		player.changeCareer(collegeCareerCardList);
 	}
 	
-	public static int wedding(ArrayList<Player> listOfPlayers, Spinner spinner, int currentPlayer) {
+	public static int wedding(ArrayList<Player> listOfPlayers, Spinner spinner, int currentPlayer, Scanner keyboard) {
 		Player player = listOfPlayers.get(currentPlayer);
 		System.out.println("Wedding bells!");
-		player.getMarried(listOfPlayers, player, spinner);
+		player.getMarried(listOfPlayers, player, spinner, keyboard);
 		int x = player.takeExtraTurn(listOfPlayers, currentPlayer);
 		return x;
 	}
@@ -56,9 +56,8 @@ public class StopSpace extends Space {
 		ChoosePath.selectPath(pathChosen, player);
 	}
 	
-	public static void haveChildren(Spinner spinner, int x, ArrayList<Player> listOfPlayers) {
+	public static void haveChildren(Spinner spinner, int x, ArrayList<Player> listOfPlayers, Scanner keyboard) {
 		Player player = listOfPlayers.get(x);
-		Scanner keyboard = new Scanner(System.in);
 		System.out.println("You're expecting! Spin the spinner to find out how many babies you're having!");
 		System.out.println("(1-3 = 0 kids. 4-6 = 1 kid. 7-8 = 2 kids. 9-10 = 3 kids.)");
 		keyboard.nextLine();

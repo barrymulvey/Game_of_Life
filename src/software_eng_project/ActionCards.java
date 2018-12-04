@@ -1,6 +1,7 @@
 package software_eng_project;
 
 import java.util.Random;
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class ActionCards extends Cards {
 	}
 	
 	// implement the action defined by the ActionCards object
-	public static void doAction(ActionCards actionCard, Player player, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList, ArrayList<ActionCards> actionCardList) {
+	public static void doAction(ActionCards actionCard, Player player, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList, ArrayList<ActionCards> actionCardList, Scanner keyboard) {
 		
 		// get the title of the ActionCards object
 		String action = actionCard.getName();
@@ -88,13 +89,13 @@ public class ActionCards extends Cards {
 			receive(actionCard, player);
 			break;
 		// by default, draw another action card!
-		default: SpaceTypes.actionSpace(player, actionCardList, listOfPlayers, collegeCareerCardList);
+		default: SpaceTypes.actionSpace(player, actionCardList, listOfPlayers, collegeCareerCardList, keyboard);
 		}
 		
 		if(flag) {
 			// if flag is true, this action card was not applicable and so current player must draw another
 			System.out.println("\nThis Action Card is not applicable. Choose again!");
-			SpaceTypes.actionSpace(player, actionCardList, listOfPlayers, collegeCareerCardList);
+			SpaceTypes.actionSpace(player, actionCardList, listOfPlayers, collegeCareerCardList, keyboard);
 		}
 	}
 
@@ -193,7 +194,7 @@ public class ActionCards extends Cards {
 	}
 
 	// method to draw an action card from deck
-	public static ArrayList<ActionCards> chooseActionCard (ArrayList<ActionCards> cardList, Player player, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList) {
+	public static ArrayList<ActionCards> chooseActionCard (ArrayList<ActionCards> cardList, Player player, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList, Scanner keyboard) {
 		
 		// Choose a card at random between 0 and 54
 		int size = cardList.size();
@@ -203,7 +204,7 @@ public class ActionCards extends Cards {
 
 		// increment_number of action cards held by person
 		player.addActionCard();
-		ActionCards.doAction(cardChosen, player, listOfPlayers, collegeCareerCardList, cardList);
+		ActionCards.doAction(cardChosen, player, listOfPlayers, collegeCareerCardList, cardList, keyboard);
 
 		// Remove card and print updated deck
 		cardList.remove(i);

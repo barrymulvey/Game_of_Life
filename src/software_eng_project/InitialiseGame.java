@@ -1,6 +1,7 @@
 package software_eng_project;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class InitialiseGame {
 
@@ -15,7 +16,7 @@ public class InitialiseGame {
 	}
 
 	// method to initialise the players and their pawns
-	public static ArrayList<Player> initialisePawns(ArrayList<CareerCards> careerCardList) {
+	public static ArrayList<Player> initialisePawns(ArrayList<CareerCards> careerCardList, Scanner keyboard) {
 		
 		// create list of pawn colours available
 		ArrayList<String> carColour = new ArrayList<String>();
@@ -39,7 +40,7 @@ public class InitialiseGame {
 			System.out.println("**** Player "+ i +"****");
 			Player player = new Player(); 
 			Player player1 = new Player(); 		
-			player1 = player.initialisePlayer(carColour, careerCardList);
+			player1 = player.initialisePlayer(carColour, careerCardList, keyboard);
 
 			String chosenColour = player1.getColour();
 			carColour.remove(chosenColour);

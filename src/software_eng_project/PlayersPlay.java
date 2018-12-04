@@ -3,11 +3,9 @@ package software_eng_project;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PlayGame {
-
-	public static ArrayList<Player> playersPlay(ArrayList<Player> listOfPlayers, ArrayList<Player> retiredList, Spinner spinner, Scanner keyboard, ArrayList<Space> boardSpacesList, ArrayList<CareerCards> collegeCareerCardList, ArrayList<HouseCards> houseCardList, ArrayList<ActionCards> actionCardList) {
-		// player turns
-		
+public class PlayersPlay {
+	// player turns
+	public static ArrayList<Player> playersPlay(ArrayList<Player> listOfPlayers, ArrayList<Player> retiredList, Spinner spinner, Scanner keyboard, ArrayList<Space> boardSpacesList, ArrayList<CareerCards> collegeCareerCardList, ArrayList<HouseCards> houseCardList, ArrayList<ActionCards> actionCardList) {		
 		int numRetired = 0;
 		System.out.println("Start the game! (Youngest goes first)");
 		while(listOfPlayers.size() > 0) { 				// until all players retire
@@ -71,7 +69,7 @@ public class PlayGame {
 						}
 						//else if(space_number==27) {
 						else if(space_type.contains("WEDDING")) {
-							x = StopSpace.wedding(listOfPlayers, spinner, x);
+							x = StopSpace.wedding(listOfPlayers, spinner, x, keyboard);
 							secondTurn = true;
 						}
 						//else if(space_number==39) {
@@ -85,7 +83,7 @@ public class PlayGame {
 						}
 						//else if(space_number==78) {
 						else if(space_type.contains("CHILDREN")) {
-							StopSpace.haveChildren(spinner, x, listOfPlayers);
+							StopSpace.haveChildren(spinner, x, listOfPlayers, keyboard);
 						}
 						//else if(space_number==95) System.out.println("Holiday - time to relax!");
 						else if(space_type.contains("HOLIDAY")) {
@@ -94,7 +92,7 @@ public class PlayGame {
 						break;
 					}
 					if(space_type.contains("RETIREMENT")) {
-						numRetired = SpaceTypes.retirementSpace(listOfPlayers, retiredList, listOfPlayers.get(x), numRetired, houseCardList);
+						numRetired = SpaceTypes.retirementSpace(listOfPlayers, retiredList, listOfPlayers.get(x), numRetired, houseCardList, keyboard);
 						retired = true;
 						break;
 					}
@@ -111,7 +109,7 @@ public class PlayGame {
 					if (y==moves-1) {
 						System.out.println(current_player+" stopped on "+space_type+" on space "+current_space);
 						switch(space_type) {
-						case "ACTION": SpaceTypes.actionSpace(listOfPlayers.get(x), actionCardList, listOfPlayers, collegeCareerCardList);
+						case "ACTION": SpaceTypes.actionSpace(listOfPlayers.get(x), actionCardList, listOfPlayers, collegeCareerCardList, keyboard);
 						break;
 						case "PAYDAY": SpaceTypes.Payday(listOfPlayers.get(x), true);
 						break;
@@ -128,9 +126,9 @@ public class PlayGame {
 						case "BABY": SpaceTypes.babySpace(listOfPlayers.get(x), false);
 						break;
 
-						case "SPIN_TO_WIN":	SpaceTypes.spinToWin(listOfPlayers, listOfPlayers.get(x), spinner);
+						case "SPIN_TO_WIN":	SpaceTypes.spinToWin(listOfPlayers, listOfPlayers.get(x), spinner, keyboard);
 						break;
-						
+
 						}	
 					}
 				}
@@ -144,7 +142,9 @@ public class PlayGame {
 		}
 		return retiredList;
 	}
-	public static void EndOfGame(ArrayList<Player> retiredList) {
+	
+	// determine winner of the game- evaluate each player's assets
+	public static void endOfGame(ArrayList<Player> retiredList) {
 		Player.determineWinner(retiredList);
 		System.out.println("\nEnd of game!");
 	}

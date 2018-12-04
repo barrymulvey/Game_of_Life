@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.junit.jupiter.api.Test;
 
@@ -64,6 +65,9 @@ class HouseCardsTest {
 	void testSellHouse1() {
 		// test sellHouse method when player has houses
 
+		// open scanner
+		Scanner keyboard = new Scanner(System.in);
+		
 		// initialise house card deck
 		ArrayList<HouseCards> houseCardList = new ArrayList<HouseCards>();
 		houseCardList = InitialiseGame.initialiseHouseDeck();
@@ -79,9 +83,9 @@ class HouseCardsTest {
 		
 		// initialise players 
 		Player player1 = new Player();
-		player1 = player1.initialisePlayer(carColour, collegeCareerCardList);
+		player1 = player1.initialisePlayer(carColour, collegeCareerCardList, keyboard);
 		Player player2 = new Player();
-		player2 = player2.initialisePlayer(carColour, collegeCareerCardList);
+		player2 = player2.initialisePlayer(carColour, collegeCareerCardList, keyboard);
 		
 		// create list of defined players
 		ArrayList<Player> listOfPlayers = new ArrayList<Player>();
@@ -91,7 +95,7 @@ class HouseCardsTest {
 		// ask player1 to buy a house
 		HouseCards.buyHouse(houseCardList, player1);
 
-		boolean result = HouseCards.sellHouse(houseCardList, player1, listOfPlayers);
+		boolean result = HouseCards.sellHouse(houseCardList, player1, listOfPlayers, keyboard);
 
 		// expect output to be false when player has HouseCard objects
 		assertFalse(result);
@@ -101,6 +105,8 @@ class HouseCardsTest {
 	void testSellHouse2() {
 		// test sellHouse method when player has no houses
 
+		Scanner keyboard = new Scanner(System.in);
+		
 		// initialise house card deck
 		ArrayList<HouseCards> houseCardList = new ArrayList<HouseCards>();
 		houseCardList = InitialiseGame.initialiseHouseDeck();
@@ -114,7 +120,7 @@ class HouseCardsTest {
 		listOfPlayers.add(player1);
 		listOfPlayers.add(player2);
 
-		boolean result = HouseCards.sellHouse(houseCardList, player1, listOfPlayers);
+		boolean result = HouseCards.sellHouse(houseCardList, player1, listOfPlayers, keyboard);
 
 		// expect output to be true when player has no HouseCards objects
 		assertTrue(result);

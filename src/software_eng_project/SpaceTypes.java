@@ -8,7 +8,6 @@ public class SpaceTypes extends Space {
 
 	public SpaceTypes(String number, String type, List<String> next) {
 		super(number, type, next);
-		// TODO Auto-generated constructor stub
 	}
 
 	public static int startGame(boolean college, Player player) {
@@ -32,11 +31,10 @@ public class SpaceTypes extends Space {
 		System.out.println(player.getName()+"'s updated balance is: "+player.getBalance()+"K");
 	}
 
-	public static void actionSpace(Player player, ArrayList<ActionCards> actionCardList, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList) {
-		Scanner keyboard = new Scanner(System.in);
+	public static void actionSpace(Player player, ArrayList<ActionCards> actionCardList, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList, Scanner keyboard) {
 		System.out.println(player.getName()+", press enter to draw an action card!");
 		keyboard.nextLine();
-		ActionCards.chooseActionCard(actionCardList, player, listOfPlayers, collegeCareerCardList);
+		ActionCards.chooseActionCard(actionCardList, player, listOfPlayers, collegeCareerCardList, keyboard);
 	}
 
 	public static void houseSpace(Player player, ArrayList<HouseCards> houseCardList, ArrayList<Player> listOfPlayers) {
@@ -58,7 +56,7 @@ public class SpaceTypes extends Space {
 			}
 			else if (houseChoice == 2) {
 				//int houseListSize = player.getHouses().size();
-				flag = HouseCards.sellHouse(houseCardList, player, listOfPlayers);
+				flag = HouseCards.sellHouse(houseCardList, player, listOfPlayers, keyboard);
 			}
 			else 
 				flag = false;
@@ -80,8 +78,7 @@ public class SpaceTypes extends Space {
 		System.out.println("Holiday - time to relax!");
 	}
 
-	public static void spinToWin(ArrayList<Player> listOfPlayers, Player player, Spinner spinner) {
-		Scanner keyboard = new Scanner(System.in);
+	public static void spinToWin(ArrayList<Player> listOfPlayers, Player player, Spinner spinner, Scanner keyboard) {
 		System.out.println("Spin to Win!");
 
 		int[] spinChoice = new int[listOfPlayers.size()+1];
@@ -171,15 +168,12 @@ public class SpaceTypes extends Space {
 				}
 			}
 		}
-
-
-
 	}
 
-	public static int retirementSpace(ArrayList<Player> listOfPlayers, ArrayList<Player> retiredList, Player player, int numRetired, ArrayList<HouseCards> listOfCards) {
+	public static int retirementSpace(ArrayList<Player> listOfPlayers, ArrayList<Player> retiredList, Player player, int numRetired, ArrayList<HouseCards> listOfCards, Scanner keyboard) {
 		System.out.println("You made it, retirement!");
 
-		player.retirePlayer(numRetired, listOfCards, listOfPlayers);
+		player.retirePlayer(numRetired, listOfCards, listOfPlayers, keyboard);
 		System.out.println("\n"+player.getName()+"'s updated details summary: ");
 		player.printDetailsSummary();
 

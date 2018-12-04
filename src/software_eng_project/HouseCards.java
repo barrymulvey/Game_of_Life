@@ -136,7 +136,7 @@ public class HouseCards extends Cards {
 	}
 
 	// method to choose a house to see
-	public static boolean sellHouse(ArrayList<HouseCards> listOfCards, Player player, ArrayList<Player> listOfPlayers) {
+	public static boolean sellHouse(ArrayList<HouseCards> listOfCards, Player player, ArrayList<Player> listOfPlayers, Scanner keyboard) {
 		// initialise output flag
 		boolean flag = false;
 		int houseListSize = player.getHouses().size();
@@ -162,7 +162,6 @@ public class HouseCards extends Cards {
 		// spin spinner to determine sale price of selected house
 		Spinner spinner = new Spinner();
 		System.out.println(player.getName()+", press enter to spin the spinner!");
-		Scanner keyboard = new Scanner(System.in);
 		keyboard.nextLine();
 		spinner.spinSpinner(listOfPlayers);
 		
@@ -187,10 +186,9 @@ public class HouseCards extends Cards {
 	}
 
 	// method to see all of a player's houses (when they retire)
-	public static void sellAllHouses(ArrayList<HouseCards> listOfCards, Player player, ArrayList<Player> listOfPlayers) {
+	public static void sellAllHouses(ArrayList<HouseCards> listOfCards, Player player, ArrayList<Player> listOfPlayers, Scanner keyboard) {
 		int houseListSize = player.getHouses().size();
 		
-		Scanner keyboard = new Scanner(System.in);
 		System.out.println("\nTime to sell your houses!");
 
 		for (int x=0;x<houseListSize;x++) {

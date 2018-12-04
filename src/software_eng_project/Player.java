@@ -1,7 +1,6 @@
 package software_eng_project;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,9 +44,8 @@ public class Player {
 	}
 
 	// initialise players
-	public Player initialisePlayer(ArrayList<String> carColour, ArrayList<CareerCards> listOfCards) { 
+	public Player initialisePlayer(ArrayList<String> carColour, ArrayList<CareerCards> listOfCards, Scanner keyboard) { 
 		int startingSalary = 200;
-		Scanner keyboard = new Scanner(System.in);
 
 		System.out.println("Enter name of player: ");
 		String playerName = keyboard.next();
@@ -189,7 +187,7 @@ public class Player {
 		System.out.println(this.getName()+"'s updated balance is: "+this.getBalance()+"K");
 	}
 
-	public void getMarried(ArrayList<Player> listOfPlayers, Player current_player, Spinner spinner) {
+	public void getMarried(ArrayList<Player> listOfPlayers, Player current_player, Spinner spinner, Scanner keyboard) {
 		spouse = "Married";
 
 		// create list of players excluding current player
@@ -208,7 +206,6 @@ public class Player {
 		for(int x = 0; x<temporaryPlayerList.size();x++) {
 			// spin spinner and print results
 			System.out.println(temporaryPlayerList.get(x).getName()+", press enter to spin the spinner!");
-			Scanner keyboard = new Scanner(System.in);
 			keyboard.nextLine();
 
 			spinner.spinSpinner(listOfPlayers);
@@ -245,11 +242,10 @@ public class Player {
 	}
 
 	// evaluates player's assets
-	public void retirePlayer(int x, ArrayList<HouseCards> listOfCards, ArrayList<Player> listOfPlayers) {
-		Scanner keyboard = new Scanner(System.in);
+	public void retirePlayer(int x, ArrayList<HouseCards> listOfCards, ArrayList<Player> listOfPlayers, Scanner keyboard) {
 
 		//sell houses and add value of houses
-		HouseCards.sellAllHouses(listOfCards, this, listOfPlayers);
+		HouseCards.sellAllHouses(listOfCards, this, listOfPlayers, keyboard);
 
 		// pay off loans
 		int loans = this.getNumLoans();
