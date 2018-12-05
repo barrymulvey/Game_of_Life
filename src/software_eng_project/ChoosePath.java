@@ -13,7 +13,7 @@ public class ChoosePath extends Space {
 	// choosePath method, takes choices and currentSpace Space object as inputs
 	public static int choosePath(Space currentSpace, String choice1, String choice2) {
 		// inform user of choices and save choice they enter
-		System.out.println("Time to Choose Your Life Path!");
+		System.out.println("Time to choose your path!");
 		int lifeChoice = 0;
 		lifeChoice = ErrorCheck.rangeCheck("Enter 1 for "+choice1+" or enter 2 for "+choice2+": ", 1, 2, lifeChoice);
 		

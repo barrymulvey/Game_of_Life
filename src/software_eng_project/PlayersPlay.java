@@ -82,7 +82,7 @@ public class PlayersPlay {
 						}
 						//else if(space_number==39) {
 						else if(space_type.contains("NIGHTSCHOOL")) {
-							x = StopSpace.nightSchool(collegeCareerCardList, x, listOfPlayers);
+							x = StopSpace.nightSchool(collegeCareerCardList, x, listOfPlayers, boardSpacesList, listOfPlayers.get(x), space_number);
 							secondTurn = true;
 						}
 						//else if(space_number==68) {

@@ -30,30 +30,28 @@ public class StopSpace extends Space {
 		return x;
 	}
 	
-	// method for nightschool stop space (player can choose to go to nightschool/not)
-	public static int nightSchool(ArrayList<CareerCards> collegeCareerCardList, int currentPlayer, ArrayList<Player> listOfPlayers) {
-		Player player = listOfPlayers.get(currentPlayer);
-		System.out.println("Night school stop!");
-		System.out.println("1: Keep current job");
-		System.out.println("2: Change career (costs 100K)");
+	// method to prompt user to choose family or life path
+	public static void nightSchool(ArrayList<Space> boardSpacesList, Player player, int spaceNumber) {
+		System.out.println("Family time! Choose family or life");
+		int pathChosen = ChoosePath.choosePath(boardSpacesList.get(spaceNumber), "Family", "Life");
+		ChoosePath.selectPath(pathChosen, player);
+	}
+	
+	// method for nightschool stop space (player can choose whether to go to nightschool)
+	public static int nightSchool(ArrayList<CareerCards> collegeCareerCardList, int currentPlayer, ArrayList<Player> listOfPlayers, ArrayList<Space> boardSpacesList, Player player, int spaceNumber) {
+		System.out.println("Night school stop! Choose to change your career or keep your current job");
 		
-		// check for valid user input
-		int nightChoice = 0;
-		nightChoice = ErrorCheck.rangeCheck("What would you like to do? Enter 1 or 2: ", 1, 2, nightChoice);
-		int pathChosen = 0;
+		// method asking player to choose their desired path
+		int pathChosen = ChoosePath.choosePath(boardSpacesList.get(spaceNumber), "Changing Career (costs 100K)", "Keeping Current Job");
 		
 		// if player chooses to go to night school, deduct 100K
-		if (nightChoice==2) {
+		if (pathChosen==40) {
 			while (player.getBalance() < 100) {
 				player.takeLoan();
 			}
 			player.walletBalance(100, "subtract");
 			player.changeCareer(collegeCareerCardList);
-			pathChosen = 40;
 		}
-		
-		// if player chooses not to go to night school
-		else pathChosen = 49;
 		
 		// method to update current space of player
 		ChoosePath.selectPath(pathChosen, player);
