@@ -77,7 +77,6 @@ public class Player {
 		
 		// check user enters a valid option
 		carCol = ErrorCheck.startsWithCheck("Enter first letter of colour to select: ", carColour, carCol);
-		System.out.println(carCol);
 		
 		if (carCol.startsWith("P")) {
 			colour="Pink";
