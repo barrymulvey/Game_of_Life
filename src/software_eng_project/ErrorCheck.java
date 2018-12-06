@@ -18,6 +18,7 @@ public class ErrorCheck {
 			try {
 				System.out.println(question);
 				toCheck = keyboard.nextInt();
+				keyboard.nextLine();
 				if (toCheck>=limitLower && toCheck<=limitUpper) {
 					break;
 				}
@@ -46,6 +47,7 @@ public class ErrorCheck {
 			try {
 				System.out.println(question);
 				toCheck = keyboard.nextInt();
+				keyboard.nextLine();
 				if (integerList.contains(toCheck)) {
 					break;
 				}
@@ -73,6 +75,7 @@ public class ErrorCheck {
 			try {
 				System.out.println(question);
 				toCheck = keyboard.next();
+				keyboard.nextLine();
 				for (String s: listOfStrings) {
 					if (s.toUpperCase().startsWith(toCheck.toUpperCase())) {
 						return toCheck.toUpperCase();
@@ -100,6 +103,7 @@ public class ErrorCheck {
 			try {
 				System.out.println(question);
 				lifeDecision = keyboard.next();
+				keyboard.nextLine();
 				if(lifeDecision.equalsIgnoreCase("L")||lifeDecision.equalsIgnoreCase("College")||lifeDecision.equalsIgnoreCase("R") || lifeDecision.equalsIgnoreCase("Career")) {
 					break;
 				}
