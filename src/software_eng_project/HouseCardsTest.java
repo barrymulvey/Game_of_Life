@@ -65,6 +65,9 @@ class HouseCardsTest {
 	void testSellHouse1() {
 		// test sellHouse method when player has houses
 
+		// create instance of Utility to read in properties from config.properties file
+		Utility utility = Utility.getInstance();
+		
 		// open scanner
 		Scanner keyboard = new Scanner(System.in);
 		
@@ -83,9 +86,9 @@ class HouseCardsTest {
 		
 		// initialise players 
 		Player player1 = new Player();
-		player1 = player1.initialisePlayer(carColour, collegeCareerCardList, keyboard);
+		player1 = player1.initialisePlayer(carColour, collegeCareerCardList, keyboard, utility);
 		Player player2 = new Player();
-		player2 = player2.initialisePlayer(carColour, collegeCareerCardList, keyboard);
+		player2 = player2.initialisePlayer(carColour, collegeCareerCardList, keyboard, utility);
 		
 		// create list of defined players
 		ArrayList<Player> listOfPlayers = new ArrayList<Player>();

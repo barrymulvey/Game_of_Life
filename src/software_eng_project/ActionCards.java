@@ -13,7 +13,6 @@ import java.util.List;
  * Get Cash from the Bank (5x4): 4x10k; 4x20k; 4x30k; 4x40k; 4x50k
  */
 
-
 public class ActionCards extends Cards {
 
 	// Constructor
@@ -28,7 +27,6 @@ public class ActionCards extends Cards {
 
 	// Card objects created and saved to an ArrayList
 	public static ArrayList<ActionCards> getListOfCards(String fileLocation) {
-		
 		// read in list of all lines from text file
 		List<String> inputList = Cards.readInCards(fileLocation);
 		// make an arrayList of strings of the names of the action cards
@@ -50,7 +48,6 @@ public class ActionCards extends Cards {
 
 	// Choose an ActionCards object at random
 	public static ActionCards chooseActionCards(ArrayList<ActionCards> cardList) {
-
 		// Choose a card at random between 0 and (number of cards available)-1
 		int number_cards = cardList.size();
 		Random rand1 = new Random();
@@ -61,8 +58,7 @@ public class ActionCards extends Cards {
 	}
 	
 	// implement the action defined by the ActionCards object
-	public static void doAction(ActionCards actionCard, Player player, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList, ArrayList<ActionCards> actionCardList, Scanner keyboard) {
-		
+	public static void doAction(ActionCards actionCard, Player player, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList, ArrayList<ActionCards> actionCardList, Scanner keyboard, Utility utility) {
 		// get the title of the ActionCards object
 		String action = actionCard.getName();
 		
@@ -78,7 +74,7 @@ public class ActionCards extends Cards {
 			break;
 		// a selected player will pay current player 20K	
 		case "Players pay": System.out.println("Card chosen is "+action);
-			flag = playersPay(player, listOfPlayers);
+			flag = playersPay(player, listOfPlayers, utility);
 			break;
 		// current player must pay bank the amount defined by the card
 		case "Pay bank": System.out.println("Card chosen is "+action+" "+actionCard.getValue1()+"K");
@@ -89,13 +85,13 @@ public class ActionCards extends Cards {
 			receive(actionCard, player);
 			break;
 		// by default, draw another action card!
-		default: SpaceTypes.actionSpace(player, actionCardList, listOfPlayers, collegeCareerCardList, keyboard);
+		default: SpaceTypes.actionSpace(player, actionCardList, listOfPlayers, collegeCareerCardList, keyboard, utility);
 		}
 		
 		if(flag) {
 			// if flag is true, this action card was not applicable and so current player must draw another
 			System.out.println("\nThis Action Card is not applicable. Choose again!");
-			SpaceTypes.actionSpace(player, actionCardList, listOfPlayers, collegeCareerCardList, keyboard);
+			SpaceTypes.actionSpace(player, actionCardList, listOfPlayers, collegeCareerCardList, keyboard, utility);
 		}
 	}
 
@@ -108,7 +104,7 @@ public class ActionCards extends Cards {
 
 	// method defined for current player to pay the bank amount specified by action card
 	public static void payBank(ActionCards actionCard, Player player) {
-		// get amount specified by card and promt current player to take out loans if balance is too low
+		// get amount specified by card and prompt current player to take out loans if balance is too low
 		while (player.getBalance() < actionCard.getValue1()) {
 			player.takeLoan();
 		}
@@ -119,7 +115,12 @@ public class ActionCards extends Cards {
 	}
 
 	// method to implement playersPay where current player selects a player to pay them 20K
-	public static boolean playersPay(Player player, ArrayList<Player> listOfPlayers) {
+	public static boolean playersPay(Player player, ArrayList<Player> listOfPlayers, Utility utility) {
+		//identifies the parameter in config.properties file
+		String playersPay = utility.getProperty("playersPay");
+		// convert to integer
+		int playersPayAmount = Integer.parseInt(playersPay);
+		
 		// initialise temporary array list
 		ArrayList<Player> tempPlayerList = new ArrayList<>();
 		// get number of players
@@ -156,17 +157,17 @@ public class ActionCards extends Cards {
 		//keyboard.close();
 		System.out.println("Chosen player is: "+tempPlayerList.get(chosenPlayer-1).getName());
 
-		System.out.println(tempPlayerList.get(chosenPlayer-1).getName()+" pay "+player.getName()+" 20K!");
+		System.out.println(tempPlayerList.get(chosenPlayer-1).getName()+" pay "+player.getName()+" "+playersPay+"!");
 
 		// if selected player has insufficient funds to pay current player, prompt to take out loans
-		while (tempPlayerList.get(chosenPlayer-1).getBalance() < 20) {
+		while (tempPlayerList.get(chosenPlayer-1).getBalance() < playersPayAmount) {
 			tempPlayerList.get(chosenPlayer-1).takeLoan();
 		}
 
 		// current player add money to wallet
-		player.walletBalance(20, "add");
+		player.walletBalance(playersPayAmount, "add");
 		// selected player subtract money from wallet
-		tempPlayerList.get(chosenPlayer-1).walletBalance(20, "subtract");
+		tempPlayerList.get(chosenPlayer-1).walletBalance(playersPayAmount, "subtract");
 
 		// print updated balances following transaction
 		System.out.println(player.getName()+"'s updated balance is: "+player.getBalance()+"K");
@@ -194,7 +195,7 @@ public class ActionCards extends Cards {
 	}
 
 	// method to draw an action card from deck
-	public static ArrayList<ActionCards> chooseActionCard (ArrayList<ActionCards> cardList, Player player, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList, Scanner keyboard) {
+	public static ArrayList<ActionCards> chooseActionCard (ArrayList<ActionCards> cardList, Player player, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList, Scanner keyboard, Utility utility) {
 		
 		// Choose a card at random between 0 and 54
 		int size = cardList.size();
@@ -204,7 +205,7 @@ public class ActionCards extends Cards {
 
 		// increment_number of action cards held by person
 		player.addActionCard();
-		ActionCards.doAction(cardChosen, player, listOfPlayers, collegeCareerCardList, cardList, keyboard);
+		ActionCards.doAction(cardChosen, player, listOfPlayers, collegeCareerCardList, cardList, keyboard, utility);
 
 		// Remove card and print updated deck
 		cardList.remove(i);

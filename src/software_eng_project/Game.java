@@ -22,7 +22,7 @@ public class Game {
 
 		// initialise action card deck
 		ArrayList<ActionCards> actionCardList = new ArrayList<ActionCards>();
-		actionCardList = InitialiseGame.initialiseActionCardDeck("action_file");
+		actionCardList = InitialiseGame.initialiseActionCardDeck();
 		
 		// create a deck of all cards in game
 		Deck cardDeck = new Deck(actionCardList, careerCardList, collegeCareerCardList, houseCardList);
@@ -30,21 +30,21 @@ public class Game {
 		return cardDeck;
 	}
 
-	public static ArrayList<Space> makeBoard() {
+	public static ArrayList<Space> makeBoard(Utility utility) {
 		// Read in spaces from text file and save to ArrayList
 		ArrayList<Space> boardSpacesList = new ArrayList<Space>();
-		boardSpacesList = InitialiseGame.initialiseBoard();
+		boardSpacesList = InitialiseGame.initialiseBoard(utility);
 		return boardSpacesList;
 	}
 
-	public static ArrayList<Player> makePlayers(ArrayList<CareerCards> careerCardDeck, Scanner keyboard) {
+	public static ArrayList<Player> makePlayers(ArrayList<CareerCards> careerCardDeck, Scanner keyboard, Utility utility) {
 		// create list of players and initialise
 		ArrayList<Player> listOfPlayers = new ArrayList<Player>();
-		listOfPlayers = InitialiseGame.initialisePawns(careerCardDeck, keyboard);
+		listOfPlayers = InitialiseGame.initialisePawns(careerCardDeck, keyboard, utility);
 		return listOfPlayers;
 	}
 
-	public static void playGame(Deck cardDecks, ArrayList<Space> boardSpacesList, ArrayList<Player> listOfPlayers, Scanner keyboard) {		
+	public static void playGame(Deck cardDecks, ArrayList<Space> boardSpacesList, ArrayList<Player> listOfPlayers, Scanner keyboard, Utility utility) {		
 		
 		// initialise retired players list, this will be populated by the playersPlay method
 		ArrayList<Player> retiredList = new ArrayList<Player>();
@@ -55,7 +55,7 @@ public class Game {
 		
 		// play the game until all players reach retirement
 		// decks = house, career, college, action
-		retiredPlayerList = PlayersPlay.playersPlay(listOfPlayers, retiredList, spinner, keyboard, boardSpacesList, cardDecks.getCollegeCareerCardDeck(), cardDecks.getHouseCardDeck(), cardDecks.getActionCardDeck());
+		retiredPlayerList = PlayersPlay.playersPlay(listOfPlayers, retiredList, spinner, keyboard, boardSpacesList, cardDecks.getCollegeCareerCardDeck(), cardDecks.getHouseCardDeck(), cardDecks.getActionCardDeck(), utility);
 		
 		// retire the players, calculate assets and declare the winner
 		PlayersPlay.endOfGame(retiredPlayerList);

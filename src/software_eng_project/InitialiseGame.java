@@ -10,13 +10,19 @@ public class InitialiseGame {
 	}
 
 	// method to read in spaces which will make up the board
-	public static ArrayList<Space> initialiseBoard() {
-		ArrayList<Space> boardSpacesList = BoardReader.readBoard();
+	public static ArrayList<Space> initialiseBoard(Utility utility) {
+		ArrayList<Space> boardSpacesList = BoardReader.readBoard(utility);
 		return boardSpacesList;
 	}
 
 	// method to initialise the players and their pawns
-	public static ArrayList<Player> initialisePawns(ArrayList<CareerCards> careerCardList, Scanner keyboard) {
+	public static ArrayList<Player> initialisePawns(ArrayList<CareerCards> careerCardList, Scanner keyboard, Utility utility) {
+		//identifies the parameters in config.properties file
+		String minPlayers = utility.getProperty("minPlayers");
+		String maxPlayers = utility.getProperty("maxPlayers");
+		// convert to integers
+		int minPlayersInt = Integer.parseInt(minPlayers);
+		int maxPlayersInt = Integer.parseInt(maxPlayers);
 		
 		// create list of pawn colours available
 		ArrayList<String> carColour = new ArrayList<String>();
@@ -33,14 +39,14 @@ public class InitialiseGame {
 		// Ascertain how many players there are and check for correct user input
 		int numPlayers = 0;
 		System.out.println("**** Welcome to the Game of Life! ****\n");
-		numPlayers = ErrorCheck.rangeCheck("How many players? (2-4): ", 2, 4, numPlayers);
+		numPlayers = ErrorCheck.rangeCheck("How many players? ("+minPlayers+"-"+maxPlayers+"): ", minPlayersInt, maxPlayersInt, numPlayers);
 		
 		// initialise each new player
 		for (int i=1; i<=numPlayers; i++) {
 			System.out.println("**** Player "+ i +"****");
 			Player player = new Player(); 
 			Player player1 = new Player(); 		
-			player1 = player.initialisePlayer(carColour, careerCardList, keyboard);
+			player1 = player.initialisePlayer(carColour, careerCardList, keyboard, utility);
 
 			// remove colour chosen by player as each player must have a different colour
 			String chosenColour = player1.getColour();
@@ -69,7 +75,6 @@ public class InitialiseGame {
 		// add last player
 		listOfPlayers.add(first_listOfPlayers.get(0));
 
-
 		// print out player details
 		for (int x=0; x<listOfPlayers.size(); x++) {
 			listOfPlayers.get(x).printDetails();
@@ -79,7 +84,6 @@ public class InitialiseGame {
 
 	// initialise the houseCard deck- this is an ArrayList of HouseCard Objects
 	public static ArrayList<HouseCards> initialiseHouseDeck() {
-
 		//identifies were the board file is located
 		Utility utility = Utility.getInstance();
 		String houseFileLocation = utility.getProperty("house_file");
@@ -106,10 +110,10 @@ public class InitialiseGame {
 	}
 
 	// method to create and populate an ArrayList of ActionCards objects
-	public static ArrayList<ActionCards> initialiseActionCardDeck(String actionCardFilename) {
+	public static ArrayList<ActionCards> initialiseActionCardDeck() {
 		//identifies were the file is located
 		Utility utility = Utility.getInstance();
-		String cardFileLocation = utility.getProperty(actionCardFilename);
+		String cardFileLocation = utility.getProperty("action_file");
 
 		// call method to create ArrayList of ActionCards using location of text file storing details
 		ArrayList<ActionCards> actionCardList = new ArrayList<ActionCards>();

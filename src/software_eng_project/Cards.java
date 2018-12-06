@@ -6,18 +6,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-// READ IN DETAILS FROM TEXT FILE TO CREATE CARDS OBJECTS
-
 public abstract class Cards {
 	protected String fileLocation;
 	protected String name;
 	protected int value1;
 
 	// constructor
-	public Cards(String fileLocation/*, String name, int value1*/) {
+	public Cards(String fileLocation) {
 		this.fileLocation = fileLocation;
-		//this.name = name;
-		//this.value1 = value1;
 	}
 	
 	// constructor
@@ -69,7 +65,6 @@ public abstract class Cards {
 		}
 		return value1List;
 	}
-	
 	
 	// method to return name of Cards object
 	public String getName() {

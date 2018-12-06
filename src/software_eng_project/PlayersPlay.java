@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class PlayersPlay {
 	
 	// players take turns playing until all players retire
-	public static ArrayList<Player> playersPlay(ArrayList<Player> listOfPlayers, ArrayList<Player> retiredList, Spinner spinner, Scanner keyboard, ArrayList<Space> boardSpacesList, ArrayList<CareerCards> collegeCareerCardList, ArrayList<HouseCards> houseCardList, ArrayList<ActionCards> actionCardList) {		
+	public static ArrayList<Player> playersPlay(ArrayList<Player> listOfPlayers, ArrayList<Player> retiredList, Spinner spinner, Scanner keyboard, ArrayList<Space> boardSpacesList, ArrayList<CareerCards> collegeCareerCardList, ArrayList<HouseCards> houseCardList, ArrayList<ActionCards> actionCardList, Utility utility) {		
 		// initialise number retired players to 0
 		int numRetired = 0;
 		
@@ -49,7 +49,7 @@ public class PlayersPlay {
 								college = true;
 							}
 							// start player on space 4/1 depending on if they chose college/career
-							int nextSpace = SpaceTypes.startGame(college, listOfPlayers.get(x));
+							int nextSpace = SpaceTypes.startGame(college, listOfPlayers.get(x), utility);
 							next_space= Integer.toString(nextSpace);
 						}
 						
@@ -82,7 +82,7 @@ public class PlayersPlay {
 						}
 						//else if(space_number==39) {
 						else if(space_type.contains("NIGHTSCHOOL")) {
-							x = StopSpace.nightSchool(collegeCareerCardList, x, listOfPlayers, boardSpacesList, listOfPlayers.get(x), space_number);
+							x = StopSpace.nightSchool(collegeCareerCardList, x, listOfPlayers, boardSpacesList, listOfPlayers.get(x), space_number, utility);
 							secondTurn = true;
 						}
 						//else if(space_number==68) {
@@ -111,7 +111,7 @@ public class PlayersPlay {
 					if(y!=(moves-1)) {
 						System.out.println(current_player+" moves past "+space_type+" on space "+current_space);
 						if (space_type.contains("PAYDAY")) {
-							SpaceTypes.Payday(listOfPlayers.get(x), false);
+							SpaceTypes.Payday(listOfPlayers.get(x), false, utility);
 						}
 					}
 
@@ -119,10 +119,10 @@ public class PlayersPlay {
 					if (y==moves-1) {
 						System.out.println(current_player+" stopped on "+space_type+" on space "+current_space);
 						switch(space_type) {
-						case "ACTION": SpaceTypes.actionSpace(listOfPlayers.get(x), actionCardList, listOfPlayers, collegeCareerCardList, keyboard);
+						case "ACTION": SpaceTypes.actionSpace(listOfPlayers.get(x), actionCardList, listOfPlayers, collegeCareerCardList, keyboard, utility);
 						break;
 
-						case "PAYDAY": SpaceTypes.Payday(listOfPlayers.get(x), true);
+						case "PAYDAY": SpaceTypes.Payday(listOfPlayers.get(x), true, utility);
 						break;
 
 						case "HOUSE": SpaceTypes.houseSpace(listOfPlayers.get(x), houseCardList, listOfPlayers);

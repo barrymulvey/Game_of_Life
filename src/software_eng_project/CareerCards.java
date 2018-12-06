@@ -2,7 +2,6 @@ package software_eng_project;
 
 import java.util.*;
 
-// READ IN DETAILS FROM TEXT FILE
 public class CareerCards extends Cards {
 	
 	// CareerCards objects has one attribute to add to those inherited from Cards
@@ -68,5 +67,4 @@ public class CareerCards extends Cards {
 		// return chosen CareerCards object
 		return cardList.get(i);
 	}
-
 }

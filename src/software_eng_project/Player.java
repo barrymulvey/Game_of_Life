@@ -53,12 +53,20 @@ public class Player {
 		this.houseList = new ArrayList<String>();
 		this.current_space = "0";
 		this.numActionCards = 0;
-
 	}
 
 	// initialise players
-	public Player initialisePlayer(ArrayList<String> carColour, ArrayList<CareerCards> listOfCards, Scanner keyboard) { 
-		int startingSalary = 200;
+	public Player initialisePlayer(ArrayList<String> carColour, ArrayList<CareerCards> listOfCards, Scanner keyboard, Utility utility) { 
+		//identifies the parameters in config.properties file
+		String startSalary = utility.getProperty("startingSalary");
+		String minimumAge = utility.getProperty("minAge");
+		String maximumAge = utility.getProperty("maxAge");
+		String collegeFeeString = utility.getProperty("fee");
+		// convert to integer
+		int startingSalary = Integer.parseInt(startSalary);
+		int minAge = Integer.parseInt(minimumAge);
+		int maxAge = Integer.parseInt(maximumAge);
+		int collegeFee = Integer.parseInt(collegeFeeString);
 
 		// user must enter name of player
 		System.out.println("Enter name of player: ");
@@ -66,7 +74,7 @@ public class Player {
 		
 		// user must enter age of player
 		int playerAge = 0;
-		playerAge = ErrorCheck.rangeCheck("Enter age of "+playerName+": ", 0, 100, playerAge);
+		playerAge = ErrorCheck.rangeCheck("Enter age of "+playerName+": ", minAge, maxAge, playerAge);
 
 		// convert arrayList to a string and remove all brackets to print out to screen
 		String carColourString = carColour.toString().replace("[","").replace("]","");
@@ -113,7 +121,7 @@ public class Player {
 
 		// set player's career as 'Student' if they selected the college path and deduct 100K
 		if(lifeDecision.equals("College")) {
-			player.walletBalance(100, "subtract");
+			player.walletBalance(collegeFee, "subtract");
 			player.getStudentCard();
 		}
 		// Ask player to choose career if they selected career path

@@ -12,9 +12,12 @@ public class Main {
 		// Open keyboard to receive user input
 		Scanner keyboard = new Scanner(System.in);
 		
+		// Create instance of Utility to read in parameter values from config.properties file
+		Utility utility = Utility.getInstance();
+		
 		// create the spaces which make up the board
 		ArrayList<Space> boardSpaces = new ArrayList<Space>();
-		boardSpaces = Game.makeBoard();
+		boardSpaces = Game.makeBoard(utility);
 		
 		// create the Action, House, Career and CollegeCareer card decks
 		Deck cardDeck = new Deck();
@@ -22,10 +25,10 @@ public class Main {
 		
 		// create the players
 		ArrayList<Player> listOfPlayers = new ArrayList<Player>();
-		listOfPlayers = Game.makePlayers(cardDeck.getCareerCardDeck(), keyboard);
+		listOfPlayers = Game.makePlayers(cardDeck.getCareerCardDeck(), keyboard, utility);
 		
 		// play the game
-		Game.playGame(cardDeck, boardSpaces, listOfPlayers, keyboard);
+		Game.playGame(cardDeck, boardSpaces, listOfPlayers, keyboard, utility);
 		
 		// Close keyboard
 		keyboard.close();

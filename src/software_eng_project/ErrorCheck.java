@@ -61,7 +61,6 @@ public class ErrorCheck {
 		return toCheck;
 	}
 
-
 	public static String startsWithCheck(String question, ArrayList<String> listOfStrings, String toCheck) {
 		// Check user inputs, throw exception if not valid
 		// Keep looping until user enters String with first letter matching a first letter of an entry from the available list
@@ -89,7 +88,6 @@ public class ErrorCheck {
 		}
 	}
 
-
 	public static String pathCheck(String question, String lifeDecision) {
 		// Check user inputs, throw exception if not valid
 		// Keep looping until they enter an integer within the specified range
@@ -116,5 +114,4 @@ public class ErrorCheck {
 		}
 		return lifeDecision;
 	}
-
 }

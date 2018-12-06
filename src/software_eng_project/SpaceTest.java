@@ -11,9 +11,12 @@ class SpaceTest {
 
 	@Test
 	void testGetSpaceType() {
+		// create new instance of Utility to read in properties from config.properties file
+		Utility utility = Utility.getInstance();
+		
 		// Read in spaces and save to ArrayList
 		ArrayList<Space> boardSpacesList = new ArrayList<Space>();
-		boardSpacesList = InitialiseGame.initialiseBoard();
+		boardSpacesList = InitialiseGame.initialiseBoard(utility);
 		
 		String result = boardSpacesList.get(1).getSpaceType();
 		String chosen = "ACTION";
@@ -23,9 +26,12 @@ class SpaceTest {
 	
 	@Test
 	void testGetNextSpace() {
+		// create new instance of Utility to read in properties from config.properties file
+		Utility utility = Utility.getInstance();
+		
 		// Read in spaces and save to ArrayList
 		ArrayList<Space> boardSpacesList = new ArrayList<Space>();
-		boardSpacesList = InitialiseGame.initialiseBoard();
+		boardSpacesList = InitialiseGame.initialiseBoard(utility);
 		
 		List<String> result = boardSpacesList.get(1).getNextSpace();
 		List<String> chosen = new ArrayList<String>();
@@ -36,9 +42,13 @@ class SpaceTest {
 	
 	@Test
 	void testGetNumberSpace() {
+		
+		// create new instance of Utility to read in properties from config.properties file
+		Utility utility = Utility.getInstance();
+		
 		// Read in spaces and save to ArrayList
 		ArrayList<Space> boardSpacesList = new ArrayList<Space>();
-		boardSpacesList = InitialiseGame.initialiseBoard();
+		boardSpacesList = InitialiseGame.initialiseBoard(utility);
 		
 		String result = boardSpacesList.get(1).getNumberSpace();
 		String chosen = "1";

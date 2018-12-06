@@ -38,18 +38,26 @@ public class StopSpace extends Space {
 	}
 	
 	// method for nightschool stop space (player can choose whether to go to nightschool)
-	public static int nightSchool(ArrayList<CareerCards> collegeCareerCardList, int currentPlayer, ArrayList<Player> listOfPlayers, ArrayList<Space> boardSpacesList, Player player, int spaceNumber) {
+	public static int nightSchool(ArrayList<CareerCards> collegeCareerCardList, int currentPlayer, ArrayList<Player> listOfPlayers, ArrayList<Space> boardSpacesList, Player player, int spaceNumber, Utility utility) {
+		//identifies the parameters in config.properties file
+		String fee = utility.getProperty("fee");
+		String nightSchool = utility.getProperty("nightSchoolPath");
+		// convert to integers
+		int nightSchoolFee = Integer.parseInt(fee);
+		int nightSchoolPath = Integer.parseInt(nightSchool);
+		
+		
 		System.out.println("Night school stop! Choose to change your career or keep your current job");
 		
 		// method asking player to choose their desired path
 		int pathChosen = ChoosePath.choosePath(boardSpacesList.get(spaceNumber), "Changing Career (costs 100K)", "Keeping Current Job");
 		
 		// if player chooses to go to night school, deduct 100K
-		if (pathChosen==40) {
-			while (player.getBalance() < 100) {
+		if (pathChosen==nightSchoolPath) {
+			while (player.getBalance() < nightSchoolFee) {
 				player.takeLoan();
 			}
-			player.walletBalance(100, "subtract");
+			player.walletBalance(nightSchoolFee, "subtract");
 			player.changeCareer(collegeCareerCardList);
 		}
 		

@@ -11,10 +11,9 @@ import java.util.StringTokenizer;
 public class BoardReader {
 	
 	// read in spaces defined in board text file and create a list of spaces
-	public static ArrayList<Space> readBoard(){
+	public static ArrayList<Space> readBoard(Utility utility){
 		
 		//identifies were the board file is located
-		Utility utility = Utility.getInstance();
 		String boardLocation = utility.getProperty("board_file");
 		// initialise board spaces arrayList of spaces
 		ArrayList<Space> boardSpacesList = new ArrayList<Space>();
@@ -55,6 +54,4 @@ public class BoardReader {
 		}
 		return boardSpacesList;
 	}
-	
-
 }

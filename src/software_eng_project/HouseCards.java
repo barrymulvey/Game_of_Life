@@ -2,10 +2,9 @@ package software_eng_project;
 
 import java.util.*;
 
-// READ IN DETAILS FROM TEXT FILE
 public class HouseCards extends Cards {
 
-	// HouseCards objects have two attributes to add to those inherrited from Cards
+	// HouseCards objects have two attributes to add to those inherited from Cards
 	private int value2;
 	private int value3;
 
@@ -88,7 +87,6 @@ public class HouseCards extends Cards {
 		// return HouseCards object selected
 		return cardList.get(i);
 	}
-
 
 	// method to buy a house (i.e. add HouseCards object to house attribute of player)
 	public static void buyHouse(ArrayList<HouseCards> listOfCards, Player player) {

@@ -12,37 +12,48 @@ public class SpaceTypes extends Space {
 	}
 
 	// method to start the game- this method sets player's on the college/career path
-	public static int startGame(boolean college, Player player) {
+	public static int startGame(boolean college, Player player, Utility utility) {
+		//identifies the parameters in config.properties file
+		String collegePathString = utility.getProperty("collegePath");
+		String careerPathString = utility.getProperty("careerPath");
+		// convert to integers
+		int collegePath = Integer.parseInt(collegePathString);
+		int careerPath = Integer.parseInt(careerPathString);
 		int nextSpace = 0;
 		
-		if(college) nextSpace = 4;
-		else nextSpace = 1;
+		if(college) nextSpace = collegePath;
+		else nextSpace = careerPath;
 
 		ChoosePath.selectPath(nextSpace, player);
 		return nextSpace;
 	}
 
 	// method to increment player's balance
-	public static void Payday (Player player, boolean bonus) {
+	public static void Payday (Player player, boolean bonus, Utility utility) {
+		//identifies the parameter in config.properties file
+		String bonusAmount = utility.getProperty("bonus");
+		// convert to integer
+		int bonusMoney = Integer.parseInt(bonusAmount);
+		
 		System.out.println("Payday!");
 		int currentSalary = player.getSalary();
 		player.walletBalance(currentSalary, "add");
 		
 		// bonus = true if player lands on payday space- they get a bonus of 100K
 		if(bonus) {
-			player.walletBalance(100, "add");
-			System.out.println(player.getName()+" receives bonus of 100K");
+			player.walletBalance(bonusMoney, "add");
+			System.out.println(player.getName()+" receives bonus of "+bonusMoney+"K");
 		}
 		System.out.println(player.getName()+" receives salary of "+currentSalary+"K");
 		System.out.println(player.getName()+"'s updated balance is: "+player.getBalance()+"K");
 	}
 
 	// method to prompt user to draw an action card
-	public static void actionSpace(Player player, ArrayList<ActionCards> actionCardList, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList, Scanner keyboard) {
+	public static void actionSpace(Player player, ArrayList<ActionCards> actionCardList, ArrayList<Player> listOfPlayers, ArrayList<CareerCards> collegeCareerCardList, Scanner keyboard, Utility utility) {
 		System.out.println(player.getName()+", press enter to draw an action card!");
 		keyboard.nextLine();
 		// this method will implement action associated with selected card
-		ActionCards.chooseActionCard(actionCardList, player, listOfPlayers, collegeCareerCardList, keyboard);
+		ActionCards.chooseActionCard(actionCardList, player, listOfPlayers, collegeCareerCardList, keyboard, utility);
 	}
 	
 	// method to ask user to buy/sell a house or do nothing (options when land on house space)
