@@ -43,7 +43,7 @@ public class InitialiseGame {
 		
 		// initialise each new player
 		for (int i=1; i<=numPlayers; i++) {
-			System.out.println("**** Player "+ i +"****");
+			System.out.println("**** Player "+ i +" ****");
 			Player player = new Player(); 
 			Player player1 = new Player(); 		
 			player1 = player.initialisePlayer(carColour, careerCardList, keyboard, utility);
