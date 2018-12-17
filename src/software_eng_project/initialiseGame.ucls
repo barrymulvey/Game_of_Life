@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="software_eng_project.Space" project="game_of_life" 
     file="/game_of_life/src/software_eng_project/Space.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="448" y="-215"/>    
+    <position height="-1" width="-1" x="441" y="-220"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -38,8 +38,8 @@
     </display>  
   </class>  
   <dependency id="5">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
   </dependency>  
   <association id="6">    
     <end type="SOURCE" refId="2" navigable="false">      
@@ -55,10 +55,10 @@
   </association>  
   <dependency id="9">    
     <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="4"/>  
+    <end type="TARGET" refId="2"/>  
   </dependency>  
   <dependency id="10">    
-    <end type="SOURCE" refId="1"/>    
+    <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
