@@ -71,29 +71,23 @@ public class PlayersPlay {
 					if(space_type.contains("STOP")) { 
 						System.out.println("Stop! You reached a stop space (space "+current_space+")\n");
 
-						//if(space_number==14) {
 						if(space_type.contains("GRADUATION")) {
 							StopSpace.graduation(listOfPlayers.get(x), collegeCareerCardList);
 						}
-						//else if(space_number==27) {
 						else if(space_type.contains("WEDDING")) {
 							x = StopSpace.wedding(listOfPlayers, spinner, x, keyboard);
 							secondTurn = true;
 						}
-						//else if(space_number==39) {
 						else if(space_type.contains("NIGHTSCHOOL")) {
 							x = StopSpace.nightSchool(collegeCareerCardList, x, listOfPlayers, boardSpacesList, listOfPlayers.get(x), space_number, utility);
 							secondTurn = true;
 						}
-						//else if(space_number==68) {
 						else if(space_type.contains("FAMILYORLIFE")) {
 							StopSpace.familyOrLife(boardSpacesList, listOfPlayers.get(x), Integer.parseInt(current_space));
 						}
-						//else if(space_number==78) {
 						else if(space_type.contains("CHILDREN")) {
 							StopSpace.haveChildren(spinner, x, listOfPlayers, keyboard);
 						}
-						//else if(space_number==95) System.out.println("Holiday - time to relax!");
 						else if(space_type.contains("HOLIDAY")) {
 							SpaceTypes.holiday();
 						}
