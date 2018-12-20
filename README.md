@@ -13,7 +13,7 @@ Game text files:
 UML diagrams: 
 - Use Case Diagrams: diagrams/use_case
 - Sequence Diagrams: diagrams/sequence
-- Class Diagrams: src/software_eng_project
+- Class Diagrams: diagrams/class
 
 Additional documents: 
 - Game Instruction Manual: notes/Game Instruction Manual.pdf
