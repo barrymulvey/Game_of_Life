@@ -1,0 +1,62 @@
+title Make Players Sequence Diagram
+
+User->Game:start game
+
+Game-> InitialiseGame: initialise the player pawns
+
+InitialiseGame->Utility: ask for min and max #players allowed
+
+Utility->InitialiseGame: return min and max #players allowed
+
+InitialiseGame->InitialiseGame: create array list of pawn colours
+
+InitialiseGame->User: Print welcome message and ask for #players playing
+
+Player->InitialiseGame: return #players
+
+loop create #players specified
+InitialiseGame->Player: create ArrayList of players
+
+Player->User: ask for player's name
+User->Player: return player's name
+
+loop while age input invalid
+Player->User: ask for player's age
+User->Player: return player's age
+Player->ErrorCheck: check age entered is valid
+ErrorCheck->Player: break out of loop if valid
+end
+
+loop while car colour choice input invalid
+Player->User: ask for player's choice of car colour
+User->Player: return colour choice
+Player->ErrorCheck: check colour entered is valid
+ErrorCheck->Player: break out of loop if valid
+end
+
+loop while path choice input invalid
+Player->User: ask for player's life choice
+User->Player: return life choice
+Player->ErrorCheck: check path entered is valid
+ErrorCheck->Player: break out of loop if valid
+end
+
+opt choice if college path chosen
+Player->Utility: get college fee
+Utility->Player: return fee
+Player->Player: subtract fee from wallet
+end
+
+opt choice if career path chosen
+Player->User: pick 2 career cards
+Player->User: ask for career choice
+User->Player: choose career
+end
+
+Player->InitialiseGame: return Player object
+
+end 
+InitialiseGame->InitialiseGame: rank players in ascending order of age
+
+InitialiseGame->Game: return ArrayList of Player objects
+Game->User: print all players' details

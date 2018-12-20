@@ -1,0 +1,14 @@
+title Make Board Sequence Diagram
+
+Player->Game:start game
+Game-> InitialiseGame: initialise the board
+InitialiseGame->BoardReader: read in spaces that will make up board
+
+BoardReader->Utility:ask for board text file location
+Utility->BoardReader:gives location of board file
+
+BoardReader->BoardReader: read in board spaces from text file to array
+BoardReader->BoardReader:create ArrayList of Space objects
+
+BoardReader->InitialiseGame: return Space objects ArrayList
+InitialiseGame->Game: return Space objects ArrayList 

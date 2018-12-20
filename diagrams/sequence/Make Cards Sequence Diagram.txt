@@ -1,0 +1,33 @@
+title Make Cards Sequence Diagram
+
+User->Game:start game
+
+Game->InitialiseGame: initialise house deck
+InitialiseGame->Utility:ask for house text file location
+Utility->InitialiseGame:gives location of text file
+InitialiseGame->HouseCards:create ArrayList of HouseCards objects using text file
+HouseCards->InitialiseGame: return ArrayList of HouseCards objects
+InitialiseGame->Game: return ArrayList of HouseCards objects
+
+Game->InitialiseGame: initialise career card deck
+InitialiseGame->Utility:ask for career cards text file location
+Utility->InitialiseGame:gives location of text file
+InitialiseGame->CareerCards:create ArrayList of CareerCards objects using text file
+CareerCards->InitialiseGame: return ArrayList of CareerCards objects
+InitialiseGame->Game: return ArrayList of CareerCards objects
+
+Game->InitialiseGame: initialise college career card deck
+InitialiseGame->Utility:ask for college career cards text file location
+Utility->InitialiseGame:gives location of text file
+InitialiseGame->CareerCards:create ArrayList of CareerCards objects using text file
+CareerCards->InitialiseGame: return ArrayList of CareerCards objects
+InitialiseGame->Game: return ArrayList of CareerCards objects
+
+Game->InitialiseGame: initialise action card deck
+InitialiseGame->Utility:ask for action cards text file location
+Utility->InitialiseGame:gives location of text file
+InitialiseGame->ActionCards:create ArrayList of ActionCards objects using text file
+ActionCards->InitialiseGame: return ArrayList of ActionCards objects
+InitialiseGame->Game: return ArrayList of ActionCards objects
+
+Game->Game: create 'deck' of all card decks

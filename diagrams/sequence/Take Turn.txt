@@ -1,25 +1,50 @@
-title Take Turn
+title Take Turn Sequence Diagram
 
-Player->Game: start turn
+User->Game: start turn
 
-Game->Player: ready to spin?
-Player->Game: spin spinner
+Game->PlayersPlay: take turns until all players retire
 
-Game->Spinner: generate random number (1-10)
-Spinner->Spinner: choose random # (1-10)
-Spinner->Spinner: determine colour
-
-Spinner->Game: return number and colour
-
-Game->Player: retun number and colour
-
-loop # of moves, while space != stop
-Game->BoardReader: get current space
-BoardReader->Game: return current space
-Game->BoardReader: get next space
-BoardReader->Game: return next space
-Game->BoardReader: get space type
-BoardReader->Game: return space type
+loop while players still in game (not retired)
+PlayersPlay->User: print out message detailing current player's turn
 end
 
-Game->Player: return current space
+PlayersPlay->Player: check current player's balance
+Player->Player: take out loan if balance <= 0
+
+PlayersPlay->User: ready to spin?
+User->PlayersPlay: spin spinner
+
+PlayersPlay->Spinner: generate random number (1-10)
+Spinner->Spinner: choose random # (1-10)
+Spinner->PlayersPlay: return number and colour
+PlayersPlay->User: retun number and colour
+
+loop # of moves, while space != stop or retirement
+PlayersPlay->Player: get current space
+Player->PlayersPlay: return current space
+PlayersPlay->Space: get next space, given current space
+Space->PlayersPlay: return next space
+PlayersPlay->Space: get space type, given current space
+Space->PlayersPlay: return space type
+PlayersPlay->User: print space details
+opt payday
+PlayersPay->SpaceTypes: payday
+SpaceTypes->Player: ask for salary
+Player->SpaceTypes: return salary
+SpaceTypes->Player: update players balance according to salary
+end
+end
+
+opt stop space
+PlayersPlay->StopSpace: do action specified
+end
+
+opt retirement
+PlayersPlay->SpaceTypes: retire player
+SpaceTypes->Player: retire player
+SpaceTypes->User: print details summary
+end
+
+PlayersPay->SpaceTypes: do action of current space
+
+PlayersPlay->User: print current player details
