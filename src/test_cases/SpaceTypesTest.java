@@ -1,8 +1,12 @@
-package software_eng_project;
+package test_cases;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.Test;
+
+import software_eng_project.Player;
+import software_eng_project.SpaceTypes;
+import software_eng_project.Utility;
 
 class SpaceTypesTest {
 

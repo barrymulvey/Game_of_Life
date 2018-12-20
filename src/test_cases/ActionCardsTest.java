@@ -1,4 +1,4 @@
-package software_eng_project;
+package test_cases;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.junit.jupiter.api.Test;
+
+import software_eng_project.ActionCards;
+import software_eng_project.CareerCards;
+import software_eng_project.InitialiseGame;
+import software_eng_project.Player;
+import software_eng_project.Utility;
 
 class ActionCardsTest {
 
