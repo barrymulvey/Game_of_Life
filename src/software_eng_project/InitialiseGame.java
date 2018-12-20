@@ -55,6 +55,7 @@ public class InitialiseGame {
 			// add players as info is entered
 			first_listOfPlayers.add(player1);
 		}
+		keyboard.nextLine();
 
 		// arrange players in correct order (youngest goes first!)
 		Player youngestPlayer = null;
