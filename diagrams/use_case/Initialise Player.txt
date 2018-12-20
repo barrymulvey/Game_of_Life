@@ -1,0 +1,1 @@
+[User]-(Name), [User]-(Age), [User]-(Life Path), (Life Path)>(College), (College)>(Start on College Path), (College)>(Pay Fee), (College)>(Choose College Career), (Life Path)>(Career), (Career)>(Start on Career Path), (Career)>(Choose Career), [User]-(Car Colour), (Car Colour)>(Colours still available)

@@ -1,1 +1,0 @@
-[Player]^[College Player], [Player]^[Career Player], [Career Player]-(Choose Career), [Career Player]-(Get Married), [Career Player]-(Family), (Family)<(Baby), [College Player]-(Get Loan), (Get Loan)>(Choose Career), [College Player]-(Get Married), [College Player]-(Family), [Career Player]-(Buy House), [College Player]-(Buy House)

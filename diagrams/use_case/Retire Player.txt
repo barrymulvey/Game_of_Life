@@ -1,0 +1,1 @@
+[College Player]^[Player], [Career Player]^[Player], [Player]-(Sell houses), [Player]-(Repay loans), [Player]-(Collect bonus for number Action Cards), [Player]-(Collect bonus for number children), [Player]-(Collect bonus for finishing position)
